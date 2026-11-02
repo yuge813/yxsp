@@ -1,0 +1,11 @@
+<view wx:if="{{visible && notice}}" class="yx22-screen" catchtouchmove="noop">
+ <view class="yx22-mask" bindtap="close"></view>
+ <view class="yx22-stage">
+  <view class="yx22-panel" aria-role="dialog" aria-label="{{displayTitle}}">
+   <view class="yx22-hero" style="height:{{heroHeight}}px;"><view class="yx22-symbol"><yx-icon name="bell" tone="brand" size="38"/></view><text>元享 · 站内通知</text></view>
+   <scroll-view class="yx22-copy-scroll" scroll-y="{{true}}" show-scrollbar="{{false}}" style="height:{{contentHeight}}px;"><view class="yx22-copy-inner"><text class="yx22-title">{{displayTitle}}</text><image wx:if="{{notice.image_url && !imageFailed}}" class="yx22-cover" src="{{notice.image_url}}" mode="widthFix" binderror="coverError"/><text wx:if="{{displayBody}}" class="yx22-body">{{displayBody}}</text></view></scroll-view>
+   <view class="yx22-footer" style="height:{{footerHeight}}px;padding-top:{{footerPad}}px;padding-bottom:{{footerPad}}px;"><button wx:if="{{action}}" class="yx22-primary" style="min-height:{{buttonHeight}}px;" bindtap="action">{{notice.button || '查看详情'}}</button><button wx:else class="yx22-primary" style="min-height:{{buttonHeight}}px;" bindtap="close">我知道了</button></view>
+  </view>
+  <button class="yx22-dismiss" aria-label="关闭公告" bindtap="close"><text>稍后再看</text><yx-icon name="close" tone="light" size="28"/></button>
+ </view>
+</view>

@@ -1,0 +1,17 @@
+<view class="ui-page trial-page">
+ <view class="trial-hero"><text class="ui-kicker">元享 · 好物体验</text><text class="ui-title">先体验，再喜欢。</text><text class="ui-lead">发现真实试用活动，自主选择报名。</text><yx-icon name="leaf" tone="light" size="120"/></view>
+ <view class="trial-switch"><navigator url="/sage_dksy/pages/prize/index" open-type="redirect">金币兑换</navigator><view class="selected">商品试用</view></view>
+ <view class="trial-tabs"><view class="{{activeTab===0?'on':''}}" data-tab="0" bindtap="switchTrialTab">报名中</view><view class="{{activeTab===1?'on':''}}" data-tab="1" bindtap="switchTrialTab">即将开始</view><view class="{{activeTab===2?'on':''}}" data-tab="2" bindtap="switchTrialTab">已结束</view></view>
+ <yx-state wx:if="{{loading&&!loaded}}" type="loading"/>
+ <yx-state wx:elif="{{error&&!loaded}}" type="error" title="试用活动暂时没有加载出来" description="请检查网络后再试" action="重新加载" bindaction="retry"/>
+ <block wx:else>
+  <view wx:if="{{error}}" class="ui-error" bindtap="retry">{{error}} · 点击重试</view>
+  <navigator wx:for="{{filteredTrial}}" wx:key="pro_id" class="trial-card" url="trial_show?id={{item.pro_id}}">
+   <view class="trial-photo"><image wx:if="{{item.pro_picurl&&!item._imageFailed}}" src="{{item.pro_picurl}}" mode="aspectFill" binderror="onTrialImageError" data-id="{{item.pro_id}}"/><view wx:else class="trial-placeholder"><yx-icon name="gift" tone="muted" size="76"/></view><text class="trial-status">{{item.isyes=='1'?'报名中':item.isyes=='0'?'即将开始':'已结束'}}</text></view>
+   <view class="trial-copy"><text class="trial-name">{{item.pro_title}}</text><view class="trial-bottom"><view><text>名额 {{item.pro_num}} 份</text><text>已申请 {{item.apply_num}} 人</text></view><text class="trial-action">了解活动 <yx-icon name="arrow" tone="brand" size="24"/></text></view></view>
+  </navigator>
+  <yx-state wx:if="{{!filteredTrial.length}}" type="empty" title="当前已加载活动中暂无此类试用" description="可以切换分类，或继续加载更多活动"/>
+  <view wx:if="{{loading}}" class="list-footer">正在加载…</view><button wx:elif="{{hasMore}}" class="ui-text-button" bindtap="onReachBottom">继续加载更多</button><view wx:elif="{{trial.length}}" class="list-footer">已展示全部返回的活动</view>
+ </block>
+ <view class="yx44-inline-ad" wx:if="{{v3Ready&&v3Unit&&activeTab===0}}"><ad-custom unit-id="{{v3Unit}}" bindload="onV3AdLoad" binderror="onV3AdError"/></view>
+</view><include src="/sage_dksy/pages/nav/nav.wxml"/>

@@ -1,0 +1,5 @@
+<view wx:if="{{enabled}}" class="yx22-ad-shell {{loaded?'has-ad':''}}" aria-label="广告">
+ <view wx:if="{{loaded}}" class="yx22-ad-caption">广告</view>
+ <ad class="yx22-banner" wx:if="{{kind==='banner'}}" unit-id="{{unitId}}" bindload="onAdLoad" binderror="onAdError" ad-theme="white"></ad>
+ <ad-custom class="yx22-native" wx:else unit-id="{{unitId}}" bindload="onAdLoad" binderror="onAdError"></ad-custom>
+</view>

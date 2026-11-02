@@ -1,0 +1,245 @@
+{
+  "pages": [
+    {
+      "route": "sage_dksy/pages/index/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/growth/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/trial/trial_show",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/trial/trial",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/tehui/tehui",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/prize/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/prize/prize_show",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/address/list",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/address/edit",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/user/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/trial/trial_prize",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/tehui/tehui_show",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/user/order",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/user/integral",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/index/prize_show",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/trial/trial_input",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/user/trial_list",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/trial/trial_share",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/user/user/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/auth/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/user/share/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/user/share/list",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/index/haibao",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/trial/complete/complete",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v10/featured",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v10/review",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v10/public",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v10/poster",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v10/landing",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v11/center",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v11/editor",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v11/works",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v11/public",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v11/entry",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v11/promote",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v132grow/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v12/list",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v12/detail",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v12/ad",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v16/all",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v16/edit",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v17/favorites",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v17/settings",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v1222/web",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v14/sign/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v14/reminders/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v14/tasks/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    },
+    {
+      "route": "sage_dksy/pages/v14/rewards/index",
+      "templateChanged": true,
+      "stylesChanged": true
+    }
+  ],
+  "note": "48 registered routes retained; legacy index/prize_show redirects to canonical detail with same id/source; six closed UGC routes remain closed"
+}

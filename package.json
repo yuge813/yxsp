@@ -1,0 +1,12 @@
+{
+  "name": "yuanxiang-wxapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "元享微信小程序：源码、离线行为测试及代码包检查",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node tests/run.cjs",
+    "check": "node scripts/check-project.cjs",
+    "verify": "npm test && npm run check"
+  }
+}

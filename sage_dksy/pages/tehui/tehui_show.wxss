@@ -1,0 +1,2 @@
+@import "../../wxParse/wxParse.wxss";
+.offer-detail-title{display:block;font-size:46rpx;line-height:1.5;color:#20352E;font-weight:650;margin:24rpx 0;word-break:break-all}.offer-meta{display:flex;flex-wrap:wrap;gap:20rpx;color:#64735C;font-size:25rpx;line-height:1.8;margin-bottom:32rpx}.offer-content{padding:30rpx;line-height:1.9;font-size:31rpx;overflow:hidden}.offer-content image{max-width:100%}.back-offers{display:flex;align-items:center;justify-content:center;margin-top:34rpx}

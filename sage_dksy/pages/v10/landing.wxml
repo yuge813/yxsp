@@ -1,0 +1,1 @@
+<view class="landing-page ui-page"><text class="ui-kicker">元享 / 分享好礼</text><view class="landing-mark"><yx-icon name="gift" tone="green" size="82"/></view><view class="ui-title">好物与心意，<text>都值得被发现。</text></view><view class="landing-message">{{msg}}</view><button class="ui-primary" bindtap="goHome">返回元享首页</button><text class="landing-note">扫码内容以当前有效的商品与活动信息为准。</text></view>

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {},
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "好礼",
+  "navigationBarBackgroundColor": "#F5F3ED",
+  "backgroundColor": "#F5F3ED",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
+}

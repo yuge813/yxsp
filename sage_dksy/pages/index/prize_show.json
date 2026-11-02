@@ -1,0 +1,9 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "奖品详情",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#F5F3ED",
+  "backgroundColor": "#F5F3ED",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false
+}

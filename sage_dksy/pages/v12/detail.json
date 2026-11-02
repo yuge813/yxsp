@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "文章详情",
+  "navigationBarBackgroundColor": "#F5F3ED",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#F5F3ED",
+  "usingComponents": {
+    "yx22-ad": "/sage_dksy/components/yx22-ad/index"
+  },
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
+}

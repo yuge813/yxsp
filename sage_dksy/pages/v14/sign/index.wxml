@@ -1,0 +1,21 @@
+<view class="ui-page sign-page">
+  <view class="sign-intro"><text class="ui-kicker">{{justSigned?'今日的坚持，已记下':'把好习惯，变成小收获'}}</text><view class="ui-title">{{justSigned?'签到成功。':'今天，也为自己'}}<text wx:if="{{!justSigned}}">打个卡。</text></view><view class="sign-streak"><yx-icon name="check" tone="green" size="34"/><text>{{statusReady?'已经连续签到 '+streak+' 天':'正在同步你的签到进度'}}</text></view></view>
+  <yx-state wx:if="{{loading && !statusReady && !justSigned}}" type="loading" title="正在同步签到进度"/>
+  <yx-state wx:elif="{{error && !statusReady && !justSigned}}" type="error" title="签到状态暂未同步" description="请检查网络后重试" action="重新加载" bindaction="retry"/>
+  <block wx:else>
+    <view class="sign-reward-card {{justSigned?'signed':''}}">
+      <view class="sign-card-top"><text>{{justSigned?'本次签到到账':(todaySigned?'今日签到已完成':'今日签到奖励')}}</text><text>{{statusReady?'第 '+currentDay+' 天':''}}</text></view>
+      <view class="sign-reward-number"><text wx:if="{{justSigned && lastReward!==null}}">+{{lastReward}}</text><text wx:elif="{{todayReward!==null}}">{{todayReward}}</text><text wx:else class="sign-reward-pending">{{loading?'正在同步':'奖励待同步'}}</text><text wx:if="{{justSigned || todayReward!==null}}" class="sign-unit">金币</text></view>
+      <view wx:if="{{justSigned}}" class="sign-receipt"><view><text>当前可用金币</text><text>{{balance===null?'正在同步':balance}}</text></view><text>实际到账与收支记录，可在金币明细中核对。</text></view>
+      <button wx:if="{{justSigned}}" class="ui-primary" bindtap="goLedger">查看金币明细</button>
+      <button wx:else class="ui-primary" bindtap="sign" loading="{{busy}}" disabled="{{busy || loading || todaySigned || !statusReady}}">{{todaySigned?'今日已签到':(loading?'正在同步签到状态':'立即签到')}}</button>
+      <view wx:if="{{!justSigned}}" class="sign-condition">基础签到不要求观看广告</view>
+    </view>
+    <view class="ui-section-head"><text>7天奖励，提前看</text><text class="sign-cycle">连续签到进度</text></view>
+    <view class="sign-calendar ui-card"><view class="sign-days"><view wx:for="{{days}}" wx:key="day" class="sign-day {{item.state}}"><text class="sign-day-label">{{item.state==='today'?'今天':'第'+item.day+'天'}}</text><view class="sign-day-symbol"><yx-icon wx:if="{{item.state==='done'}}" name="yes" tone="green" size="32"/><text wx:else>{{item.amount===null?'—':'+'+item.amount}}</text></view><text class="sign-day-state">{{item.state==='done'?'已签到':(item.amount===null?'待同步':'金币')}}</text></view></view><view class="sign-calendar-note">{{todaySigned?'今天的坚持已完成，明天继续。':'每天一点积累，把喜欢慢慢攒起来。'}}</view><view wx:if="{{!configReady && !loading}}" class="sign-config-note" bindtap="retry">部分奖励尚未同步 · 点击刷新</view></view>
+    <view wx:if="{{error}}" class="ui-error" bindtap="retry">{{error}} · 重新加载</view>
+    <view class="sign-links ui-card"><view bindtap="goReminders"><yx-icon name="bell" tone="ink" size="40"/><view><text>签到提醒</text><text>由你自主订阅下一次提醒</text></view><yx-icon name="arrow" tone="muted" size="26"/></view><view bindtap="goGrowth"><yx-icon name="leaf" tone="ink" size="40"/><view><text>7天成长计划</text><text>成长计划与连续签到分别统计</text></view><yx-icon name="arrow" tone="muted" size="26"/></view></view>
+    <button wx:if="{{justSigned}}" class="ui-secondary sign-home" bindtap="goHome">返回首页</button>
+    <view wx:else class="sign-ledger" bindtap="goLedger">核对金币明细 <yx-icon name="arrow" tone="muted" size="24"/></view>
+  </block>
+</view>

@@ -1,0 +1,12 @@
+<view class="ui-page ledger-page">
+  <view class="ledger-heading"><text class="ui-kicker">每一笔，都有来处</text><text class="ui-title">金币明细</text><text class="ui-lead">真实入账与扣减，清楚记在这里。</text></view>
+  <view class="ledger-summary"><view><text>已加载收入</text><text class="ledger-income">{{firstLoaded?'+'+loadedIncome:'—'}}</text></view><view><text>已加载支出</text><text>{{firstLoaded?'−'+loadedExpense:'—'}}</text></view></view>
+  <view class="ledger-list-heading"><text>收支记录</text><text>单位：金币</text></view>
+  <view class="ledger-filters"><view bindtap="chooseFilter" data-filter="all" class="{{filter==='all'?'selected':''}}">全部</view><view bindtap="chooseFilter" data-filter="in" class="{{filter==='in'?'selected':''}}">收入</view><view bindtap="chooseFilter" data-filter="out" class="{{filter==='out'?'selected':''}}">支出</view></view>
+  <yx-state wx:if="{{loading&&!firstLoaded}}" type="loading"/>
+  <yx-state wx:elif="{{error&&!firstLoaded}}" type="error" title="金币记录暂未加载" description="{{error}}" action="重新加载" bindaction="retry"/>
+  <view wx:else class="ledger-list ui-card"><view class="ledger-item" wx:for="{{visibleList}}" wx:key="ledgerKey"><view class="ledger-mark {{item.income?'incoming':'outgoing'}}"><yx-icon name="{{item.income?'coin':'gift'}}" tone="{{item.income?'brand':'green'}}" size="38"/></view><view class="ledger-item-copy"><text>{{item.displayTitle}}</text><text>{{item.displayDate}}</text></view><view class="ledger-amount {{item.income?'incoming':'outgoing'}}"><text>{{item.income?'+':'−'}}{{item.displayAmount}}</text></view></view><yx-state wx:if="{{!visibleList.length&&!error}}" type="empty" title="暂时没有这类记录" description="成功到账与兑换扣减后，可在这里核对。"/></view>
+  <view wx:if="{{error&&firstLoaded}}" class="ledger-retry" bindtap="retry">{{error}}　重试</view>
+  <button wx:if="{{firstLoaded&&load&&!error}}" class="ui-text-button ledger-more" bindtap="loadMore" loading="{{loading}}" disabled="{{loading}}">{{loading?'正在读取':'加载更多记录'}}</button>
+  <view class="ledger-foot">上方汇总仅统计当前已加载记录，不包含待核验奖励。</view>
+</view>

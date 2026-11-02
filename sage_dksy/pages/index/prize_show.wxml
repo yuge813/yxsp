@@ -1,0 +1,1 @@
+<view class="ui-page"><yx-state wx:if="{{error}}" type="error" title="{{error}}" action="返回好礼" bindaction="goGifts"/><yx-state wx:else type="loading"/></view>

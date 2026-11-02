@@ -1,0 +1,13 @@
+{
+  "notice": "浏览器布局预览 / 演示数据，非微信真机截图。仅将外部测试数据注入当前真实WXML；不执行API、广告、签到或兑换。",
+  "products": [
+    {"prize_id": 901,"prize_title":"演示商品 · 日常随行好物","prize_integral":1800,"prize_num":12,"prize_picurl":"/sage_dksy/resource/v6/hero_gift_premium.png"},
+    {"prize_id": 902,"prize_title":"演示商品 · 生活小礼","prize_integral":2400,"prize_num":8,"prize_picurl":"/sage_dksy/resource/v6/hero_gift.png"},
+    {"prize_id": 903,"prize_title":"演示商品 · 记录日常","prize_integral":3200,"prize_num":7,"prize_picurl":"/sage_dksy/resource/v6/hero_diary.png"},
+    {"prize_id": 904,"prize_title":"演示商品 · 精选礼遇","prize_integral":4800,"prize_num":0,"prize_picurl":"/sage_dksy/resource/v7/gift_box.png"}
+  ],
+  "articles": [
+    {"id":901,"title":"阅读示例：生活里的小小发现","summary":"这是一段外部测试内容，用于检查文章标题、摘要和封面的实际排版。","source":"预览演示内容","cover_url":"/sage_dksy/resource/v11/posters/poster_01.jpg","hasImage":true},
+    {"id":902,"title":"阅读示例：给平凡的一天留一点时间","summary":"演示文字不属于正式内容，不写入小程序业务数据。","source":"预览演示内容","cover_url":"/sage_dksy/resource/v11/posters/poster_02.jpg","hasImage":true}
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "appid": "wx8954c73fb85a0bc8",
+  "compileType": "miniprogram",
+  "libVersion": "3.7.1",
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "sage_dksy/resource/v11/posters"
+      },
+      {
+        "type": "folder",
+        "value": "server_assets"
+      },
+      {
+        "type": "folder",
+        "value": "frontend_patch"
+      },
+      {
+        "type": "folder",
+        "value": "__pycache__"
+      },
+      {
+        "type": "folder",
+        "value": "preview"
+      },
+      {
+        "type": "folder",
+        "value": "sage_dksy_wxapp"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/pages/v12/ad.js.before_v12103.be87d4080171"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/pages/v12/ad.js.before_v12104.c034040d384f"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/pages/v12/ad.js.before_v12106.8258b97555c7"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/pages/v12/ad.js.pre-v12101-20261031-143646-452092"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/pages/v12/ad.json.before_v12103.798f3394eee8"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/pages/v12/ad.wxml.before_v12103.3fa74256130a"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/pages/v12/ad.wxss.before_v12103.e30e5e2b7e9d"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/utils/v12read.js.before_v12102.87534dee8781"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/utils/v12read.js.before_v12106.47175d93b755"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/utils/v12read.js.before_v125_20261030_132746_049701"
+      },
+      {
+        "type": "file",
+        "value": "file_baselines.json"
+      },
+      {
+        "type": "file",
+        "value": "known_hashes.json"
+      },
+      {
+        "type": "file",
+        "value": "manifest.json"
+      },
+      {
+        "type": "file",
+        "value": "promote.wxml"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/resource/v6/hero_gift_premium.png"
+      },
+      {
+        "type": "file",
+        "value": "sage_dksy/resource/v7/gold_coin.png"
+      },
+      {
+        "type": "file",
+        "value": "PACKAGE_SIZE_FIX_NOTES.md"
+      },
+      {
+        "type": "suffix",
+        "value": ".zip"
+      },
+      {
+        "type": "file",
+        "value": "HOME_LAYOUT_COMPAT_NOTES.md"
+      },
+      {
+        "type": "file",
+        "value": "POPUP_NOTICE_FIX_NOTES.md"
+      },
+      {
+        "type": "file",
+        "value": "POPUP_PREMIUM_NOTES.md"
+      },
+      {
+        "type": "file",
+        "value": "POPUP_PREVIEW.html"
+      },
+      {
+        "type": "folder",
+        "value": "tests"
+      },
+      {
+        "type": "folder",
+        "value": "scripts"
+      },
+      {
+        "type": "folder",
+        "value": "design"
+      },
+      {
+        "type": "folder",
+        "value": "docs"
+      },
+      {
+        "type": "file",
+        "value": "package.json"
+      },
+      {
+        "type": "file",
+        "value": "package-lock.json"
+      },
+      {
+        "type": "file",
+        "value": "README.md"
+      },
+      {
+        "type": "file",
+        "value": "RELEASE_NOTES.md"
+      }
+    ],
+    "include": []
+  },
+  "setting": {
+    "coverView": true,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "enhance": true,
+    "showShadowRootInWxmlPanel": true,
+    "packNpmRelationList": [],
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "ignoreUploadUnusedFiles": false,
+    "ignoreDevUnusedFiles": false,
+    "minifyWXSS": true,
+    "minifyWXML": true
+  },
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "isGameTourist": false
+}

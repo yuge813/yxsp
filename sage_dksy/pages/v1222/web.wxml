@@ -1,0 +1,2 @@
+<web-view wx:if="{{url}}" src="{{url}}"/>
+<view wx:else class="external-page ui-page"><text class="ui-kicker">元享 / 网页内容</text><view class="external-mark"><yx-icon name="info" tone="green" size="70"/></view><view class="ui-title">{{error?'网页暂时无法打开':'正在核实网页地址'}}</view><text class="external-description">{{error||'请稍候，确认后将打开网页内容。'}}</text><button wx:if="{{error}}" class="ui-secondary" bindtap="back">返回上一页</button></view>

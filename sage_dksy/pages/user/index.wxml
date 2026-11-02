@@ -1,0 +1,37 @@
+<view class="mine-page">
+  <view class="mine-heading"><text class="ui-kicker">属于你的每一点积累</text><text class="mine-title">我的元享</text></view>
+  <navigator class="mine-profile" url="/sage_dksy/pages/user/user/index" hover-class="mine-hover">
+    <image wx:if="{{userinfo.headimg && !avatarFailed}}" class="mine-avatar" src="{{userinfo.headimg}}" mode="aspectFill" binderror="avatarError"/>
+    <view wx:else class="mine-avatar mine-avatar-empty"><yx-icon name="user" tone="green" size="56"/></view>
+    <view class="mine-profile-copy"><text class="mine-name">{{userinfo.nickname || '元享用户'}}</text><text class="mine-profile-link">头像与昵称，由你定义</text></view><yx-icon name="arrow" tone="muted" size="30"/>
+  </navigator>
+  <view class="mine-wallet">
+    <view class="mine-wallet-top"><text>我的金币</text><navigator url="/sage_dksy/pages/user/integral">收支明细 <yx-icon name="arrow" tone="light" size="24"/></navigator></view>
+    <view class="mine-wallet-amount"><text>{{balanceText}}</text><text class="mine-wallet-unit">金币</text></view>
+    <view wx:if="{{loading}}" class="mine-wallet-caption">正在同步账户余额…</view><view wx:elif="{{pageError&&loaded}}" class="mine-wallet-caption">暂未同步，当前保留上次信息</view><view wx:elif="{{balance===null}}" class="mine-wallet-caption">余额暂未同步</view><view wx:else class="mine-wallet-caption">每一笔到账，都清楚可查。</view>
+    <navigator url="/sage_dksy/pages/prize/index" open-type="redirect" class="mine-wallet-action"><text>把积累，换成喜欢。</text><view>去选好礼 <yx-icon name="arrow" tone="light" size="26"/></view></navigator>
+  </view>
+  <view wx:if="{{pageError}}" class="mine-error" bindtap="retry"><yx-icon name="refresh" tone="brand" size="30"/><text>{{pageError}}</text><text>重试</text></view>
+  <view class="ui-section-head"><text>我的记录</text><text class="mine-section-note">每一步，都有回响</text></view>
+  <view class="mine-records">
+    <navigator url="/sage_dksy/pages/user/order" class="mine-record"><view class="mine-record-icon"><yx-icon name="order" tone="ink" size="46"/></view><text>兑换记录</text><text>查看订单与物流</text><yx-icon name="arrow" tone="muted" size="28"/></navigator>
+    <navigator url="/sage_dksy/pages/user/trial_list" class="mine-record"><view class="mine-record-icon green"><yx-icon name="gift" tone="green" size="46"/></view><text>试用记录</text><text>报名与中选进度</text><yx-icon name="arrow" tone="muted" size="28"/></navigator>
+  </view>
+  <view class="mine-menu ui-card">
+    <navigator url="/sage_dksy/pages/v17/favorites" class="mine-menu-row"><yx-icon name="heart" tone="ink" size="38"/><text>我的收藏</text><yx-icon name="arrow" tone="muted" size="26"/></navigator>
+    <navigator url="/sage_dksy/pages/v132grow/index" class="mine-menu-row"><yx-icon name="friend" tone="ink" size="38"/><text>我的好友</text><yx-icon name="arrow" tone="muted" size="26"/></navigator>
+    <navigator url="/sage_dksy/pages/v11/promote" class="mine-menu-row"><yx-icon name="share" tone="ink" size="38"/><text>邀请海报</text><yx-icon name="arrow" tone="muted" size="26"/></navigator>
+    <navigator url="/sage_dksy/pages/growth/index" class="mine-menu-row"><yx-icon name="leaf" tone="ink" size="38"/><text>成长计划</text><yx-icon name="arrow" tone="muted" size="26"/></navigator>
+  </view>
+  <view class="ui-section-head"><text>账户与服务</text></view>
+  <view class="mine-menu ui-card">
+    <navigator url="/sage_dksy/pages/address/list" class="mine-menu-row"><yx-icon name="location" tone="muted" size="38"/><text>收货地址</text><yx-icon name="arrow" tone="muted" size="26"/></navigator>
+    <navigator url="/sage_dksy/pages/v14/reminders/index" class="mine-menu-row"><yx-icon name="bell" tone="muted" size="38"/><text>签到提醒</text><text class="mine-row-note">自主订阅</text><yx-icon name="arrow" tone="muted" size="26"/></navigator>
+    <navigator url="/sage_dksy/pages/v17/settings" class="mine-menu-row"><yx-icon name="settings" tone="muted" size="38"/><text>设置与隐私</text><yx-icon name="arrow" tone="muted" size="26"/></navigator>
+    <button open-type="contact" class="mine-menu-row mine-contact"><yx-icon name="support" tone="muted" size="38"/><text>帮助与客服</text><yx-icon name="arrow" tone="muted" size="26"/></button>
+  </view>
+  <view class="mine-ad" wx:if="{{v3Ready&&v3Unit}}"><ad unit-id="{{v3Unit}}" bindload="onV3AdLoad" binderror="onV3AdError"/></view><yx22-ad placement="mine_banner" wx:if="{{!v3Ready}}"/>
+  <view class="mine-footer"><text>元享</text><text>生活里的小积累，慢慢都值得。</text></view>
+</view>
+<include src="/sage_dksy/pages/nav/nav.wxml"/>
+<yx22-popup scene="mine" ready="{{loaded}}"/>

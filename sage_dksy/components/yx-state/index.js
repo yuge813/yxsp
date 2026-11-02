@@ -1,0 +1,1 @@
+Component({properties:{type:{type:String,value:'empty'},title:{type:String,value:''},description:{type:String,value:''},action:{type:String,value:''}},methods:{act:function(){this.triggerEvent('action');}}});

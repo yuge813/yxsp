@@ -1,0 +1,6 @@
+<view class="ui-page rules-page">
+  <text class="ui-kicker">元享同行 / 活动说明</text><view class="ui-title">一起积累，<text>也彼此尊重。</text></view><text class="ui-lead">了解好友关系与奖励规则，按自己的意愿参与。</text>
+  <view class="rules-list"><view class="rules-item"><text class="rules-number">01</text><view><text class="rules-title">好友关系如何建立</text><text class="rules-copy">经好友自愿使用与系统确认后，建立唯一的一级邀请关系。关系以平台实际记录为准。</text></view></view><view class="rules-item"><text class="rules-number">02</text><view><text class="rules-title">奖励如何计算</text><text class="rules-copy">仅在正式活动启用后，按活动公布的条件与实际到账记录计算。分享、浏览或邀请本身不代表奖励已经到账。</text></view></view><view class="rules-item"><text class="rules-number">03</text><view><text class="rules-title">参与始终由你决定</text><text class="rules-copy">邀请好友与分享海报均由你自主选择，不影响正常签到、免费阅读和已到账金币的使用。</text></view></view><view class="rules-item"><text class="rules-number">04</text><view><text class="rules-title">尊重好友的隐私</text><text class="rules-copy">好友信息仅按页面实际授权范围展示，不公开好友的完整个人信息。</text></view></view></view>
+  <navigator class="ui-primary rules-button" url="/sage_dksy/pages/v132grow/index">查看我的好友</navigator>
+  <view class="rules-footer"><yx-icon name="info" tone="green" size="34"/><text>奖励是否到账，请以金币明细与有效活动规则为准。</text></view>
+</view>

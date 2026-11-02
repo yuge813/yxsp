@@ -1,0 +1,1 @@
+page{background:#F5F3ED}.external-page{padding-top:100rpx}.external-mark{height:132rpx;width:132rpx;background:#E3E9D8;border-radius:38rpx;display:flex;align-items:center;justify-content:center;margin-bottom:42rpx}.external-page .ui-title{font-size:46rpx;line-height:1.5}.external-description{display:block;font-size:29rpx;color:#5A7452;line-height:1.9;margin:30rpx 0 46rpx}

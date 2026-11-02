@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#F5F3ED",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "个人资料",
+  "backgroundColor": "#F5F3ED",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false
+}

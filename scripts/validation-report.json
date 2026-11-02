@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "counts": {
+    "pages": 48,
+    "pageLoads": 48,
+    "components": 4,
+    "json": 60,
+    "js": 91,
+    "wxml": 55,
+    "wxss": 55,
+    "requireReferences": 84,
+    "componentReferences": 116,
+    "handlerReferences": 307,
+    "templateReferences": 9,
+    "staticAssetReferences": 170,
+    "staticRouteReferences": 72,
+    "dynamicReferences": 73
+  },
+  "package": {
+    "includedFiles": 605,
+    "rawIncludedBytes": 1778443,
+    "rawIncludedMiB": 1.696,
+    "limitNote": "Uncompiled source estimate only, not a WeChat package-size measurement"
+  },
+  "issues": [],
+  "warnings": [],
+  "limits": [
+    "Does not run WeChat compiler or renderer, real device, backend, or real ad/settlement.",
+    "Dynamic images, route expressions, event names, runtime data and native SDK semantics require runtime validation.",
+    "wxParse injected handlers are accepted only for pages that invoke wxParse and only when the assignment exists in the adapter; all other imported-template handlers are checked.",
+    "All page module evaluation uses offline wx/request stubs; no lifecycle or network calls execute."
+  ]
+}

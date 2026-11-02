@@ -1,0 +1,12 @@
+{
+  "usingComponents": {
+    "yx22-ad": "/sage_dksy/components/yx22-ad/index",
+    "yx22-popup": "/sage_dksy/components/yx22-popup/index"
+  },
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "元享",
+  "navigationBarBackgroundColor": "#F5F3ED",
+  "backgroundColor": "#F5F3ED",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
+}

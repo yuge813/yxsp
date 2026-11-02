@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "编辑常用功能",
+  "navigationBarBackgroundColor": "#F5F3ED",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#F5F3ED",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false
+}
