@@ -241,5 +241,537 @@
       "stylesChanged": true
     }
   ],
-  "note": "48 registered routes retained; legacy index/prize_show redirects to canonical detail with same id/source; six closed UGC routes remain closed"
+  "note": "48 registered routes retained; legacy index/prize_show redirects to canonical detail with same id/source; six closed UGC routes remain closed",
+  "designScreenCount": 48,
+  "designScreenNote": "48 approved design IDs map to pages or in-page/native states; not 48 newly added routes. Existing registered route entries retained.",
+  "designScreens": [
+    {
+      "id": "01",
+      "title": "首页",
+      "route": "sage_dksy/pages/index/index",
+      "stateOrTrigger": "首页加载后的真实账户、签到、商品与试用数据",
+      "evidence": [
+        "sage_dksy/pages/index/index.wxml",
+        "sage_dksy/pages/index/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "02",
+      "title": "赚金币",
+      "route": "sage_dksy/pages/v14/tasks/index",
+      "stateOrTrigger": "rewardViewMode 为 tasks",
+      "evidence": [
+        "sage_dksy/pages/v14/tasks/index.wxml",
+        "sage_dksy/pages/v14/tasks/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "03",
+      "title": "金币商城",
+      "route": "sage_dksy/pages/prize/index",
+      "stateOrTrigger": "商品列表及当前已加载范围筛选",
+      "evidence": [
+        "sage_dksy/pages/prize/index.wxml",
+        "sage_dksy/pages/prize/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "04",
+      "title": "商品试用",
+      "route": "sage_dksy/pages/trial/trial",
+      "stateOrTrigger": "真实活动状态筛选及报名入口",
+      "evidence": [
+        "sage_dksy/pages/trial/trial.wxml",
+        "sage_dksy/pages/trial/trial.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "05",
+      "title": "每日签到",
+      "route": "sage_dksy/pages/v14/sign/index",
+      "stateOrTrigger": "正常签到状态，recordsVisible 与 justSigned 关闭",
+      "evidence": [
+        "sage_dksy/pages/v14/sign/index.wxml",
+        "sage_dksy/pages/v14/sign/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "06",
+      "title": "签到成功",
+      "route": "sage_dksy/pages/v14/sign/index",
+      "stateOrTrigger": "签到接口成功后 justSigned",
+      "evidence": [
+        "sage_dksy/pages/v14/sign/index.wxml",
+        "sage_dksy/pages/v14/sign/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "07",
+      "title": "签到记录",
+      "route": "sage_dksy/pages/v14/sign/index",
+      "stateOrTrigger": "recordsVisible；真实账本筛出的记录与日历",
+      "evidence": [
+        "sage_dksy/pages/v14/sign/index.wxml",
+        "sage_dksy/pages/v14/sign/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "08",
+      "title": "签到提醒",
+      "route": "sage_dksy/pages/v14/reminders/index",
+      "stateOrTrigger": "主动发起订阅；实际配置和原生权限",
+      "evidence": [
+        "sage_dksy/pages/v14/reminders/index.wxml",
+        "sage_dksy/pages/v14/reminders/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "09",
+      "title": "广告奖励说明",
+      "route": "sage_dksy/pages/v14/tasks/index",
+      "stateOrTrigger": "rewardViewMode 为 offer",
+      "evidence": [
+        "sage_dksy/pages/v14/tasks/index.wxml",
+        "sage_dksy/pages/v14/tasks/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "10",
+      "title": "激励视频观看",
+      "route": "sage_dksy/pages/v14/tasks/index",
+      "stateOrTrigger": "由原生 rewardedVideoAd 展示；视频画面由微信SDK控制",
+      "evidence": [
+        "sage_dksy/pages/v14/tasks/index.wxml",
+        "sage_dksy/pages/v14/tasks/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "11",
+      "title": "广告奖励到账",
+      "route": "sage_dksy/pages/v14/tasks/index",
+      "stateOrTrigger": "rewardViewMode 为 paid；仅服务端确认且奖励金额有效",
+      "evidence": [
+        "sage_dksy/pages/v14/tasks/index.wxml",
+        "sage_dksy/pages/v14/tasks/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "12",
+      "title": "观看未完成",
+      "route": "sage_dksy/pages/v14/tasks/index",
+      "stateOrTrigger": "rewardViewMode 为 unpaid；提前关闭不结算",
+      "evidence": [
+        "sage_dksy/pages/v14/tasks/index.wxml",
+        "sage_dksy/pages/v14/tasks/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "13",
+      "title": "我的金币",
+      "route": "sage_dksy/pages/user/integral",
+      "stateOrTrigger": "?view=wallet；viewMode 为 wallet",
+      "evidence": [
+        "sage_dksy/pages/user/integral.wxml",
+        "sage_dksy/pages/user/integral.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "14",
+      "title": "全部金币明细",
+      "route": "sage_dksy/pages/user/integral",
+      "stateOrTrigger": "viewMode 为 ledger，filter 为 all",
+      "evidence": [
+        "sage_dksy/pages/user/integral.wxml",
+        "sage_dksy/pages/user/integral.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "15",
+      "title": "金币收入",
+      "route": "sage_dksy/pages/user/integral",
+      "stateOrTrigger": "filter 为 in；仅统计已加载收入",
+      "evidence": [
+        "sage_dksy/pages/user/integral.wxml",
+        "sage_dksy/pages/user/integral.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "16",
+      "title": "金币支出",
+      "route": "sage_dksy/pages/user/integral",
+      "stateOrTrigger": "filter 为 out；仅统计已加载支出",
+      "evidence": [
+        "sage_dksy/pages/user/integral.wxml",
+        "sage_dksy/pages/user/integral.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "17",
+      "title": "商品详情",
+      "route": "sage_dksy/pages/prize/prize_show",
+      "stateOrTrigger": "有效商品id；detailView 为 product",
+      "evidence": [
+        "sage_dksy/pages/prize/prize_show.wxml",
+        "sage_dksy/pages/prize/prize_show.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "18",
+      "title": "兑换确认",
+      "route": "sage_dksy/pages/prize/prize_show",
+      "stateOrTrigger": "真实库存、余额、地址核对后 confirmVisible",
+      "evidence": [
+        "sage_dksy/pages/prize/prize_show.wxml",
+        "sage_dksy/pages/prize/prize_show.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "19",
+      "title": "兑换成功",
+      "route": "sage_dksy/pages/prize/prize_show",
+      "stateOrTrigger": "兑换接口成功后 orderSuccess；余额重新同步",
+      "evidence": [
+        "sage_dksy/pages/prize/prize_show.wxml",
+        "sage_dksy/pages/prize/prize_show.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "20",
+      "title": "金币不足",
+      "route": "sage_dksy/pages/prize/prize_show",
+      "stateOrTrigger": "detailView 为 shortfall；实际余额低于实际价格",
+      "evidence": [
+        "sage_dksy/pages/prize/prize_show.wxml",
+        "sage_dksy/pages/prize/prize_show.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "21",
+      "title": "兑换记录",
+      "route": "sage_dksy/pages/user/order",
+      "stateOrTrigger": "orderView 为 list；真实订单",
+      "evidence": [
+        "sage_dksy/pages/user/order.wxml",
+        "sage_dksy/pages/user/order.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "22",
+      "title": "处理中订单",
+      "route": "sage_dksy/pages/user/order",
+      "stateOrTrigger": "orderView 为 detail；detailOrder 实际状态，无物流时不推断发货",
+      "evidence": [
+        "sage_dksy/pages/user/order.wxml",
+        "sage_dksy/pages/user/order.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "23",
+      "title": "已发货订单",
+      "route": "sage_dksy/pages/user/order",
+      "stateOrTrigger": "orderView 为 detail；detailOrder._hasTracking 与实际状态字段",
+      "evidence": [
+        "sage_dksy/pages/user/order.wxml",
+        "sage_dksy/pages/user/order.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "24",
+      "title": "物流信息",
+      "route": "sage_dksy/pages/user/order",
+      "stateOrTrigger": "orderView 为 logistics；仅实际承运商和单号，无模拟轨迹",
+      "evidence": [
+        "sage_dksy/pages/user/order.wxml",
+        "sage_dksy/pages/user/order.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "25",
+      "title": "试用详情",
+      "route": "sage_dksy/pages/trial/trial_show",
+      "stateOrTrigger": "实际活动id与状态；只有真实开放允许申请",
+      "evidence": [
+        "sage_dksy/pages/trial/trial_show.wxml",
+        "sage_dksy/pages/trial/trial_show.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "26",
+      "title": "试用申请确认",
+      "route": "sage_dksy/pages/trial/trial_input",
+      "stateOrTrigger": "有效活动id，canApply 控制提交",
+      "evidence": [
+        "sage_dksy/pages/trial/trial_input.wxml",
+        "sage_dksy/pages/trial/trial_input.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "27",
+      "title": "试用申请成功",
+      "route": "sage_dksy/pages/trial/trial_input",
+      "stateOrTrigger": "申请接口成功后 applicationSubmitted；不表示中选",
+      "evidence": [
+        "sage_dksy/pages/trial/trial_input.wxml",
+        "sage_dksy/pages/trial/trial_input.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "28",
+      "title": "我的试用",
+      "route": "sage_dksy/pages/user/trial_list",
+      "stateOrTrigger": "真实申请记录；全部申请与已中选筛选",
+      "evidence": [
+        "sage_dksy/pages/user/trial_list.wxml",
+        "sage_dksy/pages/user/trial_list.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "29",
+      "title": "试用等待公布",
+      "route": "sage_dksy/pages/user/trial_list",
+      "stateOrTrigger": "activeRecord._outcome 为 pending；只认实际状态",
+      "evidence": [
+        "sage_dksy/pages/user/trial_list.wxml",
+        "sage_dksy/pages/user/trial_list.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "30",
+      "title": "试用已中选",
+      "route": "sage_dksy/pages/user/trial_list",
+      "stateOrTrigger": "activeRecord._outcome 为 selected；can_complete 控制资料入口",
+      "evidence": [
+        "sage_dksy/pages/user/trial_list.wxml",
+        "sage_dksy/pages/user/trial_list.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "31",
+      "title": "试用未中选",
+      "route": "sage_dksy/pages/user/trial_list",
+      "stateOrTrigger": "activeRecord._outcome 为 unselected；未知状态不推断为未中选",
+      "evidence": [
+        "sage_dksy/pages/user/trial_list.wxml",
+        "sage_dksy/pages/user/trial_list.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "32",
+      "title": "收件信息已提交",
+      "route": "sage_dksy/pages/trial/complete/complete",
+      "stateOrTrigger": "有效申请id；提交接口成功后 submitted；历史记录也支持 submitted 结果",
+      "evidence": [
+        "sage_dksy/pages/trial/complete/complete.wxml",
+        "sage_dksy/pages/trial/complete/complete.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "33",
+      "title": "邀请好友",
+      "route": "sage_dksy/pages/v11/promote",
+      "stateOrTrigger": "view 为 hub；实际专属二维码与好友数",
+      "evidence": [
+        "sage_dksy/pages/v11/promote.wxml",
+        "sage_dksy/pages/v11/promote.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "34",
+      "title": "邀请海报",
+      "route": "sage_dksy/pages/v11/promote",
+      "stateOrTrigger": "?mode=poster；真实二维码与原生Canvas导出",
+      "evidence": [
+        "sage_dksy/pages/v11/promote.wxml",
+        "sage_dksy/pages/v11/promote.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "35",
+      "title": "微信分享指引",
+      "route": "sage_dksy/pages/v11/promote",
+      "stateOrTrigger": "guideOpen；实际 open-type=share，好友选择由微信控制",
+      "evidence": [
+        "sage_dksy/pages/v11/promote.wxml",
+        "sage_dksy/pages/v11/promote.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "36",
+      "title": "我的好友",
+      "route": "sage_dksy/pages/v132grow/index",
+      "stateOrTrigger": "实际好友列表、分页与失败重试",
+      "evidence": [
+        "sage_dksy/pages/v132grow/index.wxml",
+        "sage_dksy/pages/v132grow/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "37",
+      "title": "我的",
+      "route": "sage_dksy/pages/user/index",
+      "stateOrTrigger": "真实账户与钱包，五项核心业务入口",
+      "evidence": [
+        "sage_dksy/pages/user/index.wxml",
+        "sage_dksy/pages/user/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "38",
+      "title": "个人资料",
+      "route": "sage_dksy/pages/user/user/index",
+      "stateOrTrigger": "原生头像昵称选择及实际资料保存",
+      "evidence": [
+        "sage_dksy/pages/user/user/index.wxml",
+        "sage_dksy/pages/user/user/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "39",
+      "title": "设置",
+      "route": "sage_dksy/pages/v17/settings",
+      "stateOrTrigger": "实际权限、资料、提醒、帮助入口",
+      "evidence": [
+        "sage_dksy/pages/v17/settings.wxml",
+        "sage_dksy/pages/v17/settings.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "40",
+      "title": "帮助与规则",
+      "route": "sage_dksy/pages/v14/rewards/index",
+      "stateOrTrigger": "分类切换、问题展开与客服",
+      "evidence": [
+        "sage_dksy/pages/v14/rewards/index.wxml",
+        "sage_dksy/pages/v14/rewards/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "41",
+      "title": "收货地址管理",
+      "route": "sage_dksy/pages/address/list",
+      "stateOrTrigger": "账户本机地址列表，selectMode 关闭",
+      "evidence": [
+        "sage_dksy/pages/address/list.wxml",
+        "sage_dksy/pages/address/list.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "42",
+      "title": "新增或编辑地址",
+      "route": "sage_dksy/pages/address/edit",
+      "stateOrTrigger": "实际地址id编辑或新增；表单校验后保存",
+      "evidence": [
+        "sage_dksy/pages/address/edit.wxml",
+        "sage_dksy/pages/address/edit.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "43",
+      "title": "选择收货地址",
+      "route": "sage_dksy/pages/address/list",
+      "stateOrTrigger": "?mode=select；pendingSelectionId 暂存，onUse 后确认使用",
+      "evidence": [
+        "sage_dksy/pages/address/list.wxml",
+        "sage_dksy/pages/address/list.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "44",
+      "title": "无收货地址",
+      "route": "sage_dksy/pages/address/list",
+      "stateOrTrigger": "真实地址列表为空；新增入口",
+      "evidence": [
+        "sage_dksy/pages/address/list.wxml",
+        "sage_dksy/pages/address/list.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "45",
+      "title": "加载失败",
+      "route": "sage_dksy/pages/user/order",
+      "stateOrTrigger": "真实首次请求失败且无订单；yx-state error 与 retry；其他主业务页也有独立失败态",
+      "evidence": [
+        "sage_dksy/pages/user/order.wxml",
+        "sage_dksy/pages/user/order.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "46",
+      "title": "暂无兑换记录",
+      "route": "sage_dksy/pages/user/order",
+      "stateOrTrigger": "无加载错误且真实订单列表为空；不把加载失败当空",
+      "evidence": [
+        "sage_dksy/pages/user/order.wxml",
+        "sage_dksy/pages/user/order.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "47",
+      "title": "广告冷却中",
+      "route": "sage_dksy/pages/v14/tasks/index",
+      "stateOrTrigger": "rewardViewMode 为 cool；取实际冷却状态",
+      "evidence": [
+        "sage_dksy/pages/v14/tasks/index.wxml",
+        "sage_dksy/pages/v14/tasks/index.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    },
+    {
+      "id": "48",
+      "title": "商品已兑完",
+      "route": "sage_dksy/pages/prize/prize_show",
+      "stateOrTrigger": "detailView 为 soldout；真实库存不足",
+      "evidence": [
+        "sage_dksy/pages/prize/prize_show.wxml",
+        "sage_dksy/pages/prize/prize_show.js"
+      ],
+      "validation": "source mapped; not WeChat device/backend validation"
+    }
+  ]
 }
