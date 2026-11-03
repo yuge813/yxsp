@@ -1,9 +1,9 @@
 {
   "navigationBarTitleText": "每日签到",
   "enablePullDownRefresh": true,
-  "navigationBarBackgroundColor": "#F5F3ED",
-  "navigationBarTextStyle": "black",
-  "backgroundColor": "#F5F3ED",
+  "navigationBarBackgroundColor": "#D70C38",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#FFF6F5",
   "usingComponents": {
     "yx22-ad": "/sage_dksy/components/yx22-ad/index"
   },

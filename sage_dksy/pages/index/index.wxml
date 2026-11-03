@@ -1,49 +1,29 @@
 <view class="home-page">
-  <view class="home-hero">
-    <view class="home-hero-top"><text class="home-eyebrow">每日积累 · 悦享生活</text><navigator class="home-reminder" url="/sage_dksy/pages/v14/reminders/index" aria-label="签到提醒"><yx-icon name="bell" tone="light" size="36"/></navigator></view>
-    <view class="home-title">{{today_qian===1?'今天的坚持，':'每一天，'}}<text>{{today_qian===1?'已经记下。':'都有好事发生。'}}</text></view>
-    <view class="home-hero-seal" aria-hidden="true">日积<text>月累</text></view>
-    <navigator class="home-wallet" url="/sage_dksy/pages/user/integral"><view><text class="home-wallet-label">当前可用金币</text><view class="home-wallet-value">{{loaded && num!==null?num:'—'}}<text>金币</text></view></view><view class="home-wallet-link">查看明细<yx-icon name="arrow" tone="light" size="24"/></view></navigator>
+ <view wx:if="{{signReceipt}}" class="home-sign-result">
+  <view class="receipt-art"><image src="/sage_dksy/resource/red/coin.png" mode="aspectFit"/><text>签到成功</text></view><view class="receipt-title">今天的坚持，<text>已经到账。</text></view>
+  <view class="gold-ticket"><text>本次获得</text><view class="ticket-amount">+{{signReceipt.amount}}<text>金币</text></view><view class="ticket-line"></view><view class="ticket-info"><text>当前金币</text><text>{{num===null?'待同步':num}}</text></view><view class="ticket-info"><text>连续签到</text><text>{{signReady?signNum+' 天':'正在同步'}}</text></view></view>
+  <button class="ui-primary receipt-primary" bindtap="goPoints">查看金币明细</button><button class="ui-secondary" bindtap="closeSignReceipt">返回首页</button>
+ </view>
+ <block wx:else>
+  <view class="home-stage"><view class="home-aurora"></view><view class="home-stage-copy"><text class="stage-label">每天来元享 · 好礼有盼头</text><view class="home-stage-title">赚点金币，<text>把喜欢带回家。</text></view><text class="stage-note">签到 · 看广告 · 换好礼</text></view><image class="home-keyart" src="/sage_dksy/resource/red/hero.png" mode="aspectFit"/></view>
+  <view class="home-deck">
+   <navigator class="home-wallet" url="/sage_dksy/pages/user/integral"><view><view class="home-wallet-label"><yx-icon name="coin" tone="brand" size="32"/><text>我的金币</text></view><view class="home-wallet-amount">{{loaded && num!==null?num:'—'}}<text>金币</text></view></view><view class="home-wallet-link">明细 <yx-icon name="arrow" tone="brand" size="24"/></view></navigator>
+   <yx-state wx:if="{{!loaded && pageError}}" type="error" title="账号暂时没有连接上" description="{{pageError}}" action="重新连接" bindaction="init"/><yx-state wx:elif="{{!loaded}}" type="loading" title="正在同步你的金币与签到进度"/>
+   <block wx:else>
+    <view class="home-check ui-card"><view class="check-heading"><view><text class="check-title">每日签到</text><view class="check-sub">{{today_qian===1?'今天已完成签到':(nextSignReward!==null?'今天可领':'今日奖励待同步')}}<text wx:if="{{today_qian!==1 && nextSignReward!==null}}">{{nextSignReward}}</text><text wx:if="{{today_qian!==1 && nextSignReward!==null}}" class="check-unit">金币</text></view></view><text class="streak-tag">{{signReady?'已连续 '+signNum+' 天':'进度待同步'}}</text></view>
+     <view class="compact-days"><view wx:for="{{signCards}}" wx:key="day" class="sign-day {{item.done?'done':item.active?'today':''}} {{item.day===7?'seventh':''}}"><text>{{item.active?'今天':'第'+item.day+'天'}}</text><view><yx-icon name="{{item.done?'yes':item.day===7?'gift':'coin'}}" tone="{{item.active && item.day!==7?'light':'brand'}}" size="32"/></view><text class="day-reward">{{item.done?'已签到':(item.amount===null?'待同步':'+'+item.amount)}}</text></view></view>
+     <button class="ui-primary home-sign-button" loading="{{signing}}" disabled="{{signing || !signReady || today_qian===1}}" bindtap="bindSignIn">{{today_qian===1?'今日已签到':(!signReady?'正在同步签到状态':(nextSignReward===null?'立即签到':'立即签到　+'+nextSignReward+' 金币'))}}</button>
+     <view wx:if="{{signError}}" class="home-inline-error" bindtap="retrySections">{{signError}} · 重新加载</view>
+    </view>
+    <view class="home-function-tiles"><navigator class="function-tile ad-tile" url="/sage_dksy/pages/v14/tasks/index?view=offer" open-type="redirect"><yx-icon name="play" tone="light" size="46"/><text class="tile-title">看广告赚金币</text><text class="tile-sub">自愿观看{{todayTask.coins!==null?' · 每次 +'+todayTask.coins:''}}</text><view class="tile-circle"><yx-icon name="arrow" tone="light" size="28"/></view></navigator><navigator class="function-tile invite-tile" url="/sage_dksy/pages/v132grow/index"><yx-icon name="friend" tone="light" size="46"/><text class="tile-title">邀请好友</text><text class="tile-sub">分享元享 · 一起攒好礼</text><view class="tile-circle"><yx-icon name="arrow" tone="light" size="28"/></view></navigator></view>
+    <navigator class="home-trial-strip" url="/sage_dksy/pages/trial/trial" open-type="redirect"><image wx:if="{{homeTrial.pro_picurl && !trialImageFailed}}" src="{{homeTrial.pro_picurl}}" mode="aspectFit" binderror="onTrialImageError"/><view wx:else class="home-trial-fallback"><yx-icon name="gift" tone="brand" size="48"/></view><view><text>新品试用 · 免费申请</text><text>{{homeTrial.pro_title || '喜欢的新好物，先来体验'}}</text></view><yx-icon name="arrow" tone="brand" size="32"/></navigator>
+    <view wx:if="{{pageError}}" class="ui-error" bindtap="init">{{pageError}} · 重新连接</view>
+    <view class="home-goods-head"><text>金币换好礼</text><navigator url="/sage_dksy/pages/prize/index" open-type="redirect">更多好礼 ›</navigator></view>
+    <yx-state wx:if="{{contentLoading && !homeGoods.length}}" type="loading"/><yx-state wx:elif="{{goodsError && !homeGoods.length}}" type="error" title="好礼暂未加载出来" description="请检查网络后重试" action="重新加载" bindaction="retrySections"/><yx-state wx:elif="{{!homeGoods.length}}" type="empty" title="好礼正在准备中" description="新的好礼上架后会在这里出现"/>
+    <view wx:else class="home-products"><view class="home-product" wx:for="{{homeGoods}}" wx:key="prize_id" data-id="{{item.prize_id}}" bindtap="prize_show"><view class="home-product-picture"><image wx:if="{{item.prize_picurl && !item._imageFailed}}" src="{{item.prize_picurl}}" mode="aspectFit" data-id="{{item.prize_id}}" binderror="onPrizeImageError"/><view wx:else><yx-icon name="gift" tone="muted" size="76"/></view></view><view class="home-product-copy"><text>{{item.prize_title}}</text><view><text>{{item.prize_integral}}</text><text>金币</text></view></view></view></view>
+    <view class="home-ad"><yx22-ad placement="home_native"/></view><text class="home-endnote">普通浏览无需观看广告，奖励以实际记录为准。</text>
+   </block>
   </view>
-  <view class="home-main">
-    <yx-state wx:if="{{!loaded && pageError}}" type="error" title="暂时还没连接上" description="{{pageError}}" action="重新连接" bindaction="init"/>
-    <yx-state wx:elif="{{!loaded}}" type="loading" title="正在同步你的进度"/>
-    <block wx:else>
-      <view class="home-sign ui-card">
-        <view class="home-sign-top"><view><text class="home-sign-kicker">今日签到</text><view class="home-sign-title">{{today_qian===1?'小小坚持，已经到账':(nextSignReward!==null?'今天再攒 '+nextSignReward+' 金币':'给好习惯，一点奖励')}}</view></view><text class="home-streak">连续 {{signNum}} 天</text></view>
-        <view class="home-days"><view wx:for="{{signCards}}" wx:key="day" class="home-day {{item.done?'is-done':item.active?'is-today':''}}"><text>第{{item.day}}天</text><view><yx-icon wx:if="{{item.done}}" name="yes" tone="green" size="30"/><text wx:else>{{item.amount===null?'—':'+'+item.amount}}</text></view></view></view>
-        <button class="ui-primary home-sign-button" loading="{{signing}}" disabled="{{signing || !signReady || today_qian===1}}" bindtap="bindSignIn">{{today_qian===1?'今日已签到':(!signReady?'正在同步签到状态':'立即签到')}}</button>
-        <view wx:if="{{signError}}" class="home-inline-error" bindtap="retrySections">{{signError}} · 重新加载</view>
-        <navigator wx:else url="/sage_dksy/pages/v14/sign/index" class="home-sign-detail">7天奖励提前看 <yx-icon name="arrow" tone="muted" size="22"/></navigator>
-      </view>
-      <view class="home-shortcuts">
-        <navigator url="/sage_dksy/pages/v12/list"><view><yx-icon name="book" tone="ink" size="44"/></view><text>阅读文章</text></navigator>
-        <navigator url="/sage_dksy/pages/v132grow/index"><view><yx-icon name="friend" tone="ink" size="44"/></view><text>邀请好友</text></navigator>
-        <navigator url="/sage_dksy/pages/user/order"><view><yx-icon name="order" tone="ink" size="44"/></view><text>兑换记录</text></navigator>
-        <navigator url="/sage_dksy/pages/v16/all"><view><yx-icon name="grid" tone="ink" size="44"/></view><text>全部功能</text></navigator>
-      </view>
-      <view wx:if="{{pageError}}" class="ui-error" bindtap="init">{{pageError}} · 重新连接</view>
-      <view class="ui-section-head"><view><text class="home-section-number">01 /</text><text>今天的小任务</text></view><navigator url="/sage_dksy/pages/v14/tasks/index">全部任务 <yx-icon name="arrow" tone="muted" size="24"/></navigator></view>
-      <view class="home-task ui-card">
-        <view class="home-task-main"><view class="home-task-icon"><yx-icon name="play" tone="brand" size="48"/></view><view class="home-task-copy"><text class="home-task-title">自愿看视频</text><text class="home-task-desc">完整观看后领取{{todayTask.remaining!==null?' · 剩余 '+todayTask.remaining+' 次':''}}</text><text wx:if="{{todayTask.coins!==null}}" class="home-task-reward">每次 +{{todayTask.coins}} 金币</text></view></view>
-        <button class="home-task-action" loading="{{todayTaskBusy}}" disabled="{{!todayTask.enabled || todayTaskBusy}}" bindtap="openTodayTask">{{todayTask.button}}</button>
-        <text class="home-task-status">{{todayTask.hint || todayTask.label}}</text>
-        <button wx:if="{{todayTask.state==='unavailable'}}" class="home-task-retry" bindtap="refreshTodayTask">重新获取状态</button>
-      </view>
-      <view class="ui-section-head"><view><text class="home-section-number">02 /</text><text>读点好内容</text></view><navigator url="/sage_dksy/pages/v12/list">更多阅读 <yx-icon name="arrow" tone="muted" size="24"/></navigator></view>
-      <yx-state wx:if="{{articleLoading && !recommendArticle.title}}" type="loading"/>
-      <view wx:elif="{{articleError && !recommendArticle.title}}" class="home-content-note" bindtap="retrySections">{{articleError}} · 点击重试</view>
-      <navigator wx:elif="{{recommendArticle.title}}" class="home-story" url="/sage_dksy/pages/v12/detail?id={{recommendArticle.id}}"><image wx:if="{{recommendArticle.cover_url}}" class="home-story-image" src="{{recommendArticle.cover_url}}" mode="aspectFill" binderror="onArticleImageError"/><view wx:else class="home-story-fallback"><yx-icon name="book" tone="green" size="80"/></view><view class="home-story-copy"><text class="home-story-kicker">免费阅读 · 内容精选</text><text class="home-story-title">{{recommendArticle.title}}</text><view><text>{{recommendArticle.source || '元享阅读'}}</text><yx-icon name="arrow" tone="ink" size="32"/></view></view></navigator>
-      <navigator wx:else class="home-content-note" url="/sage_dksy/pages/v12/list">内容正在整理中，去阅读页看看 <yx-icon name="arrow" tone="muted" size="24"/></navigator>
-      <view class="home-ad"><yx22-ad placement="home_native"/></view>
-      <view class="ui-section-head"><view><text class="home-section-number">03 /</text><text>攒一份喜欢的好礼</text></view><navigator url="/sage_dksy/pages/prize/index">全部好礼 <yx-icon name="arrow" tone="muted" size="24"/></navigator></view>
-      <yx-state wx:if="{{contentLoading && !homeGoods.length}}" type="loading"/>
-      <yx-state wx:elif="{{goodsError && !homeGoods.length}}" type="error" title="好礼暂未加载出来" description="请检查网络后重试" action="重新加载" bindaction="retrySections"/>
-      <yx-state wx:elif="{{!homeGoods.length}}" type="empty" title="好礼正在准备中" description="上架后会在这里与你见面"/>
-      <view wx:else class="home-products"><view class="home-product" wx:for="{{homeGoods}}" wx:key="prize_id" data-id="{{item.prize_id}}" bindtap="prize_show"><view class="home-product-picture"><image wx:if="{{item.prize_picurl && !item._imageFailed}}" src="{{item.prize_picurl}}" mode="aspectFit" data-id="{{item.prize_id}}" binderror="onPrizeImageError"/><view wx:else><yx-icon name="gift" tone="muted" size="80"/></view></view><view class="home-product-copy"><text>{{item.prize_title}}</text><view><text>{{item.prize_integral}}</text><text>金币</text></view></view></view></view>
-      <text class="home-endnote">每天一点积累，慢慢遇见喜欢。</text>
-    </block>
-  </view>
-  <include src="/sage_dksy/pages/nav/nav.wxml"/>
-</view>
-<yx22-popup scene="home" ready="{{loaded}}"/>
+ </block>
+ <include src="/sage_dksy/pages/nav/nav.wxml"/>
+</view><yx22-popup scene="home" ready="{{loaded && !signReceipt}}"/>

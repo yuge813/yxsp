@@ -1,9 +1,9 @@
 {
   "usingComponents": {},
-  "navigationBarTextStyle": "black",
-  "navigationBarBackgroundColor": "#F5F3ED",
-  "backgroundColor": "#F5F3ED",
-  "navigationBarTitleText": "提交申请",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#D70C38",
+  "backgroundColor": "#FFF6F5",
+  "navigationBarTitleText": "确认试用申请",
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": false
 }

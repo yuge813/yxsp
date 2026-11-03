@@ -1,0 +1,128 @@
+[
+  {
+    "screen": "home",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1392,
+    "documentWidth": 390,
+    "images": 24
+  },
+  {
+    "screen": "tasks",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 844,
+    "documentWidth": 390,
+    "images": 11
+  },
+  {
+    "screen": "gifts",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1219,
+    "documentWidth": 390,
+    "images": 13
+  },
+  {
+    "screen": "trial",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1025,
+    "documentWidth": 390,
+    "images": 10
+  },
+  {
+    "screen": "mine",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1070,
+    "documentWidth": 390,
+    "images": 30
+  },
+  {
+    "screen": "sign",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 844,
+    "documentWidth": 390,
+    "images": 11
+  },
+  {
+    "screen": "product",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 928,
+    "documentWidth": 390,
+    "images": 6
+  },
+  {
+    "screen": "invite",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 877,
+    "documentWidth": 390,
+    "images": 10
+  },
+  {
+    "screen": "offer",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 856,
+    "documentWidth": 390,
+    "images": 4
+  },
+  {
+    "screen": "paid",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 844,
+    "documentWidth": 390,
+    "images": 4
+  },
+  {
+    "screen": "unpaid",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 844,
+    "documentWidth": 390,
+    "images": 2
+  },
+  {
+    "screen": "cool",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 904,
+    "documentWidth": 390,
+    "images": 5
+  },
+  {
+    "screen": "sign-success",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 844,
+    "documentWidth": 390,
+    "images": 2
+  },
+  {
+    "screen": "redeem-confirm",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 928,
+    "documentWidth": 390,
+    "images": 9
+  }
+]

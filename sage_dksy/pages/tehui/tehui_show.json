@@ -1,9 +1,9 @@
 {
   "usingComponents": {},
-  "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "门店促销详情",
-  "navigationBarBackgroundColor": "#F5F3ED",
-  "backgroundColor": "#F5F3ED",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "活动详情",
+  "navigationBarBackgroundColor": "#D70C38",
+  "backgroundColor": "#FFF6F5",
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": true
 }

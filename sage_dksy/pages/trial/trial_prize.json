@@ -1,8 +1,9 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#F5F3ED",
-  "navigationBarTextStyle": "black",
-  "backgroundColor": "#F5F3ED",
+  "navigationBarBackgroundColor": "#D70C38",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#FFF6F5",
   "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "中选名单"
 }

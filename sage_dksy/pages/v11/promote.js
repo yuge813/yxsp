@@ -1,5 +1,5 @@
 var v = require('../../utils/v11.js');
-var invitePoster = require('../../utils/v11inviteposter.js');
+var invitePoster = require('./red-poster.js');
 // 微信开发者工具会将真正的本地临时文件表示为 http://tmp/... 。
 // 只信任微信本地路径和 http(s)://tmp/，绝不放行普通远端 HTTPS 图片。
 // V13.1.5：本地文件前缀取自微信运行环境，避免把开发者工具的 http://usr/ 当成网络图片。
@@ -19,12 +19,12 @@ Page({
     total: 0, today: 0, metricsReady:false, walletReady:false, profileError:'', connecting:false, items: [], page: 1, hasMore: true, loading: false,
     code: '', inviter: '', showBalance: false, fontScale: 1, voiceOn: false,
     qr: '', qrLocalPath:'', qrReady:false, posterPath: '', drawing: false, qrStage: '', notice: '',
-    themes:invitePoster.THEMES, selectedTheme:0, selectedName:invitePoster.THEMES[0].name, selectedTag:invitePoster.THEMES[0].tag, generatedTheme:-1,
+    themes:invitePoster.THEMES, selectedTheme:0, selectedName:invitePoster.THEMES[0].name, selectedTag:invitePoster.THEMES[0].tag||'', generatedTheme:-1,
     currentBalance: 0, ledgerReceived: 0, ledgerComplete: false,
-    posterExpanded:true, walletExpanded:false, settingsExpanded:false
+    view:'hub',guideOpen:false,saveBusy:false,nickname:'',avatar:'',posterExpanded:false, walletExpanded:false, settingsExpanded:false
   },
   onLoad: function (o) {
-    this._alive=true;this._listSeq=0;
+    this._alive=true;this._listSeq=0;var mode=o&&o.mode;this.setData({view:mode==='poster'||mode==='guide'?'poster':'hub',guideOpen:mode==='guide'});this.updateTitle();try{wx.showShareMenu({menus:['shareAppMessage','shareTimeline']});}catch(_){}
     var self = this;
     if (o && o.from) {
       v.registerVisit(o.from, 'home', 0, 'timeline', function (ok) {
@@ -40,7 +40,7 @@ Page({
     this.setData({connecting:true,profileError:'',code:'',qr:'',qrReady:false,qrLocalPath:'',posterPath:'',generatedTheme:-1,items:[],page:1,hasMore:true,loading:false,metricsReady:false,walletReady:false});
     function fail(){self._connecting=false;if(self._alive)self.setData({connecting:false,profileError:'账户暂时没有连接成功，请重试'});}
     wx.login({success:function(auth){if(!self._alive)return;if(!auth||!auth.code)return fail();
-      v.api('set',{code:auth.code},function(result){if(!self._alive)return;if(!result||!result.auth_token)return fail();self._connecting=false;self.setData({connecting:false});self.fetchIdentity();},fail);
+      v.api('set',{code:auth.code},function(result){if(!self._alive)return;if(!result||!result.auth_token)return fail();self._connecting=false;var profile=result.userinfo&&typeof result.userinfo==='object'?result.userinfo:{};self.setData({connecting:false,nickname:String(profile.nickname||''),avatar:String(profile.headimg||'')});self.fetchIdentity();},fail);
     },fail:fail});
   },
   fetchIdentity: function () {
@@ -79,6 +79,11 @@ Page({
       self.setData({metricsReady:metricsReady,total:r.total, today:r.today,items:self.data.items.concat(x),page:self.data.page+1,hasMore:x.length===15,loading:false});
     }, function () { if(self._alive&&seq===self._listSeq)self.setData({loading:false,notice:'邀请记录暂时没有加载出来，请重试'}); });
   },
+  refreshMetrics:function(){
+    if(this._metricsRefreshing||!this._identityKey)return;
+    var self=this,owner=this._identityKey;this._metricsRefreshing=true;
+    v.api('v11promote',{page:1},function(r){self._metricsRefreshing=false;if(!self._alive||self._identityKey!==owner)return;if(r&&Array.isArray(r.items)&&r.total!==undefined&&r.total!==null&&r.today!==undefined&&r.today!==null&&Number.isFinite(Number(r.total))&&Number.isFinite(Number(r.today)))self.setData({metricsReady:true,total:r.total,today:r.today});},function(){self._metricsRefreshing=false;});
+  },
   retryRecords:function(){this.init();},
   onReachBottom: function () { this.load(); },
   onShow: function(){
@@ -90,7 +95,7 @@ Page({
       if(fresh!==self._identityKey){
         self.setData({items:[],page:1,hasMore:true,loading:false,posterPath:'',generatedTheme:-1});
         self.init();
-      }
+      }else self.refreshMetrics();
     },function(){
       self._qrRequestId=(self._qrRequestId||0)+1;
       self._identityKey='';self._qrState='';self._qrReadyOwner='';self._qrLocal='';self._qrSource='';self._qrSourceOwner='';self._qrCallbacks=[];
@@ -255,8 +260,15 @@ Page({
     },function(message){finish(false,'',message||'真实小程序码接口失败');});
   },
   // V11.5 只控制展示状态，不改变服务端邀请归属和二维码身份校验。
-  togglePoster:function(){this.setData({posterExpanded:!this.data.posterExpanded});},
-  openPoster:function(){if(!this.data.posterExpanded)this.setData({posterExpanded:true});},
+  noop:function(){},
+  updateTitle:function(){wx.setNavigationBarTitle({title:this.data.view==='poster'?'专属邀请海报':'邀请好友'});},
+  togglePoster:function(){this.openPoster();},
+  openPoster:function(){wx.navigateTo({url:'/sage_dksy/pages/v11/promote?mode=poster'});},
+  goFriends:function(){wx.navigateTo({url:'/sage_dksy/pages/v132grow/index'});},
+  openGuide:function(){this.setData({guideOpen:true});},
+  closeGuide:function(){this.setData({guideOpen:false});},
+  avatarError:function(){this.setData({avatar:''});},
+  qrError:function(){this._qrState='';this._qrReadyOwner='';this._qrLocal='';this.setData({qrReady:false,qrLocalPath:'',qrStage:'专属小程序码暂时无法显示，请重试'});},
   toggleWallet:function(){this.setData({walletExpanded:!this.data.walletExpanded});},
   toggleSettings:function(){this.setData({settingsExpanded:!this.data.settingsExpanded});},
   copyCode:function(){if(!this.data.code)return v.toast('请先登录');wx.setClipboardData({data:String(this.data.code),success:function(){wx.showToast({title:'推广编号已复制',icon:'none'});},fail:function(){v.toast('复制失败，请重试');}});},
@@ -268,9 +280,9 @@ Page({
     if(!Number.isFinite(idx)||idx<0||idx>=invitePoster.THEMES.length)return;
     if(idx===this.data.selectedTheme)return;
     this._saveAfterRender=false;
-    this.setData({selectedTheme:idx,selectedName:invitePoster.THEMES[idx].name,selectedTag:invitePoster.THEMES[idx].tag,posterPath:'',generatedTheme:-1});
+    this.setData({selectedTheme:idx,selectedName:invitePoster.THEMES[idx].name,selectedTag:invitePoster.THEMES[idx].tag||'',posterPath:'',generatedTheme:-1});
     // 切换海报后预读包内素材，及早报告缺失文件，不阻塞二维码请求。
-    invitePoster.preload(invitePoster.THEMES[idx].id,function(){},function(m){console.warn('[元享海报素材]',m);});
+    // All approved red styles are drawn locally; the QR remains the verified server image.
   },
   makeQr: function () {
     var self=this;
@@ -285,22 +297,22 @@ Page({
       }
       // 使用 ensureQr 成功时返回的路径快照，绝不读可能被异步重置的 _qrLocal。
       console.info('[元享 V11.7.3 海报路径校验]',JSON.stringify({qrReady:ready,local:!!verifiedQrPath,theme:selected+1}));
-      self.setData({qrStage:'正在导出1080×1440高清海报…'});
-      invitePoster.render(self,verifiedQrPath,invitePoster.THEMES[selected].id,function(path){
+      self.setData({qrStage:'正在生成高清专属海报…'});
+      invitePoster.render(self,verifiedQrPath,invitePoster.THEMES[selected].id,{nickname:self.data.nickname},function(path){
         if(self._identityKey!==owner||self.data.code!==code||self.data.selectedTheme!==selected){
           self._saveAfterRender=false;self.setData({drawing:false,qrStage:''});return;
         }
         self.setData({posterPath:path,generatedTheme:selected,drawing:false,qrStage:''});
         if(self._saveAfterRender){self._saveAfterRender=false;self.saveQrPoster();}
-      },function(m){self._saveAfterRender=false;self.setData({drawing:false,qrStage:m});v.toast(m);},function(stage){
+      },function(m){if(!self._alive)return;self._saveAfterRender=false;self.setData({drawing:false,qrStage:m});v.toast(m);},function(stage){
         if(self._identityKey===owner && self.data.selectedTheme===selected)self.setData({qrStage:stage});
       });
     },false);
   },
   saveQrPoster: function () {
-    if(this.data.drawing)return;
+    if(this.data.drawing||this.data.saveBusy)return;
     if (!this.data.posterPath || this.data.generatedTheme !== this.data.selectedTheme){this._saveAfterRender=true;return this.makeQr();}
-    var self=this;
+    var self=this;this.setData({saveBusy:true});
     wx.saveImageToPhotosAlbum({filePath:this.data.posterPath,success:function(){
       v.api('v11metric',{type:'image_saved',kind:'home',id:0},function(){},function(){});
       wx.showToast({title:'分享图已保存到相册',icon:'none'});
@@ -309,7 +321,7 @@ Page({
       if (/auth|deny|permission/i.test(msg)) {
         wx.showModal({title:'保存需要相册权限',content:'请在微信设置中允许保存图片后再试。',confirmText:'去设置',success:function(r){if(r.confirm)wx.openSetting({});}});
       } else v.toast('保存失败，请重试');
-    }});
+    },complete:function(){if(self._alive)self.setData({saveBusy:false});}});
   },
   onShareAppMessage: function () {
     v.api('v11metric',{type:'share_trigger',kind:'home',id:0},function(){},function(){});

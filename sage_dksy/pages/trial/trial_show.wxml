@@ -1,21 +1,13 @@
 <import src="../../wxParse/wxParse.wxml"/>
-<view class="trial-detail">
- <yx-state wx:if="{{loading&&!trial_show}}" type="loading"/>
- <yx-state wx:elif="{{error&&!trial_show}}" type="error" title="活动暂时无法查看" description="{{error}}" action="重新加载" bindaction="retry"/>
- <block wx:elif="{{trial_show}}">
- <view class="trial-detail-photo"><image wx:if="{{trial_show.pro_picurl&&!imageFailed}}" src="{{trial_show.pro_picurl}}" mode="aspectFit" binderror="imageError"/><view wx:else><yx-icon name="gift" tone="muted" size="100"/></view><text>{{trial_show.isyes=='1'?'报名中':trial_show.isyes=='0'?'即将开始':trial_show.isyes=='2'?'已结束':'状态待更新'}}</text></view>
- <view class="ui-page detail-body"><view wx:if="{{error}}" class="ui-error" bindtap="retry">{{error}} · 点击重试</view><text class="ui-kicker">元享 · 好物体验</text><text class="detail-title">{{trial_show.pro_title}}</text>
- <view class="detail-metrics ui-card"><view><text>{{trial_show.pro_num}}</text><text>试用名额 / 份</text></view><view><text>{{trial_show.apply_num}}</text><text>已申请 / 人</text></view><view><text>{{trial_show.see_num}}</text><text>浏览 / 人</text></view></view>
- <view class="detail-dates ui-card"><view><text>申请截止</text><text>{{trial_show.end_time_day||'以活动规则为准'}}</text></view><view><text>报告截止</text><text>{{trial_show.baogao_time_day||'以活动规则为准'}}</text></view></view>
- <view class="ui-section-head"><text>如何参与</text></view><view class="detail-steps"><view><text>01</text><text>自主报名</text></view><view><text>02</text><text>查看结果</text></view><view><text>03</text><text>试用反馈</text></view></view>
- <text class="detail-note">报名不等于中选。中选后再填写收货资料，具体安排以活动规则为准。</text>
- <image wx:if="{{setinfo.liuchengimg}}" class="flow-image" src="{{setinfo.liuchengimg}}" mode="widthFix"/>
- <view class="ui-section-head"><text>商品介绍</text></view><view class="detail-rich ui-card"><template is="wxParse" data="{{wxParseData:content.nodes}}"/></view>
- <view wx:if="{{v3Ready&&v3Unit}}" class="detail-ad"><ad unit-id="{{v3Unit}}" bindload="onV3AdLoad" binderror="onV3AdError"/></view>
- <view class="ui-section-head"><text>活动规则</text></view><view class="detail-rich ui-card"><template is="wxParse" data="{{wxParseData:guize.nodes}}"/></view>
- <button wx:if="{{trial_show.isyes=='2'}}" class="ui-secondary" bindtap="trialprize">查看中选名单</button>
- <view wx:if="{{v10shareOn}}" class="detail-share"><button open-type="share">分享活动</button><button wx:if="{{v10posterOn}}" bindtap="v10Poster">制作海报</button></view>
- </view>
- <view class="detail-fixed"><button wx:if="{{trial_show.isyes=='1'}}" class="ui-primary" bindtap="baoming">申请试用</button><button wx:else class="ui-secondary" disabled="{{true}}">{{trial_show.isyes=='0'?'活动尚未开始':trial_show.isyes=='2'?'活动已结束':'活动状态待更新'}}</button></view>
- </block>
+<view class="tr-page trial-detail"><yx-state wx:if="{{loading&&!trial_show}}" type="loading"/><yx-state wx:elif="{{error&&!trial_show}}" type="error" title="活动暂时无法查看" description="{{error}}" action="重新加载" bindaction="retry"/>
+ <block wx:elif="{{trial_show}}"><view class="tr-detail-stage"><view class="tr-detail-light"></view><view class="tr-stage-label"><yx-icon name="gift" tone="brand" size="28"/><text>元享体验计划</text></view><image wx:if="{{trial_show.pro_picurl&&!imageFailed}}" class="tr-stage-product" src="{{trial_show.pro_picurl}}" mode="aspectFit" binderror="imageError"/><view wx:else class="tr-stage-placeholder"><yx-icon name="gift" tone="muted" size="120"/></view><text class="tr-stage-caption">把喜欢的好物，带进日常</text></view>
+ <view class="tr-detail-body"><view wx:if="{{error}}" class="ui-error" bindtap="retry">{{error}} · 点击重试</view><view class="tr-campaign-line"><text class="tr-tag">{{trial_show.isyes=='1'?'正在报名':trial_show.isyes=='0'?'即将开始':trial_show.isyes=='2'?'已结束':'状态待更新'}}</text><text wx:if="{{trial_show.end_time_day}}">截止 {{trial_show.end_time_day}}</text></view><text class="tr-detail-title">{{trial_show.pro_title}}</text><text class="tr-detail-desc">温暖每个日常，邀请你来体验。</text>
+ <view class="tr-detail-stats"><view><view><text>{{trial_show.pro_num}}</text><text>份</text></view><text>试用名额</text></view><view><view><text>{{trial_show.apply_num}}</text><text>人</text></view><text>已申请</text></view><view><view><text>{{trial_show.see_num}}</text><text>人</text></view><text>浏览</text></view></view>
+ <view class="tr-steps"><view class="is-current"><view class="tr-step-number">1</view><text>提交申请</text></view><view class=""><view class="tr-step-number">2</view><text>等待结果</text></view><view class=""><view class="tr-step-number">3</view><text>中选收货</text></view></view><view class="tr-important"><yx-icon name="shield" tone="brand" size="36"/><view><text>先申请，再等待活动结果</text><text>申请成功不代表中选，请以最终结果为准。</text></view></view>
+ <view class="tr-section-title">参与须知</view><view class="tr-rules"><view><text>01</text><text>报名截止前，可自愿提交申请。</text></view><view><text>02</text><text>中选后按要求完善收货资料。</text></view><view><text>03</text><text>活动名额与具体规则以本页说明为准。</text></view></view>
+ <view wx:if="{{trial_show.baogao_time_day}}" class="tr-rule-date"><text>报告截止</text><text>{{trial_show.baogao_time_day}}</text></view><image wx:if="{{setinfo.liuchengimg}}" class="tr-flow-image" src="{{setinfo.liuchengimg}}" mode="widthFix"/>
+ <view class="tr-section-title">商品介绍</view><view class="tr-rich ui-card"><template is="wxParse" data="{{wxParseData:content.nodes}}"/></view>
+ <view wx:if="{{v3Ready&&v3Unit}}" class="tr-ad"><ad unit-id="{{v3Unit}}" bindload="onV3AdLoad" binderror="onV3AdError"/></view><view class="tr-section-title">活动规则</view><view class="tr-rich ui-card"><template is="wxParse" data="{{wxParseData:guize.nodes}}"/></view>
+ <button wx:if="{{trial_show.isyes=='2'}}" class="ui-secondary tr-top-gap" bindtap="trialprize">查看中选名单</button><view wx:if="{{v10shareOn}}" class="tr-share"><button open-type="share">分享活动</button><button wx:if="{{v10posterOn}}" bindtap="v10Poster">制作海报</button></view></view>
+ <view class="tr-fixed-footer"><button wx:if="{{trial_show.isyes=='1'}}" class="ui-primary" bindtap="baoming">申请试用</button><button wx:else class="ui-secondary" disabled="{{true}}">{{trial_show.isyes=='0'?'活动尚未开始':trial_show.isyes=='2'?'活动已结束':'活动状态待更新'}}</button></view></block>
 </view>

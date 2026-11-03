@@ -27,10 +27,7 @@ Page({
     this.setData({saving:false});
     if(!saved.ok){wx.showToast({title:saved.reason||'保存失败',icon:'none'});return;}
     wx.showToast({title:'地址已保存',icon:'success',duration:900});
-    // Arrived here from detail -> address list -> editor: return directly to detail with the new selection.
-    var stack=getCurrentPages();
-    var previous=stack[stack.length-2],before=stack[stack.length-3];
-    var fromOrder=previous&&previous.route==='sage_dksy/pages/address/list'&&before&&(/sage_dksy\/pages\/(prize|index)\/prize_show/.test(before.route));
-    wx.navigateBack({delta:fromOrder?2:1});
+    // Return to the address list; selection is confirmed explicitly on its footer.
+    wx.navigateBack({delta:1});
   }
 });

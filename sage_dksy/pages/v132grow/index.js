@@ -15,12 +15,11 @@ Page({
     function current(){return self._alive!==false&&self._seq===seq;}
     function fail(){if(!current())return;self._loading=false;self.setData({loading:false,message:'好友信息暂时没有加载出来，请重试'});wx.stopPullDownRefresh();}
     v.api('v11promote',{page:1},function(r){if(!current())return;if(!r||!Array.isArray(r.items)){fail();return;}var a=people(r.items);self._loading=false;self.setData({direct:count(r.total),today:count(r.today),items:a,page:2,hasMore:a.length===15,loading:false,loaded:true,rewardInfo:rewards(r)});wx.stopPullDownRefresh();},fail);
-    v.api('growthstatus',{},function(r){if(!current())return;if(r&&r.challenge&&typeof r.challenge==='object')self.setData({growth:r.challenge,growthLoaded:true,growthError:''});else self.setData({growthError:'成长进度暂时不可用'});},function(){if(current())self.setData({growthError:'成长进度暂时没有加载出来'});});
   },
   loadMore:function(){if(this._loading||!this.data.hasMore)return;var self=this,seq=this._seq;this._loading=true;this.setData({loading:true,message:''});
     v.api('v11promote',{page:this.data.page},function(r){if(self._alive===false||self._seq!==seq)return;self._loading=false;if(!r||!Array.isArray(r.items)){self.setData({loading:false,message:'更多好友暂时没有加载出来'});return;}var a=people(r.items);self.setData({items:self.data.items.concat(a),page:self.data.page+1,hasMore:a.length===15,loading:false});},function(){if(self._alive===false||self._seq!==seq)return;self._loading=false;self.setData({message:'更多好友暂时没有加载出来，请重试',loading:false});});
   },
   retry:function(){this.reload();},
-  goPoster:function(){wx.navigateTo({url:'/sage_dksy/pages/v11/promote'});},
+  goPoster:function(){wx.navigateTo({url:'/sage_dksy/pages/v11/promote?mode=poster'});},
   goGrowth:function(){wx.navigateTo({url:'/sage_dksy/pages/growth/index'});}
 });

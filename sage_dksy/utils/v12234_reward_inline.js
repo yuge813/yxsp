@@ -8,6 +8,8 @@ const ID = /^[a-f0-9]{32}$/;
 const UNIT = /^adunit-[A-Za-z0-9]{8,80}$/;
 const FINISHED = ['closed_unpaid', 'expired', 'expired_unverified'];
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+const paid = value => !!value && (value.paid === true || Number(value.paid) === 1 || value.status === 'settled');
+function rewardAmount(value) {if(value===null||value===undefined||typeof value==='boolean'||typeof value==='object'||String(value).trim()==='')return null;const n=Number(value);return Number.isFinite(n)&&n>=0?n:null;}
 function desc(e) {
   const raw = String((e && (e.errMsg || e.msg || e.message)) || e || '广告暂不可用');
   const n = Number((e && (e.errCode || e.code)) || 0);
@@ -29,6 +31,10 @@ function create(page, sourceChannel) {
     tell(str) {
       if (!this.alive || !str || !this.active()) return;
       try { wx.showToast({title: String(str).slice(0, 30), icon: 'none', duration: 2600}); } catch (_) {}
+    },
+    notify(state, coins, taskId, message) {
+      if (!this.active() || typeof this.page.onRewardResult !== 'function') return;
+      try {this.page.onRewardResult({state,coins:rewardAmount(coins),taskId:String(taskId||''),message:String(message||'')});} catch (_) { /* A display callback must never affect settlement. */ }
     },
     refresh() {
       if (!this.active()) return;
@@ -122,7 +128,7 @@ function create(page, sourceChannel) {
         if (!this.alive || this.run !== seq) return;
         if (this.task && (this.phase === 'playing' || this.phase === 'starting')) this.failed(e);
         else if (this.phase === 'checking' || this.phase === 'starting') {
-          this.phase = 'idle';this.tell(desc(e));this.refresh();
+          this.phase = 'idle';this.tell(desc(e));this.notify('error',null,'',desc(e));this.refresh();
         }
       }
     },
@@ -135,7 +141,7 @@ function create(page, sourceChannel) {
       console.warn('[元享阅读] 原生视频播放失败', desc(e));
       if (task) await this.closeReserved(task, 'no_fill');
       if (!this.alive) return;
-      this.phase = 'idle';this.tell(desc(e));this.refresh();
+      this.phase = 'idle';this.tell(desc(e));this.notify('error',null,task,desc(e));this.refresh();
     },
     async closed(res) {
       if (!this.alive || this.phase !== 'playing' || !this.task) return;
@@ -146,7 +152,7 @@ function create(page, sourceChannel) {
         await this.closeReserved(task, 'closed');
         if (!this.alive) return;
         // Stay on this exact article/list page; do NOT navigateBack into SDK teardown.
-        this.phase = 'idle';this.tell('视频未看完，本次未获得金币');this.refresh();
+        this.phase = 'idle';this.tell('视频未看完，本次未获得金币');this.notify('unpaid',null,task,'视频未完整观看，本次未获得奖励');this.refresh();
         return;
       }
       await this.settle(task);
@@ -156,8 +162,8 @@ function create(page, sourceChannel) {
       try {
         const sig = await this.signal(task, 'ended');
         if (!this.active()) return;
-        if (sig && (sig.paid || sig.status === 'settled')) {await this.verify(task);return;}
-        if (sig && FINISHED.includes(sig.status)) {this.phase = 'idle';this.tell('本次未获得金币');this.refresh();return;}
+        if (paid(sig)) {await this.verify(task);return;}
+        if (sig && FINISHED.includes(sig.status)) {this.phase = 'idle';this.tell('本次未获得金币');this.notify('unpaid',null,task,'本次未获得金币');this.refresh();return;}
         // Preserve V12.23.3 server settlement wait, not a client-created reward.
         const remaining = Math.max(0, 16500 - (Date.now() - this.started));
         if (remaining) await wait(remaining);
@@ -175,16 +181,16 @@ function create(page, sourceChannel) {
         try {
           const r = await call('v12task', {task_id:task});
           if (!this.active()) return;
-          if (r && (r.paid || r.status === 'settled')) {
-            this.phase = 'idle';this.tell('金币已到账 +' + Number(r.coins || 0));this.refresh();return;
+          if (paid(r)) {
+            const coins=rewardAmount(r.coins);this.phase='idle';this.tell(coins===null?'金币已到账，请查看明细':'金币已到账 +'+coins);this.notify('paid',coins,task,'奖励已由服务端确认到账');this.refresh();return;
           }
           if (r && FINISHED.includes(r.status)) {
-            this.phase = 'idle';this.tell('本次未获得金币');this.refresh();return;
+            this.phase = 'idle';this.tell('本次未获得金币');this.notify('unpaid',null,task,'本次未获得金币');this.refresh();return;
           }
         } catch(e) { console.warn('[元享阅读] 账本状态读取失败', desc(e)); }
         if (i < 2) await wait(1500);
       }
-      if (this.active()) {this.phase='idle';this.tell('广告已看完，奖励处理中');this.refresh();}
+      if (this.active()) {this.phase='idle';this.tell('广告已看完，奖励处理中');this.notify('pending',null,task,'奖励仍在处理中，请稍后查看金币明细');this.refresh();}
     },
     leave() {
       // onHide can run for UI transitions; cancel only when another WeChat page is top.

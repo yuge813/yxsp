@@ -18,7 +18,7 @@ class Parser(HTMLParser):
   for i in range(len(self.stack)-1,0,-1):
    if self.stack[i]['tag']==tag:self.stack=self.stack[:i];break
  def handle_data(self,text):self.stack[-1]['children'].append(self.restore(text))
-r=Path('/workspace/yxsp');asts={}
+r=Path(__file__).resolve().parents[2];asts={}
 for p in r.rglob('*.wxml'):
  if '.git' in p.parts:continue
  parser=Parser();parser.feed(p.read_text());asts[str(p.relative_to(r))]=parser.root

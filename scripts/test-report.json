@@ -1,0 +1,11 @@
+{
+  "command": "npm run verify",
+  "status": "passed",
+  "counts": {
+    "total": 78,
+    "passed": 78,
+    "failed": 0,
+    "skipped": 0
+  },
+  "scope": "Offline execution of actual Page/modules with isolated wx and request stubs; no WeChat compiler, real device, backend or native SDK execution."
+}

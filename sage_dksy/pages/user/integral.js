@@ -36,10 +36,10 @@ function project(page) {
   page.setData({visibleList:shown,loadedIncome:credit,loadedExpense:debit});
 }
 Page({
-  data:{num_log:[],visibleList:[],filter:'all',pages:1,load:true,loading:false,openid:'',labels:{},loadedIncome:0,loadedExpense:0,error:'',firstLoaded:false},
-  onLoad:function(){this._alive=true;wx.setNavigationBarTitle({title:'金币明细'});this.reload();},
+  data:{viewMode:'ledger',balance:null,balanceText:'—',balanceLoading:false,num_log:[],visibleList:[],filter:'all',pages:1,load:true,loading:false,openid:'',labels:{},loadedIncome:0,loadedExpense:0,error:'',firstLoaded:false},
+  onLoad:function(q){this._alive=true;this.setData({viewMode:q&&q.view==='wallet'?'wallet':'ledger'});wx.setNavigationBarTitle({title:this.data.viewMode==='wallet'?'我的金币':'金币明细'});this.reload();this.refreshBalance();},
   onUnload:function(){this._alive=false;},
-  onShow:function(){if(this._seen){this.reload();}this._seen=true;},
+  onShow:function(){if(this._seen){this.reload();this.refreshBalance();}this._seen=true;},
   reload:function(){
     var self=this;
     if(this.data.loading)return;
@@ -77,6 +77,14 @@ Page({
     },function(){/* Older server: keep truthful non-specific title fallback. */});
   },
   failed:function(msg){if(!this._alive)return;this.setData({loading:false,error:msg});wx.stopPullDownRefresh();},
+  refreshBalance:function(){
+    if(this._balanceBusy)return;this._balanceBusy=true;this.setData({balanceLoading:true});var self=this;
+    function finish(value){self._balanceBusy=false;if(!self._alive)return;var valid=value!==null&&value!==undefined&&typeof value!=='boolean'&&typeof value!=='object'&&String(value).trim()!==''&&isFinite(Number(value))&&Number(value)>=0;var patch={balanceLoading:false};if(valid){patch.balance=Number(value);patch.balanceText=String(Number(value)).replace(/\B(?=(\d{3})+(?!\d))/g,',');}self.setData(patch);}
+    wx.login({success:function(auth){if(!auth.code){finish(null);return;}app.secureRequest({url:app.util.url('entry/wxapp/set')+'m=sage_dksy',method:'POST',data:{code:auth.code},timeout:15000,success:function(r){var b=r&&r.data;if(r&&r.statusCode>=200&&r.statusCode<300&&b&&typeof b==='object'&&!Number(b.error)&&b.userinfo)finish(b.userinfo.num);else finish(null);},fail:function(){finish(null);}});},fail:function(){finish(null);}});
+  },
+  showLedger:function(){this.setData({viewMode:'ledger'});wx.setNavigationBarTitle({title:'金币明细'});},
+  goEarn:function(){wx.redirectTo({url:'/sage_dksy/pages/v14/tasks/index'});},
+  goGifts:function(){wx.redirectTo({url:'/sage_dksy/pages/prize/index'});},
   chooseFilter:function(e){this.setData({filter:e.currentTarget.dataset.filter||'all'});project(this);},
   retry:function(){this.reload();},
   loadMore:function(){this.onReachBottom();},

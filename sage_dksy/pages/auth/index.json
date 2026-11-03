@@ -1,10 +1,10 @@
 {
   "component": true,
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#F5F3ED",
-  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#D70C38",
+  "navigationBarTextStyle": "white",
   "navigationBarTitleText": "个人资料",
-  "backgroundColor": "#F5F3ED",
+  "backgroundColor": "#FFF6F5",
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": false
 }

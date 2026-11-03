@@ -1,9 +1,9 @@
 {
   "usingComponents": {},
-  "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "好礼",
-  "navigationBarBackgroundColor": "#F5F3ED",
-  "backgroundColor": "#F5F3ED",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "商品试用",
+  "navigationBarBackgroundColor": "#D70C38",
+  "backgroundColor": "#FFF6F5",
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": true
 }

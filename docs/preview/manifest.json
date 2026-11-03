@@ -1,0 +1,76 @@
+{
+  "notice": "浏览器布局预览 / 演示数据，非微信真机截图。仅将外部测试数据注入当前真实WXML；不执行API、广告、签到或兑换。",
+  "screens": [
+    {
+      "id": "home",
+      "title": "首页",
+      "route": "index/index"
+    },
+    {
+      "id": "tasks",
+      "title": "赚金币",
+      "route": "v14/tasks/index"
+    },
+    {
+      "id": "gifts",
+      "title": "金币商城",
+      "route": "prize/index"
+    },
+    {
+      "id": "trial",
+      "title": "商品试用",
+      "route": "trial/trial"
+    },
+    {
+      "id": "mine",
+      "title": "我的",
+      "route": "user/index"
+    },
+    {
+      "id": "sign",
+      "title": "每日签到",
+      "route": "v14/sign/index"
+    },
+    {
+      "id": "product",
+      "title": "商品详情",
+      "route": "prize/prize_show"
+    },
+    {
+      "id": "invite",
+      "title": "邀请好友",
+      "route": "v11/promote"
+    },
+    {
+      "id": "offer",
+      "title": "广告奖励",
+      "route": "v14/tasks/index"
+    },
+    {
+      "id": "paid",
+      "title": "奖励到账",
+      "route": "v14/tasks/index"
+    },
+    {
+      "id": "unpaid",
+      "title": "观看未完成",
+      "route": "v14/tasks/index"
+    },
+    {
+      "id": "cool",
+      "title": "广告奖励冷却中",
+      "route": "v14/tasks/index"
+    },
+    {
+      "id": "sign-success",
+      "title": "签到成功",
+      "route": "v14/sign/index"
+    },
+    {
+      "id": "redeem-confirm",
+      "title": "兑换确认",
+      "route": "prize/prize_show"
+    }
+  ],
+  "warnings": []
+}

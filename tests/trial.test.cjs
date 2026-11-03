@@ -28,14 +28,14 @@ test('trial application prevents duplicate submit and does not claim success on 
  f.pending[0].resolve({msg:'ambiguous'});await settle();assert.equal(f.page.data.submitting,false);assert.equal(f.page.data.submissionUnknown,true);assert.equal(f.tracks.length,0);
  f.page.resQuick();assert.equal(f.pending.length,1);
 });
-test('confirmed trial application routes to application history and says application is not selection',async()=>{
+test('confirmed trial application shows its result, prevents repeat submit and opens application history',async()=>{
  const f=fixture('sage_dksy/pages/trial/trial_input.js');f.page.setData({id:7,loaded:true,loading:false,canApply:true,trial_show:{isyes:1}});f.page.resQuick();f.pending[0].resolve({error:0});await settle();
- const modal=f.calls.find(c=>c.name==='showModal').args[0];assert.match(modal.content,/不等于中选/);modal.success({confirm:true});assert.match(f.calls.find(c=>c.name==='redirectTo').args[0].url,/user\/trial_list$/);
+ assert.equal(f.page.data.applicationSubmitted,true);assert.equal(f.page.data.canApply,false);assert.equal(f.page.data.submitting,false);f.page.resQuick();assert.equal(f.pending.length,1);f.page.goHistory();assert.match(f.calls.find(c=>c.name==='redirectTo').args[0].url,/user\/trial_list$/);
 });
 test('trial address requires complete data and locks duplicate submission',async()=>{
  const f=fixture('sage_dksy/pages/trial/complete/complete.js');f.page.setData({id:7});f.page.save({detail:{value:{username:' ',tel:'13800000000',address:'地址'}}});assert.equal(f.pending.length,0);
  const event={detail:{value:{username:'测试用户',tel:'13800000000',address:'测试地址'}}};f.page.save(event);f.page.save(event);assert.equal(f.pending.length,1);
- f.pending[0].resolve({error:0});await settle();assert.equal(f.page.data.busy,false);assert.equal(f.calls.filter(c=>c.name==='showModal').length,1);
+ f.pending[0].resolve({error:0});await settle();assert.equal(f.page.data.busy,false);assert.equal(f.page.data.submitted,true);assert.equal(f.page.data.recipient.name,'测试用户');assert.equal(f.page.data.recipient.phone,'138****0000');f.page.save(event);assert.equal(f.pending.length,1);f.page.goHistory();assert.match(f.calls.find(c=>c.name==='redirectTo').args[0].url,/user\/trial_list$/);
 });
 test('trial history refreshes on returning from address completion and retains data when refresh fails',()=>{
  const f=fixture('sage_dksy/pages/user/trial_list.js');f.page.onShow();f.logins[0].success({code:'test-code'});f.requests[0].success({data:{error:0,triallist:[{id:1}],page:0}});

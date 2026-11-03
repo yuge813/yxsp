@@ -101,7 +101,7 @@ Page({
     loaded: false, signReady:false, signError:'', contentLoading:true, goodsError:'', articleLoading:true, articleError:'', signing: false, bonusBusy: false, subscribeBusy:false, subscribeSignTemplate:"", subscribeConfigReady:false,
     thisurl: 'sage_dksy/pages/index/index',
     apptitle: '元享APP', setinfo: { integral_title: '金币' },
-    userinfo: {}, num: null, signNum: 0, today_qian: 0,
+    userinfo: {}, num: null, signReceipt:null, homeTrial:{}, trialImageFailed:false, signNum: 0, today_qian: 0,
     week: [1, 2, 3, 4, 5, 6, 7], signCards: buildSignCards({}, 0, 0), nextSignReward: null,
     prize: [], adset: { reward_on: 0 }, homeBannerLoaded: false,
     bonus: { enabled: 0, count: 0, limit: 0, points: 0 },
@@ -287,7 +287,7 @@ Page({
           if(r.userinfo && typeof r.userinfo==='object' && !self._disposed){
             var changes={userinfo:r.userinfo,num:nonnegative(r.userinfo.num)};
             if(changes.num===null)delete changes.num;
-            if(r.setinfo&&typeof r.setinfo==='object')changes.setinfo=r.setinfo;
+            if(r.setinfo&&typeof r.setinfo==='object'){changes.setinfo=r.setinfo;if(self.data.signReady){var cards=buildSignCards(r.setinfo,self.data.signNum,self.data.today_qian),current=cards.filter(function(c){return c.active;})[0];changes.signCards=cards;changes.nextSignReward=current?current.amount:null;}}
             self.setData(changes);
           }
           resolve();
@@ -307,16 +307,18 @@ Page({
       var cards=buildSignCards(self.data.setinfo,streak,signed),current=cards.filter(function(x){return x.active;})[0];
       self.setData({signReady:true,signError:'',signNum:streak,today_qian:signed,signCards:cards,nextSignReward:current?current.amount:null});
     },function(){self.setData({signReady:false,signError:'签到状态暂未同步，请重试'});});
-    require('../../utils/v12read.js').call('v12feed',{category:'recommend',page:1}).then(function(x){self.setData({recommendArticle:(x.items||[])[0]||{},articleLoading:false});}).catch(function(){self.setData({articleLoading:false,articleError:'精选内容暂未加载出来'});});
+    this.api('trial',{openid:self.data.openid||'',pages:1},function(info){var rows=Array.isArray(info.trial)?info.trial:[];var current=rows.filter(function(row){return row&&typeof row==='object'&&String(row.isyes)==='1';})[0]||{};self.setData({homeTrial:current,trialImageFailed:false});});
     this.api('indexprize',{pages:1},function(info){
       if(Number(info.error)){self.setData({contentLoading:false,goodsError:'好礼暂未加载出来'});return;}
-      var list=Array.isArray(info.prize)?info.prize:[];self.setData({prize:list,homeGoods:list.slice(0,4),contentLoading:false});
+      var list=Array.isArray(info.prize)?info.prize.filter(function(row){return row&&typeof row==='object'&&Number(row.prize_id)>0;}):[];self.setData({prize:list,homeGoods:list.slice(0,4),contentLoading:false});
     },function(){self.setData({contentLoading:false,goodsError:'好礼暂未加载出来'});});
     this.api('adset',{},function(info){self.setData({adset:info.adset||{reward_on:0},homeBannerLoaded:false});});
     this.api('growthstatus',{},function(info){if(Number(info.error)===0)self.setData({growth:info.challenge||{joined:0,done_count:0}});});
     this.api('bonusstatus',{},function(info){if(!info.error)self.setData({bonus:info});});
   },
   retrySections:function(){if(this.data.loaded)this.reload();else this.init();},
+  closeSignReceipt:function(){this.setData({signReceipt:null});wx.setNavigationBarTitle({title:'元享'});},
+  onTrialImageError:function(){this.setData({trialImageFailed:true});},
   onArticleImageError:function(){this.setData({'recommendArticle.cover_url':''});},
   onPullDownRefresh: function () {
     this.init();
@@ -332,7 +334,7 @@ Page({
       if (Number(res.error) === 0) {
         var amount=nonnegative(res.num);
         wx.showToast({ title: amount===null?'签到已提交，正在同步':'签到成功 +'+amount+' 金币',icon:'none' });
-        if(amount!==null)self.setData({today_qian:1,num:self.data.num===null?null:Number(self.data.num)+amount});
+        if(amount!==null){self.setData({today_qian:1,num:self.data.num===null?null:Number(self.data.num)+amount,signReceipt:{amount:amount}});wx.setNavigationBarTitle({title:'签到成功'});}
         self.reload();
       } else {
         wx.showToast({ title: safeUserMessage(res.msg,'签到未成功，请重试'), icon: 'none' });

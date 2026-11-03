@@ -20,8 +20,8 @@ function taskView(raw) {
   return Object.assign(base, {state:'ready',status:'可以参与',available:true,button:'自愿观看',hint:'完整观看后按当前规则领取，提前关闭不发放本次奖励'});
 }
 Page({
-  data: { thisurl:'sage_dksy/pages/v14/tasks/index', loading:true, loaded:false, home:taskView({error:1}), read:taskView({error:1}), error:'', sessionReady:false, sessionLoading:false, watching:false, signLoading:true, signAvailable:false, signed:false, signReward:null, signStreak:0 },
-  onLoad:function(){var self=this;this.rewardControl={refresh:function(){return self.refreshTodayTask();}};this.connect();},
+  data: { thisurl:'sage_dksy/pages/v14/tasks/index', loading:true, loaded:false, home:taskView({error:1}), read:taskView({error:1}), error:'', sessionReady:false, sessionLoading:false, balance:null, rewardViewMode:'tasks', rewardCoins:null, rewardTaskId:'', rewardMessage:'', watching:false, signLoading:true, signAvailable:false, signed:false, signReward:null, signStreak:0 },
+  onLoad:function(query){var self=this;this.rewardControl={refresh:function(){return self.refreshTodayTask();}};this.connect().then(function(){if(!self._disposed&&query&&query.view==='offer')self.showOffer();});},
   onShow:function(){this._visible=true;if(this._shown){this.connect();}this._shown=true;this.startTimer();},
   onHide:function(){this._visible=false;this.stopTimer();if(this._yxRewardAd)this._yxRewardAd.leave();},
   onUnload:function(){this._disposed=true;this.stopTimer();if(this._yxRewardAd)this._yxRewardAd.destroy();},
@@ -43,13 +43,34 @@ Page({
       if(!auth.code){resolve(false);return;}
       app.secureRequest({url:app.util.url('entry/wxapp/set')+'m=sage_dksy',method:'POST',data:{code:auth.code},timeout:15000,success:function(res){
         var r=res&&res.data;if(!res||res.statusCode&&!(res.statusCode>=200&&res.statusCode<300)||!r||typeof r!=='object'||Array.isArray(r)||Number(r.error)||!r.auth_token){resolve(false);return;}
+        if(r.userinfo)self.setData({balance:number(r.userinfo.num)});
         if(r.openid)wx.setStorageSync('openid',r.openid);
         if(r.setinfo&&typeof r.setinfo==='object')wx.setStorageSync('dksy_v7_sign_settings',r.setinfo);
         resolve(true);
       },fail:function(){resolve(false);}});
     },fail:function(){resolve(false);}});}).then(function(ok){self._connecting=null;if(!self._disposed)self.setData({sessionLoading:false,sessionReady:ok});return ok;});return this._connecting;
   },
-  connect:function(force){if(!force)this._reauthed=false;var self=this;return this.ensureSession(force).then(function(ok){if(self._disposed)return;if(ok){self.loadSign();return self.load();}self.setData({loading:false,loaded:false,error:'账号暂时没有连接上，请检查网络后重试'});});},
+  connect:function(force){if(!force)this._reauthed=false;var self=this;return this.ensureSession(force).then(function(ok){if(self._disposed)return;if(ok){self.loadSign();self.refreshWallet();return self.load();}self.setData({loading:false,loaded:false,error:'账号暂时没有连接上，请检查网络后重试'});});},
+  refreshWallet:function(){
+    if(this._walletPromise)return this._walletPromise;var self=this;
+    this._walletPromise=new Promise(function(resolve){wx.login({success:function(auth){if(!auth.code){resolve();return;}
+      app.secureRequest({url:app.util.url('entry/wxapp/set')+'m=sage_dksy',method:'POST',data:{code:auth.code},timeout:15000,success:function(res){var r=res&&res.data;
+        if(res&&(!res.statusCode||res.statusCode>=200&&res.statusCode<300)&&r&&typeof r==='object'&&!Array.isArray(r)&&!Number(r.error)&&r.userinfo&&!self._disposed)self.setData({balance:number(r.userinfo.num)});
+        resolve();},fail:function(){resolve();}});
+    },fail:function(){resolve();}});}).then(function(){self._walletPromise=null;});return this._walletPromise;
+  },
+  setRewardView:function(mode){this.setData({rewardViewMode:mode});var titles={tasks:'赚金币',offer:'广告奖励',paid:'奖励到账',unpaid:'观看未完成',cool:'广告奖励冷却中',pending:'奖励处理中',error:'广告暂不可用'};wx.setNavigationBarTitle({title:titles[mode]||'赚金币'});},
+  showOffer:function(){this.setRewardView(this.data.home.state==='cool'?'cool':'offer');},
+  closeRewardView:function(){this.setRewardView('tasks');this.load(true);},
+  onRewardResult:function(result){
+    if(this._disposed||!result||['paid','unpaid','pending','error'].indexOf(result.state)<0)return;
+    var amount=number(result.coins),state=result.state;
+    if(state==='paid'&&amount===null)state='pending';
+    this.setData({rewardCoins:state==='paid'?amount:null,rewardTaskId:String(result.taskId||''),rewardMessage:String(result.message||''),watching:false});
+    this.setRewardView(state);this.refreshWallet();
+  },
+  retryReward:function(){var self=this;return this.load(true).then(function(){self.showOffer();});},
+  goGifts:function(){wx.redirectTo({url:'/sage_dksy/pages/prize/index'});},
   loadSign:function(){var self=this;this.setData({signLoading:true});app.secureRequest({url:app.util.url('entry/wxapp/qianinfo')+'m=sage_dksy',method:'POST',timeout:15000,success:function(res){
     var r=res&&res.data;if(!res||res.statusCode&&!(res.statusCode>=200&&res.statusCode<300)||!r||typeof r!=='object'||Array.isArray(r)||Number(r.error)||r.qd===undefined){self.setData({signLoading:false,signAvailable:false});return;}
     var streak=Math.max(0,Number(r.qd)||0),signed=Number(r.today_qian)===1,day=signed?((Math.max(1,streak)-1)%7)+1:(streak%7)+1,cfg={};try{cfg=wx.getStorageSync('dksy_v7_sign_settings')||{};}catch(_){}
@@ -66,7 +87,7 @@ Page({
       changes.error=errors?'部分任务状态暂未同步，请检查网络后重试':'';self.setData(changes);
     }).then(function(){self._fetching=null;},function(){self._fetching=null;if(!self._disposed)self.setData({loading:false,error:'任务暂未加载出来，请重试'});});return this._fetching;
   },
-  refreshTodayTask:function(){return this.load(true);},
+  refreshTodayTask:function(){this.refreshWallet();return this.load(true);},
   retry:function(){this._reauthed=false;if(!this.data.sessionReady)return this.connect(true);this.loadSign();return this.load();},
   watchHome:function(){
     if(this.data.watching||!this.data.home.available)return;var self=this;this.setData({watching:true});

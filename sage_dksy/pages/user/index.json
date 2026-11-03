@@ -4,9 +4,9 @@
     "yx22-popup": "/sage_dksy/components/yx22-popup/index"
   },
   "navigationBarTitleText": "我的",
-  "navigationBarBackgroundColor": "#F5F3ED",
-  "navigationBarTextStyle": "black",
-  "backgroundColor": "#F5F3ED",
+  "navigationBarBackgroundColor": "#D70C38",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#FFF6F5",
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": true
 }

@@ -50,10 +50,10 @@
     "sage_dksy/pages/v14/rewards/index"
   ],
   "window": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "元享",
-    "navigationBarBackgroundColor": "#F5F3ED",
-    "backgroundColor": "#F5F3ED",
+    "navigationBarBackgroundColor": "#D70C38",
+    "backgroundColor": "#FFF6F5",
     "enablePullDownRefresh": false,
     "backgroundTextStyle": "dark"
   },
