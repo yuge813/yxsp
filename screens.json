@@ -1,0 +1,338 @@
+[
+  {
+    "id": 1,
+    "name": "元享",
+    "group": "五项业务主入口",
+    "html": "pages/01.html",
+    "image": "images/01.jpg"
+  },
+  {
+    "id": 2,
+    "name": "赚金币",
+    "group": "五项业务主入口",
+    "html": "pages/02.html",
+    "image": "images/02.jpg"
+  },
+  {
+    "id": 3,
+    "name": "金币商城",
+    "group": "五项业务主入口",
+    "html": "pages/03.html",
+    "image": "images/03.jpg"
+  },
+  {
+    "id": 4,
+    "name": "商品试用",
+    "group": "五项业务主入口",
+    "html": "pages/04.html",
+    "image": "images/04.jpg"
+  },
+  {
+    "id": 5,
+    "name": "每日签到",
+    "group": "签到与每日习惯",
+    "html": "pages/05.html",
+    "image": "images/05.jpg"
+  },
+  {
+    "id": 6,
+    "name": "签到成功",
+    "group": "签到与每日习惯",
+    "html": "pages/06.html",
+    "image": "images/06.jpg"
+  },
+  {
+    "id": 7,
+    "name": "签到记录",
+    "group": "签到与每日习惯",
+    "html": "pages/07.html",
+    "image": "images/07.jpg"
+  },
+  {
+    "id": 8,
+    "name": "签到提醒",
+    "group": "签到与每日习惯",
+    "html": "pages/08.html",
+    "image": "images/08.jpg"
+  },
+  {
+    "id": 9,
+    "name": "广告奖励",
+    "group": "广告领奖完整流程",
+    "html": "pages/09.html",
+    "image": "images/09.jpg"
+  },
+  {
+    "id": 10,
+    "name": "原生广告播放",
+    "group": "广告领奖完整流程",
+    "html": "pages/10.html",
+    "image": "images/10.jpg"
+  },
+  {
+    "id": 11,
+    "name": "奖励到账",
+    "group": "广告领奖完整流程",
+    "html": "pages/11.html",
+    "image": "images/11.jpg"
+  },
+  {
+    "id": 12,
+    "name": "观看未完成",
+    "group": "广告领奖完整流程",
+    "html": "pages/12.html",
+    "image": "images/12.jpg"
+  },
+  {
+    "id": 13,
+    "name": "我的金币",
+    "group": "金币账户与明细",
+    "html": "pages/13.html",
+    "image": "images/13.jpg"
+  },
+  {
+    "id": 14,
+    "name": "金币明细",
+    "group": "金币账户与明细",
+    "html": "pages/14.html",
+    "image": "images/14.jpg"
+  },
+  {
+    "id": 15,
+    "name": "金币收入",
+    "group": "金币账户与明细",
+    "html": "pages/15.html",
+    "image": "images/15.jpg"
+  },
+  {
+    "id": 16,
+    "name": "金币支出",
+    "group": "金币账户与明细",
+    "html": "pages/16.html",
+    "image": "images/16.jpg"
+  },
+  {
+    "id": 17,
+    "name": "好礼详情",
+    "group": "商品兑换完整流程",
+    "html": "pages/17.html",
+    "image": "images/17.jpg"
+  },
+  {
+    "id": 18,
+    "name": "确认兑换",
+    "group": "商品兑换完整流程",
+    "html": "pages/18.html",
+    "image": "images/18.jpg"
+  },
+  {
+    "id": 19,
+    "name": "兑换结果",
+    "group": "商品兑换完整流程",
+    "html": "pages/19.html",
+    "image": "images/19.jpg"
+  },
+  {
+    "id": 20,
+    "name": "金币还差一点",
+    "group": "商品兑换完整流程",
+    "html": "pages/20.html",
+    "image": "images/20.jpg"
+  },
+  {
+    "id": 21,
+    "name": "兑换记录",
+    "group": "订单与物流信息",
+    "html": "pages/21.html",
+    "image": "images/21.jpg"
+  },
+  {
+    "id": 22,
+    "name": "订单详情",
+    "group": "订单与物流信息",
+    "html": "pages/22.html",
+    "image": "images/22.jpg"
+  },
+  {
+    "id": 23,
+    "name": "订单详情",
+    "group": "订单与物流信息",
+    "html": "pages/23.html",
+    "image": "images/23.jpg"
+  },
+  {
+    "id": 24,
+    "name": "物流信息",
+    "group": "订单与物流信息",
+    "html": "pages/24.html",
+    "image": "images/24.jpg"
+  },
+  {
+    "id": 25,
+    "name": "试用详情",
+    "group": "试用申请完整流程",
+    "html": "pages/25.html",
+    "image": "images/25.jpg"
+  },
+  {
+    "id": 26,
+    "name": "确认试用申请",
+    "group": "试用申请完整流程",
+    "html": "pages/26.html",
+    "image": "images/26.jpg"
+  },
+  {
+    "id": 27,
+    "name": "申请成功",
+    "group": "试用申请完整流程",
+    "html": "pages/27.html",
+    "image": "images/27.jpg"
+  },
+  {
+    "id": 28,
+    "name": "我的试用",
+    "group": "试用申请完整流程",
+    "html": "pages/28.html",
+    "image": "images/28.jpg"
+  },
+  {
+    "id": 29,
+    "name": "试用申请进度",
+    "group": "试用结果与资料提交",
+    "html": "pages/29.html",
+    "image": "images/29.jpg"
+  },
+  {
+    "id": 30,
+    "name": "试用中选结果",
+    "group": "试用结果与资料提交",
+    "html": "pages/30.html",
+    "image": "images/30.jpg"
+  },
+  {
+    "id": 31,
+    "name": "试用结果",
+    "group": "试用结果与资料提交",
+    "html": "pages/31.html",
+    "image": "images/31.jpg"
+  },
+  {
+    "id": 32,
+    "name": "资料提交成功",
+    "group": "试用结果与资料提交",
+    "html": "pages/32.html",
+    "image": "images/32.jpg"
+  },
+  {
+    "id": 33,
+    "name": "邀请好友",
+    "group": "邀请好友与专属海报",
+    "html": "pages/33.html",
+    "image": "images/33.jpg"
+  },
+  {
+    "id": 34,
+    "name": "专属邀请海报",
+    "group": "邀请好友与专属海报",
+    "html": "pages/34.html",
+    "image": "images/34.jpg"
+  },
+  {
+    "id": 35,
+    "name": "分享给好友",
+    "group": "邀请好友与专属海报",
+    "html": "pages/35.html",
+    "image": "images/35.jpg"
+  },
+  {
+    "id": 36,
+    "name": "我的好友",
+    "group": "邀请好友与专属海报",
+    "html": "pages/36.html",
+    "image": "images/36.jpg"
+  },
+  {
+    "id": 37,
+    "name": "我的",
+    "group": "我的账户与帮助",
+    "html": "pages/37.html",
+    "image": "images/37.jpg"
+  },
+  {
+    "id": 38,
+    "name": "个人资料",
+    "group": "我的账户与帮助",
+    "html": "pages/38.html",
+    "image": "images/38.jpg"
+  },
+  {
+    "id": 39,
+    "name": "设置",
+    "group": "我的账户与帮助",
+    "html": "pages/39.html",
+    "image": "images/39.jpg"
+  },
+  {
+    "id": 40,
+    "name": "帮助与规则",
+    "group": "我的账户与帮助",
+    "html": "pages/40.html",
+    "image": "images/40.jpg"
+  },
+  {
+    "id": 41,
+    "name": "收货地址",
+    "group": "收货地址完整流程",
+    "html": "pages/41.html",
+    "image": "images/41.jpg"
+  },
+  {
+    "id": 42,
+    "name": "编辑收货地址",
+    "group": "收货地址完整流程",
+    "html": "pages/42.html",
+    "image": "images/42.jpg"
+  },
+  {
+    "id": 43,
+    "name": "选择地址",
+    "group": "收货地址完整流程",
+    "html": "pages/43.html",
+    "image": "images/43.jpg"
+  },
+  {
+    "id": 44,
+    "name": "添加收货地址",
+    "group": "收货地址完整流程",
+    "html": "pages/44.html",
+    "image": "images/44.jpg"
+  },
+  {
+    "id": 45,
+    "name": "加载失败",
+    "group": "冷却缺货与异常恢复",
+    "html": "pages/45.html",
+    "image": "images/45.jpg"
+  },
+  {
+    "id": 46,
+    "name": "兑换记录",
+    "group": "冷却缺货与异常恢复",
+    "html": "pages/46.html",
+    "image": "images/46.jpg"
+  },
+  {
+    "id": 47,
+    "name": "广告奖励冷却中",
+    "group": "冷却缺货与异常恢复",
+    "html": "pages/47.html",
+    "image": "images/47.jpg"
+  },
+  {
+    "id": 48,
+    "name": "商品已售罄",
+    "group": "冷却缺货与异常恢复",
+    "html": "pages/48.html",
+    "image": "images/48.jpg"
+  }
+]

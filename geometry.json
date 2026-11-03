@@ -1,0 +1,638 @@
+[
+  {
+    "id": 1,
+    "name": "元享",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 680,
+    "scrollHeight": 944,
+    "buttons": [
+      {
+        "text": "立即签到　+25 金币",
+        "top": 488,
+        "bottom": 536
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "赚金币",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 680,
+    "scrollHeight": 741,
+    "buttons": [
+      {
+        "text": "去观看",
+        "top": 468,
+        "bottom": 514
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "金币商城",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 680,
+    "scrollHeight": 988,
+    "buttons": []
+  },
+  {
+    "id": 4,
+    "name": "商品试用",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 680,
+    "scrollHeight": 843,
+    "buttons": [
+      {
+        "text": "免费申请",
+        "top": 675,
+        "bottom": 723
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "每日签到",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 711,
+    "buttons": [
+      {
+        "text": "立即签到，领取 25 金币",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "签到成功",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 685,
+    "buttons": [
+      {
+        "text": "查看金币明细",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "签到记录",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 890,
+    "buttons": []
+  },
+  {
+    "id": 8,
+    "name": "签到提醒",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 731,
+    "buttons": [
+      {
+        "text": "订阅下一次提醒",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "广告奖励",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 739,
+    "buttons": [
+      {
+        "text": "自愿观看，完成领 2 金币",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "原生广告播放",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": []
+  },
+  {
+    "id": 11,
+    "name": "奖励到账",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 714,
+    "buttons": [
+      {
+        "text": "查看金币明细",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "观看未完成",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": [
+      {
+        "text": "返回赚金币",
+        "top": 633,
+        "bottom": 681
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "我的金币",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 917,
+    "buttons": []
+  },
+  {
+    "id": 14,
+    "name": "金币明细",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": []
+  },
+  {
+    "id": 15,
+    "name": "金币收入",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": []
+  },
+  {
+    "id": 16,
+    "name": "金币支出",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": []
+  },
+  {
+    "id": 17,
+    "name": "好礼详情",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 992,
+    "buttons": [
+      {
+        "text": "立即兑换",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "确认兑换",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": [
+      {
+        "text": "确认扣除 1,800 金币",
+        "top": 737,
+        "bottom": 785
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "兑换结果",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": [
+      {
+        "text": "查看兑换记录",
+        "top": 635,
+        "bottom": 683
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "金币还差一点",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 719,
+    "buttons": [
+      {
+        "text": "去赚金币",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "兑换记录",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 784,
+    "buttons": []
+  },
+  {
+    "id": 22,
+    "name": "订单详情",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 844,
+    "buttons": []
+  },
+  {
+    "id": 23,
+    "name": "订单详情",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 751,
+    "buttons": [
+      {
+        "text": "确认收货",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "物流信息",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 897,
+    "buttons": []
+  },
+  {
+    "id": 25,
+    "name": "试用详情",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 1062,
+    "buttons": [
+      {
+        "text": "免费申请试用",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "确认试用申请",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 737,
+    "buttons": [
+      {
+        "text": "确认申请",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "申请成功",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 812,
+    "buttons": [
+      {
+        "text": "查看我的试用",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "我的试用",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 879,
+    "buttons": []
+  },
+  {
+    "id": 29,
+    "name": "试用申请进度",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 827,
+    "buttons": [
+      {
+        "text": "查看活动规则",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "试用中选结果",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 730,
+    "buttons": [
+      {
+        "text": "填写收货资料",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "name": "试用结果",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 797,
+    "buttons": [
+      {
+        "text": "看看其他试用",
+        "top": 557,
+        "bottom": 605
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "资料提交成功",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 785,
+    "buttons": [
+      {
+        "text": "返回我的试用",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "邀请好友",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 821,
+    "buttons": [
+      {
+        "text": "制作专属邀请海报",
+        "top": 547,
+        "bottom": 595
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "专属邀请海报",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 670,
+    "buttons": [
+      {
+        "text": "保存专属海报",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "分享给好友",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": [
+      {
+        "text": "我知道了",
+        "top": 604,
+        "bottom": 652
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "我的好友",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 838,
+    "buttons": [
+      {
+        "text": "继续邀请好友",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "我的",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 680,
+    "scrollHeight": 981,
+    "buttons": []
+  },
+  {
+    "id": 38,
+    "name": "个人资料",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 670,
+    "buttons": [
+      {
+        "text": "保存昵称",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "设置",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 843,
+    "buttons": []
+  },
+  {
+    "id": 40,
+    "name": "帮助与规则",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 786,
+    "buttons": [
+      {
+        "text": "联系微信客服",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "收货地址",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 670,
+    "buttons": [
+      {
+        "text": "新增收货地址",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "name": "编辑收货地址",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 716,
+    "buttons": [
+      {
+        "text": "保存收货地址",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "选择地址",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 670,
+    "buttons": [
+      {
+        "text": "使用此收货地址",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "添加收货地址",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": [
+      {
+        "text": "使用微信收货地址",
+        "top": 547,
+        "bottom": 595
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "加载失败",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": [
+      {
+        "text": "重新加载",
+        "top": 515,
+        "bottom": 563
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "兑换记录",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 760,
+    "scrollHeight": 760,
+    "buttons": [
+      {
+        "text": "去挑选好礼",
+        "top": 632,
+        "bottom": 680
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "广告奖励冷却中",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 743,
+    "buttons": []
+  },
+  {
+    "id": 48,
+    "name": "商品已售罄",
+    "width": 390,
+    "contentWidth": 390,
+    "viewHeight": 670,
+    "scrollHeight": 864,
+    "buttons": [
+      {
+        "text": "发现其他好礼",
+        "top": 768,
+        "bottom": 816
+      }
+    ]
+  }
+]
