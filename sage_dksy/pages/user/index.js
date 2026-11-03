@@ -1,5 +1,6 @@
 var app = getApp();
 var v3gate = require('../../utils/v3_ad_gate.js');
+var avatarSource = require('../../utils/avatar-source.js');
 function object(value) { return !!value && typeof value === 'object' && !Array.isArray(value); }
 function bodyOf(response) { var b = response && response.data; if (typeof b === 'string') { try { b = JSON.parse(b); } catch (_) { return null; } } return object(b) ? b : null; }
 function balanceOf(user) { var raw = user && user.num; if (raw === null || raw === undefined || typeof raw === 'boolean' || String(raw).trim() === '') return null; var n = Number(raw); return Number.isFinite(n) && n >= 0 ? n : null; }
@@ -24,7 +25,7 @@ Page({
           if(status<200||status>=300||!b||!object(b.userinfo)||(b.error!==undefined&&Number(b.error)!==0)){failed();return;}
           var balance=balanceOf(b.userinfo);
           self._accountBusy=false;
-          self.setData({userinfo:b.userinfo,balance:balance,balanceText:balance===null?'—':String(balance),setinfo:b.setinfo||{},openid:b.openid||'',loading:false,loaded:true,pageError:'',avatarFailed:false});
+          self.setData({userinfo:Object.assign({},b.userinfo,{headimg:avatarSource(b.userinfo.headimg)}),balance:balance,balanceText:balance===null?'—':String(balance),setinfo:b.setinfo||{},openid:b.openid||'',loading:false,loaded:true,pageError:'',avatarFailed:false});
           if(b.openid)wx.setStorageSync('openid',b.openid);
           wx.stopPullDownRefresh();
         },fail:failed});

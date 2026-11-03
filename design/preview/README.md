@@ -29,3 +29,7 @@ Artifacts:
 The converter maps rpx at 390/750, common WeChat tags/conditionals/loops/includes, and icon/state components. Horizontal native scroll views are represented as horizontally scrolling containers. Native advertisements, announcement overlays, wxParse rich-text templates, event handlers, video playback and backend transitions are omitted. Title/capsule/safe areas are approximations. All previews carry a browser/demo watermark.
 
 Browser screenshots verify layout and readability only. They do not verify the WeChat compiler or renderer, a real device, backend, actual rewarded video, subscriptions or an order. Source defects and conversion limits must be distinguished when reviewing a screenshot.
+
+The `brand` set covers current home/auth/settings/invitation branding and three reminder states. Use `--set brand --output /workspace/scratch/yuanxiang_brand_fix_preview` after writing its WXML AST as above.
+
+`python3 design/preview/render_poster.py --output /workspace/scratch/yuanxiang_brand_fix_preview` executes the actual page-owned `red-poster.js` renderer through a browser CanvasContext adapter. It deliberately supplies a clearly marked demonstration code, not a usable invitation QR, and exercises package-root path normalization for both brand images. The output `poster-canvas.png` is a layout preview only; it does not execute the WeChat SDK, export APIs, or backend.

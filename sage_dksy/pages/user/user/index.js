@@ -1,5 +1,6 @@
 /* YX V13.1.2: explicit user-selected avatar/nickname; safe login-code verification. */
 var app = getApp();
+var avatarSource = require('../../../utils/avatar-source.js');
 Page({
   data:{openid:'',userinfo:{},nickname:'',profileBusy:false,avatarBusy:false,profileError:'',avatarPreview:'',profileLoaded:false},
   onLoad:function(){ this.refreshProfile(); },
@@ -23,7 +24,7 @@ Page({
       page.api('getuser',{code:code},function(r){
         page.setData({profileBusy:false});
         if(Number(r.error)===0&&r.userinfo){
-          page.setData({userinfo:r.userinfo,nickname:r.userinfo.nickname||'',avatarPreview:'',profileLoaded:true});
+          page.setData({userinfo:Object.assign({},r.userinfo,{headimg:avatarSource(r.userinfo.headimg)}),nickname:r.userinfo.nickname||'',avatarPreview:'',profileLoaded:true});
         }else{
           var msg=r.msg||'资料读取失败';page.setData({profileError:msg});
           if(Number(r.error)===401) app.clearAuth();
@@ -32,7 +33,7 @@ Page({
     },function(){page.setData({profileBusy:false,profileError:'微信登录失败'});});
   },
   upface:function(e){
-    var tmp=e&&e.detail&&e.detail.avatarUrl;
+    var tmp=avatarSource(e&&e.detail&&e.detail.avatarUrl);
     if(!tmp||this.data.avatarBusy)return;
     this.uploadSelectedAvatar(tmp);
   },
@@ -53,6 +54,7 @@ Page({
     }else wx.showToast({title:'当前微信版本不支持选择图片',icon:'none'});
   },
   uploadSelectedAvatar:function(tmp){
+    tmp=avatarSource(tmp);
     if(!tmp||this.data.avatarBusy)return;
     var page=this,previous=this.data.avatarPreview;
     this.setData({avatarPreview:tmp,avatarBusy:true,profileError:''});
@@ -61,8 +63,9 @@ Page({
       var submitAvatar=function(avatarPath){wx.uploadFile({url:app.util.url('entry/wxapp/upface')+'m=sage_dksy',filePath:avatarPath,name:'file',formData:{code:code},timeout:20000,
         success:function(res){
           var b;try{b=JSON.parse(String(res.data||''));}catch(err){b=null;}
-          if(res.statusCode===200&&b&&Number(b.error)===0&&b.path){
-            page.setData({'userinfo.headimg':b.path,avatarPreview:'',profileError:''});
+          var savedAvatar=avatarSource(b&&b.path);
+          if(res.statusCode===200&&b&&Number(b.error)===0&&savedAvatar){
+            page.setData({'userinfo.headimg':savedAvatar,avatarPreview:'',profileError:''});
             wx.showToast({title:'头像已保存',icon:'success'});
           }else{
             var reason=b&&b.msg || '头像暂时没有保存成功，请重试';
@@ -82,6 +85,7 @@ Page({
       } else {submitAvatar(tmp);}
     },function(){page.setData({avatarBusy:false,avatarPreview:previous,profileError:'微信登录失败'});});
   },
+  avatarError:function(){this.setData({avatarPreview:'','userinfo.headimg':''});},
   changename:function(e){this.setData({nickname:(e.detail&&e.detail.value)||''});},
   nicknamereview:function(e){this.changename(e);},
   tijiao:function(){

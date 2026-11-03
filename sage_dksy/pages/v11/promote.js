@@ -1,3 +1,4 @@
+var avatarSource = require('../../utils/avatar-source.js');
 var v = require('../../utils/v11.js');
 var invitePoster = require('./red-poster.js');
 var referral = require('../v132grow/referral.js');
@@ -41,7 +42,7 @@ Page({
     this.setData({connecting:true,profileError:'',code:'',qr:'',qrReady:false,qrLocalPath:'',posterPath:'',generatedTheme:-1,items:[],page:1,hasMore:true,loading:false,metricsReady:false,campaignReady:false,rewardInfo:{approved:false,stages:[],cap:null},walletReady:false});
     function fail(){self._connecting=false;if(self._alive)self.setData({connecting:false,profileError:'账户暂时没有连接成功，请重试'});}
     wx.login({success:function(auth){if(!self._alive)return;if(!auth||!auth.code)return fail();
-      v.api('set',{code:auth.code},function(result){if(!self._alive)return;if(!result||!result.auth_token)return fail();self._connecting=false;var profile=result.userinfo&&typeof result.userinfo==='object'?result.userinfo:{};self.setData({connecting:false,nickname:String(profile.nickname||''),avatar:String(profile.headimg||'')});self.fetchIdentity();},fail);
+      v.api('set',{code:auth.code},function(result){if(!self._alive)return;if(!result||!result.auth_token)return fail();self._connecting=false;var profile=result.userinfo&&typeof result.userinfo==='object'?result.userinfo:{};self.setData({connecting:false,nickname:String(profile.nickname||''),avatar:avatarSource(profile.headimg)});self.fetchIdentity();},fail);
     },fail:fail});
   },
   fetchIdentity: function () {

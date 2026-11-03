@@ -1,0 +1,9 @@
+{
+  "drawn": [
+    "/sage_dksy/resource/brand/logo.png",
+    "/sage_dksy/resource/red/hero.png",
+    "wxfile://demo-only-code"
+  ],
+  "logo": true,
+  "scope": "Actual page-owned renderer in browser CanvasContext adapter; demo code only, no WeChat SDK or backend execution."
+}

@@ -1,8 +1,8 @@
 const fs=require('node:fs'),path=require('node:path');
 const ROOT=path.resolve(__dirname,'../..');
 function option(name,fallback){const args=process.argv.slice(2),key='--'+name;const inline=args.find(a=>a.startsWith(key+'='));if(inline)return inline.slice(key.length+1);const i=args.indexOf(key);return i>=0?args[i+1]:fallback;}
-const PREVIEW_SET=option('set','core');if(!['core','benefits'].includes(PREVIEW_SET))throw new Error('Choose --set core or benefits');
-const OUT=path.resolve(option('output',PREVIEW_SET==='benefits'?'/workspace/scratch/yuanxiang_red_benefits_preview':'/workspace/scratch/yuanxiang_red_release_preview'));fs.mkdirSync(OUT,{recursive:true});
+const PREVIEW_SET=option('set','core');if(!['core','benefits','brand'].includes(PREVIEW_SET))throw new Error('Choose --set core, benefits or brand');
+const OUT=path.resolve(option('output',PREVIEW_SET==='brand'?'/workspace/scratch/yuanxiang_brand_fix_preview':PREVIEW_SET==='benefits'?'/workspace/scratch/yuanxiang_red_benefits_preview':'/workspace/scratch/yuanxiang_red_release_preview'));fs.mkdirSync(OUT,{recursive:true});
 const astPath=path.join(OUT,'wxml-ast.json');
 if(!fs.existsSync(astPath))throw new Error('Parse current WXML first: python3 design/preview/parse_wxml.py > '+astPath);
 const ast=JSON.parse(fs.readFileSync(astPath,'utf8'));
@@ -86,7 +86,16 @@ const benefitsScreens=[
  {id:'rules-growth',title:'7天成长说明',route:'v14/rewards/index',data:rulesData('growth')},
  {id:'rules-invite',title:'一级推广说明',route:'v14/rewards/index',data:rulesData('invite')}
 ];
-const screens=PREVIEW_SET==='benefits'?benefitsScreens:coreScreens;
+const brandScreens=[
+ coreScreens.find(s=>s.id==='home'),
+ {id:'auth',title:'欢迎元享 · 官方LOGO',route:'auth/index',data:{}},
+ {id:'settings',title:'设置 · 官方LOGO',route:'v17/settings',data:{}},
+ benefitsScreens.find(s=>s.id==='invite'),
+ {id:'reminder',title:'签到提醒',route:'v14/reminders/index',data:{loading:false,busy:false,templateId:'preview-template-only',authorized:false,accepted:false,error:'',registrationError:''}},
+ {id:'reminder-pending',title:'已授权 · 待登记',route:'v14/reminders/index',data:{loading:false,busy:false,templateId:'preview-template-only',authorized:true,accepted:false,error:'',registrationError:'登记结果尚未确认，请稍后重试。此内容仅为独立排版演示。'}},
+ {id:'reminder-confirmed',title:'今日已订阅',route:'v14/reminders/index',data:{loading:false,busy:false,templateId:'preview-template-only',authorized:true,accepted:true,registeredDay:'2026-11-03',error:'',registrationError:''}}
+];
+const screens=PREVIEW_SET==='brand'?brandScreens:PREVIEW_SET==='benefits'?benefitsScreens:coreScreens;
 for(const screen of screens){const f=loadPage('sage_dksy/pages/'+screen.route+'.js');screen.data={...f.page.data,...screen.data};}
 const browserBase=`*{box-sizing:border-box}html,body{margin:0;padding:0;width:390px;height:844px;background:#FFF6F5;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans CJK SC",sans-serif}body{overflow:hidden}.native-status{height:30px;padding:9px 21px 0;display:flex;justify-content:space-between;font:600 12px Arial;color:#FFFFFF;background:#D70C38}.native-title{height:49px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;background:#D70C38;color:white;position:relative}.native-capsule{position:absolute;right:10px;top:8px;width:84px;height:29px;display:flex;align-items:center;justify-content:space-around;border:1px solid #FFFFFF55;border-radius:20px;font-size:17px}.mini-page{height:765px;overflow-y:auto;scrollbar-width:none}.mini-page::-webkit-scrollbar{display:none}.preview-footer{position:fixed;z-index:110;bottom:0;left:0;right:0;height:7px;background:#FFFEFA}.preview-swiper-item:not(:first-child){display:none}a{text-decoration:none;color:inherit}.club-nav{position:fixed;bottom:0;padding-bottom:13px;height:80px}.club-nav-spacer{height:89px}yx22-ad:empty{display:none}.product-footer{bottom:0}.yx-icon-host{line-height:0}.preview-watermark{position:fixed;z-index:9999;bottom:2px;right:4px;font-size:8px;line-height:1.2;color:#806574;background:#FFFEFAE6;padding:1px 3px;border-radius:3px;pointer-events:none}button{font-family:inherit;border:0;appearance:none}input{border:0;outline:none;background:transparent;font-family:inherit;font-size:inherit;padding:0;min-width:0;max-width:100%}scroll-view{display:block}[data-preview-scroll-x]{overflow-x:auto;white-space:nowrap;scrollbar-width:none}`;
 for(const screen of screens){const key='sage_dksy/pages/'+screen.route+'.wxml';const config=JSON.parse(fs.readFileSync(path.join(ROOT,'sage_dksy/pages/'+screen.route+'.json'),'utf8'));const nativeTitle=config.navigationBarTitleText||screen.title;let html=children(ast[key].children,screen.data,key);let styles=css('app.wxss')+css('sage_dksy/pages/'+screen.route+'.wxss')+css('sage_dksy/components/yx-state/index.wxss');let document='<!DOCTYPE html><html lang="zh-CN"><meta charset="UTF-8"><title>'+screen.title+' · 浏览器布局预览</title><style>'+styles+browserBase+'</style><body><div class="native-status"><span>9:41</span><span>▮▮▮　▰</span></div><div class="native-title">'+nativeTitle+'<div class="native-capsule"><span>•••</span><span>│</span><span>◉</span></div></div><div class="mini-page">'+html+'</div><div class="preview-watermark">浏览器预览 · 演示数据</div></body></html>';fs.writeFileSync(path.join(OUT,screen.id+'.html'),document);screen.document=document;}

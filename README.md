@@ -22,15 +22,17 @@
 - 已确认的48张设计对应页面或页内状态，映射见 [设计状态覆盖](docs/RED_SCREEN_COVERAGE.md)。现有48个注册路由保留兼容，阅读、成长和一级推广已补回可见入口，说明见 [补充记录](docs/BENEFITS_ADDITIONS.md)。
 - 保留真实接口和奖励账本校验、提交锁、重复操作保护、失败恢复及未知余额保护。页面不引用演示商品或演示账本。
 
+新增故障修复和品牌标志应用见 [修复记录](docs/BUGFIX_LOGO.md)：重复订阅正确显示今日已订阅、修正海报包内图片路径、清理空头像；首页、欢迎、设置、一级推广与海报使用提供的LOGO。
+
 ## 验证与预览
 
 ```sh
 npm run verify
 ```
 
-108项离线行为测试全部通过，48/48注册页面模块及380处模板事件检查通过。打包源文件估算为1.954 MiB，最终编译体积以微信开发者工具为准。报告见 [源码检查](scripts/validation-report.json) 与 [行为测试](scripts/test-report.json)。
+140项离线行为测试全部通过，48/48注册页面模块及381处模板事件检查通过。打包源文件估算为1.972 MiB，最终编译体积以微信开发者工具为准。报告见 [源码检查](scripts/validation-report.json) 与 [行为测试](scripts/test-report.json)。
 
-[14个核心状态](docs/preview/README.md)及[12个补充状态](docs/preview/benefits/README.md)的实际代码预览 从当前 WXML/WXSS 转换生成，使用隔离的演示数据，不是微信真机截图。五个主入口预览：
+[14个核心状态](docs/preview/README.md)及[12个补充状态](docs/preview/benefits/README.md)的实际代码预览 从当前 WXML/WXSS 转换生成，使用隔离的演示数据，不是微信真机截图。品牌LOGO与提醒状态的[7个预览](docs/preview/brand/README.md)另列。五个主入口预览：
 
 ![红金新版实际代码预览](docs/preview/overview.png)
 

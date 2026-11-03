@@ -1,0 +1,43 @@
+{
+  "notice": "浏览器布局预览 / 演示数据，非微信真机截图。仅将外部测试数据注入当前真实WXML；不执行API、广告、签到或兑换。",
+  "previewSet": "brand",
+  "overviewLimit": 5,
+  "screens": [
+    {
+      "id": "home",
+      "title": "首页",
+      "route": "index/index"
+    },
+    {
+      "id": "auth",
+      "title": "欢迎元享 · 官方LOGO",
+      "route": "auth/index"
+    },
+    {
+      "id": "settings",
+      "title": "设置 · 官方LOGO",
+      "route": "v17/settings"
+    },
+    {
+      "id": "invite",
+      "title": "一级推广",
+      "route": "v11/promote"
+    },
+    {
+      "id": "reminder",
+      "title": "签到提醒",
+      "route": "v14/reminders/index"
+    },
+    {
+      "id": "reminder-pending",
+      "title": "已授权 · 待登记",
+      "route": "v14/reminders/index"
+    },
+    {
+      "id": "reminder-confirmed",
+      "title": "今日已订阅",
+      "route": "v14/reminders/index"
+    }
+  ],
+  "warnings": []
+}

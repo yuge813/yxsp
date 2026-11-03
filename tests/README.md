@@ -10,7 +10,7 @@ No dependency install is needed. `npm test` runs the actual Page/module behavior
 
 Use `node tests/run.cjs` to run the complete behavioral suite. Individual suites can be run directly, for example `node tests/commerce.test.cjs`. The single-process loader avoids cloud test-child-context interference and reports the actual individual test count.
 
-The current release has 108 passing tests, zero failures and zero skipped tests. New red-layout state checks cover the five-tab catalog, wallet/result truthfulness, native reward-result callbacks, staged address selection, trial-result mapping and real-only logistics.
+The current release has 140 passing tests, zero failures and zero skipped tests. New red-layout state checks cover the five-tab catalog, wallet/result truthfulness, native reward-result callbacks, staged address selection, trial-result mapping and real-only logistics.
 
 Covered behaviors include server-driven reward availability, home/read reward channels, complete-watch versus early-close settlement, account/wallet refresh, image fallbacks, async reading category races, pagination failures, signup/address validation, submission locks, explicit redemption confirmation, and ambiguous-order recovery. The rich-text adapter is exercised with real parsing as well as its injected event handlers.
 
@@ -19,3 +19,5 @@ The source checker checks all registered pages; JS/JSON syntax; static require/i
 These checks do **not** execute the WeChat compiler or renderer, a real device, business backend, native ad SDK, subscription delivery, or a real order. Dynamic references and server-schema correctness still require WeChat DevTools and device integration checks. Raw source bytes do not measure the compiled WeChat package size.
 
 The benefits release also tests free-reading/native read-channel settlement and late polling callbacks, first-level referral identity/campaign gates, growth first-join compatibility and claim eligibility, ambiguous submissions, and category-specific rule navigation.
+
+Bugfix coverage includes the observed already-subscribed response, same-page daily locking and identity/day changes, native subscription failures, package-relative Canvas image paths for both brand assets, export recovery, and backend empty-avatar markers.

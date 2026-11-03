@@ -1,0 +1,65 @@
+[
+  {
+    "screen": "home",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1524,
+    "documentWidth": 390,
+    "images": 29
+  },
+  {
+    "screen": "auth",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 844,
+    "documentWidth": 390,
+    "images": 3
+  },
+  {
+    "screen": "settings",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 844,
+    "documentWidth": 390,
+    "images": 12
+  },
+  {
+    "screen": "invite",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1460,
+    "documentWidth": 390,
+    "images": 12
+  },
+  {
+    "screen": "reminder",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 852,
+    "documentWidth": 390,
+    "images": 2
+  },
+  {
+    "screen": "reminder-pending",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 946,
+    "documentWidth": 390,
+    "images": 2
+  },
+  {
+    "screen": "reminder-confirmed",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 906,
+    "documentWidth": 390,
+    "images": 3
+  }
+]

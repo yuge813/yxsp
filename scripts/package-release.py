@@ -32,7 +32,8 @@ tests = json.loads((ROOT / 'scripts/test-report.json').read_text())
 assert report['status'] == 'passed' and tests['status'] == 'passed'
 manifest = {'registeredPages': report['counts']['pages'], 'behaviorTests': tests,
             'sourceChecks': report,
-            'previewNote': '14 core states and 12 benefits states rendered from actual WXML/WXSS in a browser with isolated demonstration fixtures; not WeChat device or backend validation.',
+            'previewSets': [{'manifest': str(p.relative_to(ROOT)), 'states': len(json.loads(p.read_text())['screens'])} for p in sorted(PREVIEW.rglob('manifest.json'))],
+            'previewNote': 'Actual WXML/WXSS browser layouts and actual poster renderer through a browser Canvas adapter, with isolated demonstration fixtures; not WeChat device or backend validation.',
             'archives': []}
 for name in [source_name, preview_name]:
     p = OUT / name

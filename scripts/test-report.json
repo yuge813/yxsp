@@ -2,8 +2,8 @@
   "command": "node scripts/validate.cjs",
   "status": "passed",
   "counts": {
-    "total": 108,
-    "passed": 108,
+    "total": 140,
+    "passed": 140,
     "failed": 0,
     "skipped": 0
   },
