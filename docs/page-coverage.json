@@ -773,5 +773,28 @@
       ],
       "validation": "source mapped; not WeChat device/backend validation"
     }
+  ],
+  "additionalFeatures": [
+    {
+      "id": "read",
+      "route": "sage_dksy/pages/v12/list",
+      "detail": "sage_dksy/pages/v12/detail",
+      "ruleCategory": "read"
+    },
+    {
+      "id": "growth",
+      "route": "sage_dksy/pages/growth/index",
+      "ruleCategory": "growth"
+    },
+    {
+      "id": "firstLevelReferral",
+      "route": "sage_dksy/pages/v11/promote",
+      "records": "sage_dksy/pages/v132grow/index",
+      "ruleCategory": "invite"
+    },
+    {
+      "id": "rules",
+      "route": "sage_dksy/pages/v14/rewards/index"
+    }
   ]
 }

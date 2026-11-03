@@ -1,5 +1,7 @@
 {
   "notice": "浏览器布局预览 / 演示数据，非微信真机截图。仅将外部测试数据注入当前真实WXML；不执行API、广告、签到或兑换。",
+  "previewSet": "core",
+  "overviewLimit": 5,
   "screens": [
     {
       "id": "home",

@@ -3,6 +3,8 @@
 const v11 = require('./v11.js');
 function call(name,data){return new Promise((resolve,reject)=>v11.api(name,data||{},resolve,reject));}
 function notice(m){wx.showToast({title:String(m||'操作失败').slice(0,28),icon:'none'});}
+function settled(value){return !!value&&(value.paid===true||value.paid===1||value.paid==='1'||value.status==='settled');}
+function rewardAmount(value){if(typeof value!=='number'&&typeof value!=='string')return null;if(String(value).trim()==='')return null;const n=Number(value);return Number.isFinite(n)&&n>=0?n:null;}
 function formatTime(sec){sec=Math.max(0,Math.ceil(sec));return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');}
 function makeReward(page) {
   let closed=true, timer=null, later=null, verifying=null, lastRefresh=0, activeUser='', serverOffset=0, reqSeq=0;
@@ -30,13 +32,17 @@ function makeReward(page) {
     if (next>0) {setView('cool','冷却中',formatTime(next),d.remaining);return;}
     setView('ready','看视频','领'+Number(d.coins||0)+'金币',d.remaining);
   }
+  function notify(state,coins,taskId) {
+    if(closed||typeof page.onRewardResult!=='function')return;
+    try{page.onRewardResult({state,coins,taskId,message:state==='paid'?'奖励已由服务端确认到账':'本次未获得金币'});}catch(_){/* A display callback cannot affect ledger verification. */}
+  }
   function checkPending(id) {
     if (closed || verifying===id) return;
     verifying=id;
     call('v12task',{task_id:id}).then((r)=>{
       if (closed || verifying!==id) return;
-      if (r && (r.paid || r.status==='settled')) {notice('金币已到账 +'+Number(r.coins||0));refresh();}
-      else if (r && ['closed_unpaid','expired','expired_unverified'].indexOf(r.status)>=0) refresh();
+      if (settled(r)) {const coins=rewardAmount(r.coins);notice(coins===null?'奖励已结算，请核对金币明细':'金币已到账 +'+coins);notify('paid',coins,id);refresh();}
+      else if (r && ['closed_unpaid','expired','expired_unverified'].indexOf(r.status)>=0) {notify('unpaid',null,id);refresh();}
     }).catch((e)=>console.warn('[元享阅读] 状态核验暂不可用',e)).then(()=>{if (verifying===id) verifying=null;});
   }
   function refresh() {

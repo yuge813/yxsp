@@ -1,9 +1,9 @@
 {
-  "command": "npm run verify",
+  "command": "node scripts/validate.cjs",
   "status": "passed",
   "counts": {
-    "total": 78,
-    "passed": 78,
+    "total": 108,
+    "passed": 108,
     "failed": 0,
     "skipped": 0
   },

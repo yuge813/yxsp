@@ -4,11 +4,11 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const {ROOT,loadPage,makeRuntime}=require('./helpers/load-page.cjs');
 const trial=require('../sage_dksy/pages/trial/status.js');
-test('five core navigation destinations and service catalog exclude retired primary features',()=>{
+test('five core navigation destinations retain reading and growth in the service catalog',()=>{
  const nav=fs.readFileSync(ROOT+'/sage_dksy/pages/nav/nav.wxml','utf8');assert.equal((nav.match(/<navigator\b/g)||[]).length,5);
  for(const label of ['首页','赚金币','好礼','试用','我的'])assert.ok(nav.includes('>'+label+'</text>'));
  const registry=makeRuntime().load(ROOT+'/sage_dksy/utils/v1216nav.js');const ids=registry.features().map(x=>x.id);
- for(const id of ['sign','video','prize','trial','promote'])assert.ok(ids.includes(id));for(const id of ['read','growth','featured','favorites'])assert.equal(ids.includes(id),false);
+ for(const id of ['sign','video','read','growth','prize','trial','promote','friends','help'])assert.ok(ids.includes(id));for(const id of ['featured','favorites'])assert.equal(ids.includes(id),false);
 });
 test('trial outcome relies on explicit server status and does not infer selection from ended or arbitrary numeric enums',()=>{
  const cases=[[{can_complete:1},'selected'],[{can_complete:'1'},'selected'],[{status_text:'未中选'},'unselected'],[{status_text:'已中选'},'selected'],[{status_text:'收货资料已提交'},'submitted'],[{status_text:'等待活动结果'},'pending'],[{status_text:'已结束'},'unknown'],[{can_complete:0},'unknown'],[{status:2,isyes:2},'unknown']];for(const [data,expected] of cases)assert.equal(trial.outcome(data),expected);

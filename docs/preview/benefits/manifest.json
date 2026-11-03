@@ -1,0 +1,68 @@
+{
+  "notice": "浏览器布局预览 / 演示数据，非微信真机截图。仅将外部测试数据注入当前真实WXML；不执行API、广告、签到或兑换。",
+  "previewSet": "benefits",
+  "overviewLimit": 5,
+  "screens": [
+    {
+      "id": "home",
+      "title": "首页",
+      "route": "index/index"
+    },
+    {
+      "id": "tasks",
+      "title": "赚金币",
+      "route": "v14/tasks/index"
+    },
+    {
+      "id": "read-list",
+      "title": "阅读文章 · 广告激励",
+      "route": "v12/list"
+    },
+    {
+      "id": "growth",
+      "title": "7天成长礼遇",
+      "route": "growth/index"
+    },
+    {
+      "id": "invite",
+      "title": "一级推广",
+      "route": "v11/promote"
+    },
+    {
+      "id": "read-detail",
+      "title": "文章详情 · 自愿激励",
+      "route": "v12/detail"
+    },
+    {
+      "id": "friends",
+      "title": "我的一级好友",
+      "route": "v132grow/index"
+    },
+    {
+      "id": "mine",
+      "title": "我的",
+      "route": "user/index"
+    },
+    {
+      "id": "rules",
+      "title": "帮助与规则",
+      "route": "v14/rewards/index"
+    },
+    {
+      "id": "rules-read",
+      "title": "阅读激励说明",
+      "route": "v14/rewards/index"
+    },
+    {
+      "id": "rules-growth",
+      "title": "7天成长说明",
+      "route": "v14/rewards/index"
+    },
+    {
+      "id": "rules-invite",
+      "title": "一级推广说明",
+      "route": "v14/rewards/index"
+    }
+  ],
+  "warnings": []
+}

@@ -1,26 +1,31 @@
 # Actual-code browser layout review
 
-The preview reads current registered page WXML and WXSS; it does not use a hand-redrawn HTML replacement. External demonstration data is isolated in `fixtures.json`, and images use the approved red/gold brand assets and a separately stored demonstration product photo sheet under design/preview/fixtures. No fixture is imported by application JS/WXML. The package builder excludes design/preview entirely from the runnable mini-program.
+The preview converts the current registered WXML/WXSS and merges actual Page initial data with isolated demonstration fixtures. It does not use a hand-drawn HTML replacement. Brand assets are local; example article data lives in `fixtures.json`, and demonstration product photos live under `fixtures/`. Application pages never import these fixtures; `project.config.json` excludes the design tools from the runnable package.
 
-Run from `/workspace/yxsp`:
+The default `core` set preserves the 14 red/gold page and result previews. The `benefits` set adds reading/list/detail rewards, seven-day growth, first-level referral/friends and four help categories, and rechecks the home/tasks/account entrances.
+
+Run from the repository root. First parse the current WXML into the chosen output directory:
 
 ```sh
-mkdir -p /workspace/scratch/yuanxiang_red_release_preview
-python3 design/preview/parse_wxml.py > /workspace/scratch/yuanxiang_red_release_preview/wxml-ast.json
-node design/preview/build.cjs
-python3 design/preview/render.py
+mkdir -p /workspace/scratch/yuanxiang_red_benefits_preview
+python3 design/preview/parse_wxml.py > /workspace/scratch/yuanxiang_red_benefits_preview/wxml-ast.json
+node design/preview/build.cjs --set benefits --output /workspace/scratch/yuanxiang_red_benefits_preview
+python3 design/preview/render.py --output /workspace/scratch/yuanxiang_red_benefits_preview
 ```
 
-The Chromium export command may require the cloud execution permission override because the process sandbox cannot start the system browser. It uses `/usr/bin/chromium`, Playwright, and in-memory `set_content` to avoid policy-blocked local `file://` navigation. No network is used.
+For the original set, use `--set core` and `/workspace/scratch/yuanxiang_red_release_preview`; both tools default to that original output path. An alternate writable output directory can be passed to both tools.
 
-Artifacts under `/workspace/scratch/yuanxiang_red_release_preview`:
+The renderer uses system Chromium, Playwright, and in-memory `set_content`; it does not use network requests or `file://` navigation. Browser startup may require the execution permission override in the managed cloud environment.
 
-- `index.html`: self-contained scrollable overview containing14 pages/states in isolated iframes.
-- `overview.png`: five root destinations, two-times pixel density.
-- `home/tasks/gifts/trial/mine/sign/product/invite/offer/paid/unpaid/cool/sign-success/redeem-confirm.html` and `.png`: individual first-screen previews.
-- `geometry.json`: recorded viewport/content widths and heights.
-- `render-warnings.json`: unsupported/failed interpolation warnings; expected empty.
+Artifacts:
 
-Scope: converts rpx at390/750, maps common WeChat layout tags/conditionals/loops/includes and actual icon/state components, embeds local PNG/JPG assets, approximates native title/capsule/safe areas. Native ads, announcement overlays, rich-text wxParse templates, runtime event handlers, video playback and API/state transitions are intentionally omitted. The browser layout review is not a WeChat compiler, device simulator, endpoint test or true-device screenshot. All images carry a browser-preview/demo-data watermark; figures and fixture names are not live business values.
+- `manifest.json`: selected page/state names and expression warnings.
+- `PAGE.html` and `PAGE.png`: independent scrollable HTML and first-viewport screenshots.
+- `index.html`: small offline index linking its sibling HTML pages; keep them together when copying.
+- `overview.png`: first five pages at twice pixel density; `--overview-limit` controls the number displayed.
+- `geometry.json`: viewport/content/document widths and heights.
+- `render-warnings.json`: unsupported or failed expressions, expected empty.
 
-Any layout conclusion must distinguish browser conversion issues from actual WXML/WXSS defects. All fourteen pages/states were checked at390px without horizontal overflow. Main content remains scrollable; initial screenshots intentionally show the first viewport, not an artificially compressed full page.
+The converter maps rpx at 390/750, common WeChat tags/conditionals/loops/includes, and icon/state components. Horizontal native scroll views are represented as horizontally scrolling containers. Native advertisements, announcement overlays, wxParse rich-text templates, event handlers, video playback and backend transitions are omitted. Title/capsule/safe areas are approximations. All previews carry a browser/demo watermark.
+
+Browser screenshots verify layout and readability only. They do not verify the WeChat compiler or renderer, a real device, backend, actual rewarded video, subscriptions or an order. Source defects and conversion limits must be distinguished when reviewing a screenshot.

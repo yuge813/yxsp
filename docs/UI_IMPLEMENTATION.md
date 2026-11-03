@@ -7,3 +7,5 @@
 48个设计状态的路由及触发条件见 [RED_SCREEN_COVERAGE.md](RED_SCREEN_COVERAGE.md)。实际代码的14个浏览器预览见 [preview/README.md](preview/README.md)，不代表微信真机验证。原生视频及分享仍使用微信原生能力。
 
 离线验证与实际联调边界见项目 [README.md](../README.md) 和 [ACCEPTANCE.md](ACCEPTANCE.md)。
+
+阅读激励、7天成长礼遇与一级推广的补充见 [BENEFITS_ADDITIONS.md](BENEFITS_ADDITIONS.md)，12个补充界面见 [preview/benefits](preview/benefits/README.md)。

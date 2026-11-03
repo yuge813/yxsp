@@ -21,9 +21,9 @@ with zipfile.ZipFile(OUT / source_name, 'w', zipfile.ZIP_DEFLATED, compresslevel
     for p in sorted(source_files):
         z.write(p, 'yuanxiang-red-wxapp/' + p.relative_to(ROOT).as_posix())
 with zipfile.ZipFile(OUT / preview_name, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-    for p in sorted(PREVIEW.iterdir()):
-        if p.suffix in {'.png', '.json', '.md'}:
-            z.write(p, 'yuanxiang-red-layout-preview/' + p.name)
+    for p in sorted(PREVIEW.rglob('*')):
+        if p.is_file() and p.suffix in {'.png', '.json', '.md'}:
+            z.write(p, 'yuanxiang-red-layout-preview/' + p.relative_to(PREVIEW).as_posix())
 for name in ['README.md', 'RELEASE_NOTES.md']:
     shutil.copy2(ROOT / name, OUT / name)
 shutil.copy2(PREVIEW / 'overview.png', OUT / 'overview.png')
@@ -32,7 +32,7 @@ tests = json.loads((ROOT / 'scripts/test-report.json').read_text())
 assert report['status'] == 'passed' and tests['status'] == 'passed'
 manifest = {'registeredPages': report['counts']['pages'], 'behaviorTests': tests,
             'sourceChecks': report,
-            'previewNote': '14 actual WXML/WXSS states rendered in a browser with isolated demonstration fixtures; not WeChat device or backend validation.',
+            'previewNote': '14 core states and 12 benefits states rendered from actual WXML/WXSS in a browser with isolated demonstration fixtures; not WeChat device or backend validation.',
             'archives': []}
 for name in [source_name, preview_name]:
     p = OUT / name

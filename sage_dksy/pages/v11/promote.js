@@ -1,5 +1,6 @@
 var v = require('../../utils/v11.js');
 var invitePoster = require('./red-poster.js');
+var referral = require('../v132grow/referral.js');
 // 微信开发者工具会将真正的本地临时文件表示为 http://tmp/... 。
 // 只信任微信本地路径和 http(s)://tmp/，绝不放行普通远端 HTTPS 图片。
 // V13.1.5：本地文件前缀取自微信运行环境，避免把开发者工具的 http://usr/ 当成网络图片。
@@ -16,8 +17,8 @@ function isWeChatLocalImage(path) {
 }
 Page({
   data: {
-    total: 0, today: 0, metricsReady:false, walletReady:false, profileError:'', connecting:false, items: [], page: 1, hasMore: true, loading: false,
-    code: '', inviter: '', showBalance: false, fontScale: 1, voiceOn: false,
+    total: null, today: null, rewardInfo:{approved:false,stages:[],cap:null}, campaignReady:false, metricsReady:false, walletReady:false, profileError:'', connecting:false, items: [], page: 1, hasMore: true, loading: false,
+    code: '', inviter: '待同步', showBalance: false, fontScale: 1, voiceOn: false,
     qr: '', qrLocalPath:'', qrReady:false, posterPath: '', drawing: false, qrStage: '', notice: '',
     themes:invitePoster.THEMES, selectedTheme:0, selectedName:invitePoster.THEMES[0].name, selectedTag:invitePoster.THEMES[0].tag||'', generatedTheme:-1,
     currentBalance: 0, ledgerReceived: 0, ledgerComplete: false,
@@ -37,7 +38,7 @@ Page({
     if(this._connecting||!this._alive)return;
     var self=this;this._connecting=true;this._listSeq++;this._qrRequestId=(this._qrRequestId||0)+1;
     this._identityKey='';this._qrState='';this._qrLocal='';this._qrReadyOwner='';this._qrSource='';this._qrSourceOwner='';this._qrCallbacks=[];
-    this.setData({connecting:true,profileError:'',code:'',qr:'',qrReady:false,qrLocalPath:'',posterPath:'',generatedTheme:-1,items:[],page:1,hasMore:true,loading:false,metricsReady:false,walletReady:false});
+    this.setData({connecting:true,profileError:'',code:'',qr:'',qrReady:false,qrLocalPath:'',posterPath:'',generatedTheme:-1,items:[],page:1,hasMore:true,loading:false,metricsReady:false,campaignReady:false,rewardInfo:{approved:false,stages:[],cap:null},walletReady:false});
     function fail(){self._connecting=false;if(self._alive)self.setData({connecting:false,profileError:'账户暂时没有连接成功，请重试'});}
     wx.login({success:function(auth){if(!self._alive)return;if(!auth||!auth.code)return fail();
       v.api('set',{code:auth.code},function(result){if(!self._alive)return;if(!result||!result.auth_token)return fail();self._connecting=false;var profile=result.userinfo&&typeof result.userinfo==='object'?result.userinfo:{};self.setData({connecting:false,nickname:String(profile.nickname||''),avatar:String(profile.headimg||'')});self.fetchIdentity();},fail);
@@ -56,7 +57,7 @@ Page({
       }
       self._identityKey=key;
       self.setData({
-        profileError:'', code: newCode, inviter: r.inviter_label || '暂无邀请人',
+        profileError:'', code: newCode, inviter: typeof r.inviter_label==='string'?(r.inviter_label||'暂无邀请人'):'待同步',
         showBalance: !!r.show_balance, fontScale: r.font_scale || 1, voiceOn: !!r.voice_on
       });
       if(newCode)self.ensureQr(function(){},true);
@@ -75,14 +76,14 @@ Page({
       if(!r||!Array.isArray(r.items)){self.setData({loading:false,notice:'邀请记录暂时没有加载出来，请重试'});return;}
       var x = r.items;
       x=x.filter(function(item){return item&&typeof item==='object';}).map(function(item){var copy=Object.assign({},item);try{copy.registerText=v.clock(item.registered_at);copy.bindText=v.clock(item.bound_at);}catch(_){copy.registerText='时间待同步';copy.bindText='时间待同步';}return copy;});
-      var metricsReady=r.total!==null&&r.total!==undefined&&r.today!==null&&r.today!==undefined&&Number.isFinite(Number(r.total))&&Number.isFinite(Number(r.today));
-      self.setData({metricsReady:metricsReady,total:r.total, today:r.today,items:self.data.items.concat(x),page:self.data.page+1,hasMore:x.length===15,loading:false});
+      var total=referral.count(r.total),today=referral.count(r.today);
+      self.setData({metricsReady:total!==null&&today!==null,total:total,today:today,rewardInfo:referral.campaign(r),campaignReady:true,items:self.data.items.concat(x),page:self.data.page+1,hasMore:r.items.length===15,loading:false});
     }, function () { if(self._alive&&seq===self._listSeq)self.setData({loading:false,notice:'邀请记录暂时没有加载出来，请重试'}); });
   },
   refreshMetrics:function(){
     if(this._metricsRefreshing||!this._identityKey)return;
     var self=this,owner=this._identityKey;this._metricsRefreshing=true;
-    v.api('v11promote',{page:1},function(r){self._metricsRefreshing=false;if(!self._alive||self._identityKey!==owner)return;if(r&&Array.isArray(r.items)&&r.total!==undefined&&r.total!==null&&r.today!==undefined&&r.today!==null&&Number.isFinite(Number(r.total))&&Number.isFinite(Number(r.today)))self.setData({metricsReady:true,total:r.total,today:r.today});},function(){self._metricsRefreshing=false;});
+    v.api('v11promote',{page:1},function(r){self._metricsRefreshing=false;if(!self._alive||self._identityKey!==owner)return;if(r&&Array.isArray(r.items)){var total=referral.count(r.total),today=referral.count(r.today);self.setData({metricsReady:total!==null&&today!==null,total:total,today:today,rewardInfo:referral.campaign(r),campaignReady:true});}},function(){self._metricsRefreshing=false;});
   },
   retryRecords:function(){this.init();},
   onReachBottom: function () { this.load(); },
@@ -261,9 +262,11 @@ Page({
   },
   // V11.5 只控制展示状态，不改变服务端邀请归属和二维码身份校验。
   noop:function(){},
-  updateTitle:function(){wx.setNavigationBarTitle({title:this.data.view==='poster'?'专属邀请海报':'邀请好友'});},
+  updateTitle:function(){wx.setNavigationBarTitle({title:this.data.view==='poster'?'专属邀请海报':'一级推广'});},
   togglePoster:function(){this.openPoster();},
   openPoster:function(){wx.navigateTo({url:'/sage_dksy/pages/v11/promote?mode=poster'});},
+  goReferralRules:function(){wx.navigateTo({url:'/sage_dksy/pages/v14/rewards/index?category=invite'});},
+  goReferralLedger:function(){wx.navigateTo({url:'/sage_dksy/pages/user/integral'});},
   goFriends:function(){wx.navigateTo({url:'/sage_dksy/pages/v132grow/index'});},
   openGuide:function(){this.setData({guideOpen:true});},
   closeGuide:function(){this.setData({guideOpen:false});},

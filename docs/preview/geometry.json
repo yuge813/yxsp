@@ -4,18 +4,18 @@
     "w": 390,
     "scrollWidth": 390,
     "height": 765,
-    "scrollHeight": 1392,
+    "scrollHeight": 1506,
     "documentWidth": 390,
-    "images": 24
+    "images": 28
   },
   {
     "screen": "tasks",
     "w": 390,
     "scrollWidth": 390,
     "height": 765,
-    "scrollHeight": 844,
+    "scrollHeight": 1003,
     "documentWidth": 390,
-    "images": 11
+    "images": 16
   },
   {
     "screen": "gifts",
@@ -40,9 +40,9 @@
     "w": 390,
     "scrollWidth": 390,
     "height": 765,
-    "scrollHeight": 1070,
+    "scrollHeight": 1270,
     "documentWidth": 390,
-    "images": 30
+    "images": 36
   },
   {
     "screen": "sign",
@@ -67,9 +67,9 @@
     "w": 390,
     "scrollWidth": 390,
     "height": 765,
-    "scrollHeight": 877,
+    "scrollHeight": 1437,
     "documentWidth": 390,
-    "images": 10
+    "images": 11
   },
   {
     "screen": "offer",
