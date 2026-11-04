@@ -50,10 +50,30 @@
         {
             "name": "explicit false begin or commit prevents admin configuration mutation",
             "status": "passed"
+        },
+        {
+            "name": "new campaign asks for explicit budgets while existing budgets stay visible",
+            "status": "passed"
+        },
+        {
+            "name": "zero budget error names the Chinese budget field and does not enable anything",
+            "status": "passed"
+        },
+        {
+            "name": "failed creation retains escaped input, scheduling and explicit activation choice",
+            "status": "passed"
+        },
+        {
+            "name": "failed new draft from an existing campaign retains new values without modifying old settings",
+            "status": "passed"
+        },
+        {
+            "name": "failed edit keeps unsaved values and validation does not relax combined reservation",
+            "status": "passed"
         }
     ],
-    "passed": 12,
-    "total": 12,
+    "passed": 17,
+    "total": 17,
     "failed": 0,
     "status": "passed"
 }

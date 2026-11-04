@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "frontend_tests": 158,
-  "backend_tests": 46,
+  "backend_tests": 51,
   "backend_failed": 0,
   "calendar_sql_tests": 10,
   "php_lint_files": 14,
@@ -16,5 +16,6 @@
     "No production deployment or data writes",
     "No WeChat compiler, native SDK, real ad or device run",
     "Full existing addon copy required for integration test dependencies"
-  ]
+  ],
+  "admin_form_browser_checks": 7
 }

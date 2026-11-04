@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "checks": [
+    "initial minimum equals A+B",
+    "formula uses actual reward values",
+    "blank budgets blocked",
+    "zero budget blocked",
+    "150/1500 accepted",
+    "reward changes update minimum and explanation",
+    "underfunded budget blocked"
+  ],
+  "scope": "Offline Chromium native form validation with the actual admin inline script; no production connection"
+}

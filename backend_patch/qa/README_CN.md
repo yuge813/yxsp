@@ -1,6 +1,6 @@
 # 隔离数据库回归
 
-这些是交付源码的可审计测试，不部署到公开站点，不连接生产数据库。报告：核心33项、管理员12项、反引号表名安装1项，合计46项；另有留存自然日SQL10项回归。测试签名密钥、账号及默认数据库密码均为明确的合成测试值。
+这些是交付源码的可审计测试，不部署到公开站点，不连接生产数据库。报告：核心33项、管理员17项、反引号表名安装1项，合计51项；另有留存自然日SQL10项回归。测试签名密钥、账号及默认数据库密码均为明确的合成测试值。
 
 测试适配器仅模拟微擎框架接口，余额、金币流水、奖励、预算、行锁和并发均由实际PDO + MariaDB InnoDB执行。`production-host.php`加载完整wxapp.php并使用合成签名测试真实普通签到接口。
 
@@ -22,3 +22,5 @@ php /work/qa/admin-run.php --quoted
 Python自然日SQL回归可直接执行：`python3 backend_patch/qa/retention-date-regression.py`，默认读取配套补丁里的实际SQL；也支持用 `YX_QA_BACKEND_ROOT` 指向完整插件副本。
 
 已验证PHP8.3、MariaDB11.4。不使用生产API、真实微信身份、真实商品订单或真实广告。本地测试不是微信官方编译或真机验收。
+
+预算表单新增浏览器检查：安装Playwright与Chromium后执行 `python3 backend_patch/qa/budget-browser.py`，7项检查验证真实内联脚本、空白/零预算和金额变化后的原生输入约束。

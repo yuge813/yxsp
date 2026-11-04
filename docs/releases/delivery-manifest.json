@@ -8,8 +8,13 @@
     },
     {
       "name": "yuanxiang-referral-backend.zip",
-      "bytes": 116372,
-      "sha256": "1756dc5650f9b564e574d9ea8714727171553ad4a587f54c1b1ea3e962618587"
+      "bytes": 117609,
+      "sha256": "509002f1d87d2431fd89f7c7578b891847278211410d21d3d03365d95e42f49e"
+    },
+    {
+      "name": "yuanxiang-referral-budget-fix.zip",
+      "bytes": 13644,
+      "sha256": "fa8a377db9dfeccd691c458db73cbff48d6a15b3ce65c7de738691706af5da72"
     }
   ],
   "verification": "verification.json",

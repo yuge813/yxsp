@@ -39,7 +39,7 @@ adminCase('manager can view but cannot mutate campaigns',function(){
     $html=adminRender($payload,'manager');qaAssert(strpos($html,'只有账号所有者可以')!==false,'write explicitly rejected');qaEqual((int)qaRow('campaign',array('id'=>$id))['enabled'],1,'not paused');qaEqual(pdo_count('sage_dksy_v150_referral_admin_audit'),0,'no manager audit mutation');
 });
 adminCase('invalid or absent csrf token cannot create activity',function(){
-    foreach(array('','bad-synthetic-token')as $token){qaReset();$payload=adminPayload('create',0,adminConfig(array('token'=>$token,'activate'=>'1')));$html=adminRender($payload);qaAssert(strpos($html,'表单校验失败')!==false,'csrf rejected');qaEqual(pdo_count('sage_dksy_v150_referral_campaign'),0,'no activity write');}
+    foreach(array('','bad-synthetic-token')as $token){qaReset();$payload=adminPayload('create',0,adminConfig(array('token'=>$token,'activate'=>'1')));$html=adminRender($payload);qaAssert(strpos($html,'表单校验失败')!==false,'csrf rejected');qaEqual(adminInputAttributes($html,'name')['value'],'元享一级邀请礼遇','invalid csrf cannot restore submitted campaign values');qaEqual(pdo_count('sage_dksy_v150_referral_campaign'),0,'no activity write');}
 });
 adminCase('unprivileged role cannot read operator screen',function(){qaReset();$html=adminRender(array(),'operator','GET');qaAssert(strpos($html,'请使用当前站点的所有者或经理账号登录')!==false,'role rejected');qaAssert(strpos($html,'真实金币到账记录')===false,'no financial screen');});
 adminCase('owner creates enabled campaign and preserves prior commitments',function(){
@@ -74,6 +74,65 @@ adminCase('broken ledger receipt is marked for reconciliation without forged pay
 adminCase('explicit false begin or commit prevents admin configuration mutation',function(){
     foreach(array('failBegin','failCommit')as $fault){qaReset();$payload=adminPayload('create',0,adminConfig());QA::$$fault=true;$html=adminRender($payload);QA::$$fault=false;qaEqual(pdo_count('sage_dksy_v150_referral_campaign'),0,'failed transaction no campaign '.$fault);qaEqual(pdo_count('sage_dksy_v150_referral_admin_audit'),0,'failed transaction no audit '.$fault);qaAssert(strpos($html,'无法开启事务')!==false||strpos($html,'事务提交未确认')!==false,'transaction failure visible');}
 });
+
+// Regression cases for the actual zero-budget setup failure reported by the owner.
+function adminInputAttributes($html,$name){
+    preg_match_all('/<input\b[^>]*>/i',$html,$tags);
+    foreach($tags[0] as $tag){
+        preg_match_all('/([a-z][a-z0-9_-]*)\s*=\s*"([^"]*)"/is',$tag,$pairs,PREG_SET_ORDER);
+        $attrs=array();foreach($pairs as $pair)$attrs[strtolower($pair[1])]=html_entity_decode($pair[2],ENT_QUOTES,'UTF-8');
+        if(($attrs['name']??'')===$name){$attrs['checked']=preg_match('/\schecked(?:\s|=|>)/i',$tag)===1;return $attrs;}
+    }
+    throw new RuntimeException('Actual admin form input not found: '.$name);
+}
+function adminErrorNotice($html){
+    qaAssert(preg_match('/<div\b[^>]*class="notice"[^>]*>(.*?)<\/div>/is',$html,$match)===1,'validation produces an error notice');
+    return trim(html_entity_decode(strip_tags($match[1]),ENT_QUOTES,'UTF-8'));
+}
+function adminSelectedOption($html,$name){
+    qaAssert(preg_match('/<select\b[^>]*name="'.preg_quote($name,'/').'"[^>]*>(.*?)<\/select>/is',$html,$select)===1,'actual select found '.$name);
+    preg_match_all('/<option\b([^>]*)>(.*?)<\/option>/is',$select[1],$options,PREG_SET_ORDER);
+    foreach($options as $option)if(preg_match('/\bselected(?:\s|=|$)/i',$option[1])===1&&preg_match('/\bvalue="([^"]*)"/i',$option[1],$value)===1)return html_entity_decode($value[1],ENT_QUOTES,'UTF-8');
+    return null;
+}
+adminCase('new campaign asks for explicit budgets while existing budgets stay visible',function(){
+    qaReset();$html=adminRender(array(),'owner','GET');
+    foreach(array('daily_budget_coins','total_budget_coins')as $name){$a=adminInputAttributes($html,$name);qaEqual($a['value']??null,'','new budget is blank, not a misleading zero');qaEqual((int)($a['min']??0),15,'default budget minimum covers both A10 and B5 for '.$name);qaAssert(isset($a['max'])&&(int)$a['max']===1000000000,'server maximum shown for '.$name);}
+    qaAssert(strpos(strip_tags($html),'15')!==false,'combined A+B commitment is explained');qaEqual(pdo_count('sage_dksy_v150_referral_campaign'),0,'view never picks a financial budget');
+    $id=qaCampaign(array('daily_budget_coins'=>120,'total_budget_coins'=>1200));$html=adminRender(array('campaign_id'=>$id),'owner','GET');
+    qaEqual(adminInputAttributes($html,'daily_budget_coins')['value'],'120','existing daily remains visible');qaEqual(adminInputAttributes($html,'total_budget_coins')['value'],'1200','existing total remains visible');
+    qaEqual((int)qaRow('campaign',array('id'=>$id))['daily_budget_coins'],120,'view preserves configured budget');
+});
+adminCase('zero budget error names the Chinese budget field and does not enable anything',function(){
+    foreach(array('daily_budget_coins'=>'每日','total_budget_coins'=>'总')as $field=>$label){
+        qaReset();$html=adminRender(adminPayload('create',0,adminConfig(array($field=>'0','activate'=>'1'))));$notice=adminErrorNotice($html);
+        qaAssert(strpos($notice,$label)!==false&&strpos($notice,'预算')!==false,'clear Chinese budget validation');qaAssert(strpos($notice,$field)===false,'internal field identifier is not used as the error explanation');
+        qaEqual(pdo_count('sage_dksy_v150_referral_campaign'),0,'zero budget never creates an enabled campaign');qaEqual(pdo_count('sage_dksy_v150_referral_admin_audit'),0,'rejection leaves no campaign mutation');
+    }
+});
+adminCase('failed creation retains escaped input, scheduling and explicit activation choice',function(){
+    qaReset();$start=(new DateTimeImmutable('@'.(time()+86400)))->setTimezone(new DateTimeZone('Asia/Shanghai'))->format('Y-m-d\TH:i');$end=(new DateTimeImmutable('@'.(time()+3*86400)))->setTimezone(new DateTimeZone('Asia/Shanghai'))->format('Y-m-d\TH:i');
+    $name='QA "retained" <draft>';
+    $config=adminConfig(array('name'=>$name,'inviter_points'=>'12','invitee_points'=>'6','min_sign_days'=>'3','window_days'=>'9','daily_invite_cap'=>'17','daily_budget_coins'=>'0','total_budget_coins'=>'3333','start_mode'=>'scheduled','starts_at'=>$start,'ends_at'=>$end,'activate'=>'1'));
+    $html=adminRender(adminPayload('create',0,$config));
+    foreach(array('name','inviter_points','invitee_points','min_sign_days','window_days','daily_invite_cap','daily_budget_coins','total_budget_coins','starts_at','ends_at')as $field)qaEqual(adminInputAttributes($html,$field)['value'],$config[$field],'submitted field retained '.$field);
+    qaEqual((int)adminInputAttributes($html,'daily_budget_coins')['min'],18,'retained edited A12+B6 rules set the actual budget minimum');qaEqual(adminSelectedOption($html,'start_mode'),'scheduled','scheduled mode retained');qaAssert(adminInputAttributes($html,'activate')['checked'],'activation checkbox retained without activating');
+    qaAssert(strpos($html,'<draft>')===false,'submitted name remains HTML-escaped');qaEqual(pdo_count('sage_dksy_v150_referral_campaign'),0,'retention of form does not persist campaign');
+});
+adminCase('failed new draft from an existing campaign retains new values without modifying old settings',function(){
+    qaReset();$id=qaCampaign(array('name'=>'Existing production draft','daily_budget_coins'=>150,'total_budget_coins'=>1500));$before=qaRow('campaign',array('id'=>$id));
+    $new=adminConfig(array('name'=>'New unsaved draft','inviter_points'=>'21','invitee_points'=>'7','daily_budget_coins'=>'0','total_budget_coins'=>'5000','expected_latest'=>(string)$id,'activate'=>'1'));
+    $html=adminRender(adminPayload('create',$id,$new));
+    qaEqual(adminInputAttributes($html,'name')['value'],'New unsaved draft','failed create does not reset to selected campaign');qaEqual(adminInputAttributes($html,'inviter_points')['value'],'21','new amount retained');qaEqual(adminInputAttributes($html,'total_budget_coins')['value'],'5000','new budget retained');qaAssert(adminInputAttributes($html,'activate')['checked'],'requested create activation retained');
+    qaAssert(strpos($html,'value="save"')===false,'failed create cannot accidentally save over selected existing activity');qaEqual(qaRow('campaign',array('id'=>$id)),$before,'existing selected campaign unchanged');qaEqual(pdo_count('sage_dksy_v150_referral_campaign'),1,'no extra draft or enabled campaign');
+});
+adminCase('failed edit keeps unsaved values and validation does not relax combined reservation',function(){
+    qaReset();$id=qaCampaign();$before=qaRow('campaign',array('id'=>$id));
+    $html=adminRender(adminPayload('save',$id,adminConfig(array('name'=>'Unsaved edited name','daily_invite_cap'=>'19','daily_budget_coins'=>'14','total_budget_coins'=>'1000'))));
+    $notice=adminErrorNotice($html);qaAssert(strpos($notice,'预算')!==false,'combined commitment error is clear');qaEqual(adminInputAttributes($html,'name')['value'],'Unsaved edited name','failed edit name retained');qaEqual(adminInputAttributes($html,'daily_invite_cap')['value'],'19','failed edit cap retained');qaEqual(adminInputAttributes($html,'daily_budget_coins')['value'],'14','insufficient amount remains editable');
+    qaEqual(qaRow('campaign',array('id'=>$id)),$before,'insufficient budget does not save edited rules');
+});
+
 if($quoted){$selected=array_slice($tests,0,1,true);$tests=$selected;}
 $report=array('scope'=>'Disposable MariaDB, actual admin include with synthetic sessions; never production','runtime'=>PHP_VERSION,'quoted_identifiers'=>$quoted,'cases'=>array());
 foreach($tests as $name=>$run){try{$run();$report['cases'][]=array('name'=>$name,'status'=>'passed');echo 'PASS '.$name."\n";}catch(Throwable $e){if(QA::$pdo->inTransaction())QA::$pdo->rollBack();$report['cases'][]=array('name'=>$name,'status'=>'failed','error'=>$e->getMessage());echo 'FAIL '.$name.': '.$e->getMessage()."\n";}}
