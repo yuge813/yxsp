@@ -16,7 +16,7 @@ function signRecords(rows,page){return (Array.isArray(rows)?rows:[]).filter(func
 function calendarFor(rows){var now=new Date(Date.now()+8*3600000),year=now.getUTCFullYear(),month=now.getUTCMonth(),monthKey=year+'-'+String(month+1).padStart(2,'0'),first=new Date(Date.UTC(year,month,1)).getUTCDay(),offset=(first+6)%7,total=new Date(Date.UTC(year,month+1,0)).getUTCDate(),keys={};(rows||[]).forEach(function(r){if(r.date)keys[r.date]=true;});var days=[];for(var i=0;i<offset;i++)days.push({key:'blank'+i,label:'',recorded:false});for(var d=1;d<=total;d++)days.push({key:monthKey+'-'+String(d).padStart(2,'0'),label:d,recorded:!!keys[monthKey+'-'+String(d).padStart(2,'0')]});return {label:year+' 年 '+(month+1)+' 月',days:days};}
 
 Page({
- data:{thisurl:'sage_dksy/pages/v14/sign/index',busy:false,loading:true,statusReady:false,configReady:false,todaySigned:false,streak:0,currentDay:1,todayReward:null,days:daysFrom({},0,false),error:'',balance:null,justSigned:false,lastReward:null,nextDayNumber:null,nextDayReward:null,recordsVisible:false,recordRows:[],recordLoading:false,recordError:'',recordPage:0,recordHasMore:true,recordOpenid:'',recordMonth:'',calendarDays:[]},
+ data:{thisurl:'sage_dksy/pages/v14/sign/index',busy:false,loading:true,statusReady:false,configReady:false,todaySigned:false,streak:0,currentDay:1,todayReward:null,days:daysFrom({},0,false),error:'',balance:null,justSigned:false,lastReward:null,referralWelcome:null,nextDayNumber:null,nextDayReward:null,recordsVisible:false,recordRows:[],recordLoading:false,recordError:'',recordPage:0,recordHasMore:true,recordOpenid:'',recordMonth:'',calendarDays:[]},
  onLoad:function(){this.load();},onShow:function(){if(this._shown)this.load();this._shown=true;},
  onPullDownRefresh:function(){this.load();},
  api:function(name,data,done){app.secureRequest({url:app.util.url('entry/wxapp/'+name)+'m=sage_dksy',method:'POST',data:data||{},timeout:15000,success:function(x){done(x&&(!x.statusCode||x.statusCode>=200&&x.statusCode<300)&&x.data&&typeof x.data==='object'?x.data:null);},fail:function(){done(null);}});},
@@ -42,7 +42,9 @@ Page({
   var self=this;this.setData({busy:true});this.api('qian',{},function(r){
     self.setData({busy:false});var amount=int(r&&r.num);
     if(good(r)&&amount!==null){
-      self.setData({justSigned:true,lastReward:amount,todaySigned:true,balance:null});
+      var rawWelcome=r.referral&&r.referral.invitee_coins;
+      var welcome=r.referral&&r.referral.invitee_paid===true&&(typeof rawWelcome==='number'||typeof rawWelcome==='string')&&String(rawWelcome).trim()!==''&&Number.isSafeInteger(Number(rawWelcome))&&Number(rawWelcome)>0&&Number(rawWelcome)<=500?Number(rawWelcome):null;
+      self.setData({justSigned:true,lastReward:amount,referralWelcome:welcome,todaySigned:true,balance:null});
       wx.showToast({title:'签到成功 +'+amount+'金币',icon:'none'});self.load();
     }else{wx.showToast({title:message(r&&r.msg),icon:'none'});self.load();}
   });},
@@ -64,6 +66,7 @@ Page({
  moreRecords:function(){this.loadRecords(false);},
  goReminders:function(){wx.navigateTo({url:'/sage_dksy/pages/v14/reminders/index'});},
  goLedger:function(){wx.navigateTo({url:'/sage_dksy/pages/user/integral'});},
+ goReferralRecords:function(){wx.navigateTo({url:'/sage_dksy/pages/v132grow/index?tab=rewards'});},
  goGrowth:function(){wx.navigateTo({url:'/sage_dksy/pages/growth/index'});},
  goHome:function(){wx.redirectTo({url:'/sage_dksy/pages/index/index'});}
 });

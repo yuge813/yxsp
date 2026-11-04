@@ -1,0 +1,72 @@
+[
+  {
+    "screen": "referral-new",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1742,
+    "documentWidth": 390,
+    "images": 30,
+    "rewardOverflow": []
+  },
+  {
+    "screen": "referral-first",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1739,
+    "documentWidth": 390,
+    "images": 30,
+    "rewardOverflow": []
+  },
+  {
+    "screen": "referral-inviter",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1807,
+    "documentWidth": 390,
+    "images": 12,
+    "rewardOverflow": []
+  },
+  {
+    "screen": "referral-records",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1330,
+    "documentWidth": 390,
+    "images": 3,
+    "rewardOverflow": []
+  },
+  {
+    "screen": "referral-paused",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1248,
+    "documentWidth": 390,
+    "images": 4,
+    "rewardOverflow": []
+  },
+  {
+    "screen": "referral-retry",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 1382,
+    "documentWidth": 390,
+    "images": 3,
+    "rewardOverflow": []
+  },
+  {
+    "screen": "referral-sign-success",
+    "w": 390,
+    "scrollWidth": 390,
+    "height": 765,
+    "scrollHeight": 858,
+    "documentWidth": 390,
+    "images": 2,
+    "rewardOverflow": []
+  }
+]

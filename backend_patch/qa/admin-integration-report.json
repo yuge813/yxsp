@@ -1,0 +1,59 @@
+{
+    "scope": "Disposable MariaDB, actual admin include with synthetic sessions; never production",
+    "runtime": "8.3.36",
+    "quoted_identifiers": false,
+    "cases": [
+        {
+            "name": "owner installs only five new tables and never automatically enables campaign",
+            "status": "passed"
+        },
+        {
+            "name": "manager can view but cannot mutate campaigns",
+            "status": "passed"
+        },
+        {
+            "name": "invalid or absent csrf token cannot create activity",
+            "status": "passed"
+        },
+        {
+            "name": "unprivileged role cannot read operator screen",
+            "status": "passed"
+        },
+        {
+            "name": "owner creates enabled campaign and preserves prior commitments",
+            "status": "passed"
+        },
+        {
+            "name": "owner pauses only new participation and preserves money counters",
+            "status": "passed"
+        },
+        {
+            "name": "owner enables only unused draft with a current start",
+            "status": "passed"
+        },
+        {
+            "name": "stale revision and cross-tenant campaign id cannot be changed",
+            "status": "passed"
+        },
+        {
+            "name": "historical daily commitments cannot be lowered and false budget reads cannot save",
+            "status": "passed"
+        },
+        {
+            "name": "PDO exception details do not leak into administrative HTML",
+            "status": "passed"
+        },
+        {
+            "name": "broken ledger receipt is marked for reconciliation without forged payout",
+            "status": "passed"
+        },
+        {
+            "name": "explicit false begin or commit prevents admin configuration mutation",
+            "status": "passed"
+        }
+    ],
+    "passed": 12,
+    "total": 12,
+    "failed": 0,
+    "status": "passed"
+}

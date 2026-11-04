@@ -1,5 +1,6 @@
 var app = getApp();
 var yx16nav = require('../../utils/v1216nav.js');
+var realReferral = require('../../utils/referral-rewards.js');
 
 /* YX_V12237_SUBSCRIBE_RESTORE */
 const YX37_SIGN_TEMPLATE_FALLBACK = 'H2dPAqi_i_AXViVbUDIRBbUcgpIHzsZAOK8VRXEwg7g';
@@ -96,6 +97,7 @@ function buildSignCards(settings, streak, signed) {
 
 Page({
   data: {
+    rr:realReferral.empty(),
     /* YX_V12201_TASK_DATA */
     todayTask: {loaded:false,enabled:false,remaining:null,coins:null,state:'loading',label:'正在读取今日任务',hint:'',button:'加载中',unit:''}, readingTask: {loaded:false,remaining:null,coins:null,state:'loading'}, todayTaskBusy:false,
     loaded: false, signReady:false, signError:'', contentLoading:true, goodsError:'', articleLoading:true, articleError:'', signing: false, bonusBusy: false, subscribeBusy:false, subscribeSignTemplate:"", subscribeConfigReady:false,
@@ -245,7 +247,7 @@ Page({
     // 重试使用新的微信 code 换取新会话，不能复用过期测试站令牌。
     app.clearAuth();
     if(this._initializing)return;this._initializing=true;
-    this.setData({ loaded: false, signReady:false, pageError: '' });
+    this.setData({rr:realReferral.empty(), loaded: false, signReady:false, pageError: '' });
     wx.login({
       success: function (res) {
         if (!res.code) { self._initializing=false;self.setData({ pageError: '微信登录暂不可用，请下拉刷新' }); return; }
@@ -270,7 +272,7 @@ Page({
           self.loadSubscribeConfig();
           // 登录身份已由 doPageSet 建立后，自动绑定首次访问的有效邀请来源。
           require('../../utils/v11.js').autoBindReferral(function(result){
-            if(result && result.bound) console.info('[元享同行邀请] 一级关系建立成功');
+            if(result && result.bound){console.info('[元享同行邀请] 一级关系建立成功');realReferral.load(self,{force:true});}
           });
         }, function (message) { self._initializing=false;self.setData({ pageError: safeUserMessage(message,'账号连接失败，请重试') }); });
       },
@@ -296,7 +298,12 @@ Page({
     }).then(function(){self._walletPromise=null;});
     return this._walletPromise;
   },
+  refreshReferral:realReferral.refresh,
+  moreRewards:realReferral.more,
+  goRewardRecords:realReferral.records,
+  goReferralSign:realReferral.sign,
   reload: function (skipWallet) {
+    if(this.data.loaded)realReferral.load(this,{force:true});
     this.refreshTodayTask();
     if(!skipWallet)this.refreshWallet();
     var self=this;

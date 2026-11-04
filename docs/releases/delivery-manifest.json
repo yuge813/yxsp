@@ -1,0 +1,17 @@
+{
+  "release": "yuanxiang-real-referral-20261104",
+  "archives": [
+    {
+      "name": "yuanxiang-referral-wxapp.zip",
+      "bytes": 1522140,
+      "sha256": "61ecf7bc5b841017eda15b399dcaf79b0e3fc375cb5b1ad33b323f1acda944ae"
+    },
+    {
+      "name": "yuanxiang-referral-backend.zip",
+      "bytes": 116372,
+      "sha256": "1756dc5650f9b564e574d9ea8714727171553ad4a587f54c1b1ea3e962618587"
+    }
+  ],
+  "verification": "verification.json",
+  "backend_install": "../../backend_patch/INSTALL_CN.md"
+}

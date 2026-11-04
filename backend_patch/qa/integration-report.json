@@ -1,0 +1,141 @@
+{
+    "scope": "Actual referral trait against disposable MariaDB InnoDB with synthetic members; no production endpoint or config",
+    "cases": [
+        {
+            "name": "missing schema is unavailable without installing tables",
+            "status": "passed"
+        },
+        {
+            "name": "real first sign pays B5 only and reserves A10",
+            "status": "passed"
+        },
+        {
+            "name": "second distinct Beijing day pays A10 while preserving B reward and ordinary earnings",
+            "status": "passed"
+        },
+        {
+            "name": "same-day duplicated sign rows and repeated APIs cannot multiply rewards",
+            "status": "passed"
+        },
+        {
+            "name": "only inviter summary recovers B second-day hook omission",
+            "status": "passed"
+        },
+        {
+            "name": "paused campaign stops new enrollments but honors existing commitments",
+            "status": "passed"
+        },
+        {
+            "name": "old registrations and administrative rebindings do not get retroactive rewards",
+            "status": "passed"
+        },
+        {
+            "name": "campaign rules are snapshots and a new campaign cannot repay lifetime stages",
+            "status": "passed"
+        },
+        {
+            "name": "full A+B budget must be reserved or no award is promised",
+            "status": "passed"
+        },
+        {
+            "name": "daily per-inviter cap counts committed enrollments",
+            "status": "passed"
+        },
+        {
+            "name": "expiry releases only unearned retention and keeps paid welcome",
+            "status": "passed"
+        },
+        {
+            "name": "relation changes do not transfer or duplicate A rewards",
+            "status": "passed"
+        },
+        {
+            "name": "ledger failure rolls back wallet, enrollment and budget",
+            "status": "passed"
+        },
+        {
+            "name": "balance write failure rolls back reward state",
+            "status": "passed"
+        },
+        {
+            "name": "tenant isolation and authentication prevent cross-account awards",
+            "status": "passed"
+        },
+        {
+            "name": "deleted and recreated member cannot earn lifetime welcome twice",
+            "status": "passed"
+        },
+        {
+            "name": "false daily cap read cannot enroll or spend budget",
+            "status": "passed"
+        },
+        {
+            "name": "false sign read at expiry cannot expire entitlement or release budget",
+            "status": "passed"
+        },
+        {
+            "name": "false summary reads cannot present true empty or zero success",
+            "status": "passed"
+        },
+        {
+            "name": "concurrent duplicate processes issue each lifetime stage once",
+            "status": "passed"
+        },
+        {
+            "name": "concurrent different newcomers cannot oversubscribe shared budget",
+            "status": "passed"
+        },
+        {
+            "name": "concurrent different newcomers obey inviter daily cap",
+            "status": "passed"
+        },
+        {
+            "name": "public summary contains no raw openid or token and paid records match true ledger",
+            "status": "passed"
+        },
+        {
+            "name": "nontransactional sign or binding tables block financial processing",
+            "status": "passed"
+        },
+        {
+            "name": "false locked-user read cannot release unearned entitlement",
+            "status": "passed"
+        },
+        {
+            "name": "numeric member ID reuse cannot disclose another openid history",
+            "status": "passed"
+        },
+        {
+            "name": "same openid with a new member ID retains its true historical receipts",
+            "status": "passed"
+        },
+        {
+            "name": "expiry batch sees a real last-day sign committed after its earlier read",
+            "status": "passed"
+        },
+        {
+            "name": "real utility day keys are Beijing calendar days in UTC and Shanghai servers",
+            "status": "passed"
+        },
+        {
+            "name": "real util sign persists Beijing midnight regardless of server timezone",
+            "status": "passed"
+        },
+        {
+            "name": "actual authenticated sign survives referral ledger failure and retry only recovers bonus",
+            "status": "passed"
+        },
+        {
+            "name": "explicit false transaction begin or commit leaves no partial financial state",
+            "status": "passed"
+        },
+        {
+            "name": "legacy void transaction wrappers still commit real rewards safely",
+            "status": "passed"
+        }
+    ],
+    "passed": 33,
+    "failed": 0,
+    "total": 33,
+    "status": "passed"
+}

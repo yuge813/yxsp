@@ -1,3 +1,4 @@
+<import src="/sage_dksy/utils/referral-rewards.wxml"/>
 <view class="home-page">
  <view wx:if="{{signReceipt}}" class="home-sign-result">
   <view class="receipt-art"><image src="/sage_dksy/resource/red/coin.png" mode="aspectFit"/><text>签到成功</text></view><view class="receipt-title">今天的坚持，<text>已经到账。</text></view>
@@ -10,6 +11,7 @@
    <navigator class="home-wallet" url="/sage_dksy/pages/user/integral"><view><view class="home-wallet-label"><yx-icon name="coin" tone="brand" size="32"/><text>我的金币</text></view><view class="home-wallet-amount">{{loaded && num!==null?num:'—'}}<text>金币</text></view></view><view class="home-wallet-link">明细 <yx-icon name="arrow" tone="brand" size="24"/></view></navigator>
    <yx-state wx:if="{{!loaded && pageError}}" type="error" title="账号暂时没有连接上" description="{{pageError}}" action="重新连接" bindaction="init"/><yx-state wx:elif="{{!loaded}}" type="loading" title="正在同步你的金币与签到进度"/>
    <block wx:else>
+    <template is="rr-mine" data="{{r:rr}}"/>
     <view class="home-check ui-card"><view class="check-heading"><view><text class="check-title">每日签到</text><view class="check-sub">{{today_qian===1?'今天已完成签到':(nextSignReward!==null?'今天可领':'今日奖励待同步')}}<text wx:if="{{today_qian!==1 && nextSignReward!==null}}">{{nextSignReward}}</text><text wx:if="{{today_qian!==1 && nextSignReward!==null}}" class="check-unit">金币</text></view></view><text class="streak-tag">{{signReady?'已连续 '+signNum+' 天':'进度待同步'}}</text></view>
      <view class="compact-days"><view wx:for="{{signCards}}" wx:key="day" class="sign-day {{item.done?'done':item.active?'today':''}} {{item.day===7?'seventh':''}}"><text>{{item.active?'今天':'第'+item.day+'天'}}</text><view><yx-icon name="{{item.done?'yes':item.day===7?'gift':'coin'}}" tone="{{item.active && item.day!==7?'light':'brand'}}" size="32"/></view><text class="day-reward">{{item.done?'已签到':(item.amount===null?'待同步':'+'+item.amount)}}</text></view></view>
      <button class="ui-primary home-sign-button" loading="{{signing}}" disabled="{{signing || !signReady || today_qian===1}}" bindtap="bindSignIn">{{today_qian===1?'今日已签到':(!signReady?'正在同步签到状态':(nextSignReward===null?'立即签到':'立即签到　+'+nextSignReward+' 金币'))}}</button>

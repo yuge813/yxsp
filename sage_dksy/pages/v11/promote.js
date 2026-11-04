@@ -2,6 +2,7 @@ var avatarSource = require('../../utils/avatar-source.js');
 var v = require('../../utils/v11.js');
 var invitePoster = require('./red-poster.js');
 var referral = require('../v132grow/referral.js');
+var realReferral = require('../../utils/referral-rewards.js');
 // 微信开发者工具会将真正的本地临时文件表示为 http://tmp/... 。
 // 只信任微信本地路径和 http(s)://tmp/，绝不放行普通远端 HTTPS 图片。
 // V13.1.5：本地文件前缀取自微信运行环境，避免把开发者工具的 http://usr/ 当成网络图片。
@@ -18,6 +19,7 @@ function isWeChatLocalImage(path) {
 }
 Page({
   data: {
+    rr:realReferral.empty(),
     total: null, today: null, rewardInfo:{approved:false,stages:[],cap:null}, campaignReady:false, metricsReady:false, walletReady:false, profileError:'', connecting:false, items: [], page: 1, hasMore: true, loading: false,
     code: '', inviter: '待同步', showBalance: false, fontScale: 1, voiceOn: false,
     qr: '', qrLocalPath:'', qrReady:false, posterPath: '', drawing: false, qrStage: '', notice: '',
@@ -39,7 +41,7 @@ Page({
     if(this._connecting||!this._alive)return;
     var self=this;this._connecting=true;this._listSeq++;this._qrRequestId=(this._qrRequestId||0)+1;
     this._identityKey='';this._qrState='';this._qrLocal='';this._qrReadyOwner='';this._qrSource='';this._qrSourceOwner='';this._qrCallbacks=[];
-    this.setData({connecting:true,profileError:'',code:'',qr:'',qrReady:false,qrLocalPath:'',posterPath:'',generatedTheme:-1,items:[],page:1,hasMore:true,loading:false,metricsReady:false,campaignReady:false,rewardInfo:{approved:false,stages:[],cap:null},walletReady:false});
+    this.setData({rr:realReferral.empty(),connecting:true,profileError:'',code:'',qr:'',qrReady:false,qrLocalPath:'',posterPath:'',generatedTheme:-1,items:[],page:1,hasMore:true,loading:false,metricsReady:false,campaignReady:false,rewardInfo:{approved:false,stages:[],cap:null},walletReady:false});
     function fail(){self._connecting=false;if(self._alive)self.setData({connecting:false,profileError:'账户暂时没有连接成功，请重试'});}
     wx.login({success:function(auth){if(!self._alive)return;if(!auth||!auth.code)return fail();
       v.api('set',{code:auth.code},function(result){if(!self._alive)return;if(!result||!result.auth_token)return fail();self._connecting=false;var profile=result.userinfo&&typeof result.userinfo==='object'?result.userinfo:{};self.setData({connecting:false,nickname:String(profile.nickname||''),avatar:avatarSource(profile.headimg)});self.fetchIdentity();},fail);
@@ -57,6 +59,7 @@ Page({
         self.setData({qr:'',qrLocalPath:'',qrReady:false,posterPath:'',generatedTheme:-1,drawing:false,qrStage:''});
       }
       self._identityKey=key;
+      realReferral.load(self,{force:true});
       self.setData({
         profileError:'', code: newCode, inviter: typeof r.inviter_label==='string'?(r.inviter_label||'暂无邀请人'):'待同步',
         showBalance: !!r.show_balance, fontScale: r.font_scale || 1, voiceOn: !!r.voice_on
@@ -97,12 +100,12 @@ Page({
       if(fresh!==self._identityKey){
         self.setData({items:[],page:1,hasMore:true,loading:false,posterPath:'',generatedTheme:-1});
         self.init();
-      }else self.refreshMetrics();
+      }else {self.refreshMetrics();realReferral.load(self,{force:true});}
     },function(){
       self._qrRequestId=(self._qrRequestId||0)+1;
       self._identityKey='';self._qrState='';self._qrReadyOwner='';self._qrLocal='';self._qrSource='';self._qrSourceOwner='';self._qrCallbacks=[];
       self._saveAfterRender=false;
-      self.setData({profileError:'账户连接需要更新，请点击重试',code:'',qr:'',qrLocalPath:'',qrReady:false,posterPath:'',generatedTheme:-1});
+      self.setData({rr:realReferral.empty(),profileError:'账户连接需要更新，请点击重试',code:'',qr:'',qrLocalPath:'',qrReady:false,posterPath:'',generatedTheme:-1});
     });
   },
   onUnload: function(){this._alive=false;this._listSeq++;this._qrRequestId=(this._qrRequestId||0)+1;this._qrCallbacks=[];this._qrLocal='';this._qrReadyOwner='';this._qrSource='';this._qrSourceOwner='';this._saveAfterRender=false;},
@@ -266,6 +269,10 @@ Page({
   updateTitle:function(){wx.setNavigationBarTitle({title:this.data.view==='poster'?'专属邀请海报':'一级推广'});},
   togglePoster:function(){this.openPoster();},
   openPoster:function(){wx.navigateTo({url:'/sage_dksy/pages/v11/promote?mode=poster'});},
+  refreshReferral:realReferral.refresh,
+  moreRewards:realReferral.more,
+  goRewardRecords:realReferral.records,
+  goReferralSign:realReferral.sign,
   goReferralRules:function(){wx.navigateTo({url:'/sage_dksy/pages/v14/rewards/index?category=invite'});},
   goReferralLedger:function(){wx.navigateTo({url:'/sage_dksy/pages/user/integral'});},
   goFriends:function(){wx.navigateTo({url:'/sage_dksy/pages/v132grow/index'});},

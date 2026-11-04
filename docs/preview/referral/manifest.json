@@ -1,0 +1,52 @@
+{
+  "notice": "浏览器布局预览 / 演示数据，非微信真机截图。仅将外部测试数据注入当前真实WXML；不执行API、广告、签到或兑换。",
+  "previewSet": "referral",
+  "overviewLimit": 5,
+  "width": 390,
+  "overviewWidth": 2138,
+  "screens": [
+    {
+      "id": "referral-new",
+      "title": "新朋友 · 等待首次签到",
+      "route": "index/index",
+      "focus": ".rr-mine"
+    },
+    {
+      "id": "referral-first",
+      "title": "新朋友 · 首签5金币已到账",
+      "route": "index/index",
+      "focus": ".rr-mine"
+    },
+    {
+      "id": "referral-inviter",
+      "title": "邀请人 · 真实收益与活动规则",
+      "route": "v11/promote",
+      "focus": ".rr-card"
+    },
+    {
+      "id": "referral-records",
+      "title": "邀请人 · 到账与待达标明细",
+      "route": "v132grow/index",
+      "focus": ".rr-record"
+    },
+    {
+      "id": "referral-paused",
+      "title": "活动暂停 · 承诺与历史保留",
+      "route": "v132grow/index",
+      "focus": ".rr-tabs"
+    },
+    {
+      "id": "referral-retry",
+      "title": "同步失败 · 保留上次真实记录",
+      "route": "v132grow/index",
+      "focus": ".rr-tabs"
+    },
+    {
+      "id": "referral-sign-success",
+      "title": "B首次签到 · 普通10金币与新人5金币分别展示",
+      "route": "v14/sign/index",
+      "focus": ".prize-ticket"
+    }
+  ],
+  "warnings": []
+}

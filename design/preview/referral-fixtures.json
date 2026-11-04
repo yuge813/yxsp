@@ -1,0 +1,18 @@
+{
+  "notice": "独立布局演示，金额与状态为测试夹具；不连接后台，不写入应用运行数据。",
+  "campaign": {
+    "id": 1, "enabled": true, "public_visible": true, "name": "元享 · 新朋友签到礼遇",
+    "inviter_points": 10, "invitee_points": 5, "min_sign_days": 2, "window_days": 7,
+    "starts_at": 1793692800, "ends_at": 1796284800,
+    "rules_text": "仅限活动期内有效新用户，完成真实签到后核验。只奖励直属一级邀请，不要求观看或点击广告。金币不能提现，可按规则兑换商品。"
+  },
+  "mine": {
+    "state": "waiting_sign", "signed_days": 0, "required_days": 2,
+    "invitee_coins": 5, "invitee_paid": false, "inviter_coins": 10, "inviter_paid": false,
+    "expires_at": 1794326399
+  },
+  "records": [
+    {"id": "stage-1", "stage": "inviter_retention", "role": "inviter", "coins": 10, "status": "paid", "member_label": "好友***123", "created_at": 1793779200, "paid_at": 1793865600, "signed_days": 2, "required_days": 2},
+    {"id": "stage-2", "stage": "inviter_retention", "role": "inviter", "coins": 10, "status": "waiting", "member_label": "好友***456", "created_at": 1793865600, "paid_at": null, "signed_days": 1, "required_days": 2}
+  ]
+}

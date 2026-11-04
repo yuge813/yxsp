@@ -1,0 +1,15 @@
+{
+    "scope": "Disposable MariaDB, actual admin include with synthetic sessions; never production",
+    "runtime": "8.3.36",
+    "quoted_identifiers": true,
+    "cases": [
+        {
+            "name": "owner installs only five new tables and never automatically enables campaign",
+            "status": "passed"
+        }
+    ],
+    "passed": 1,
+    "total": 1,
+    "failed": 0,
+    "status": "passed"
+}

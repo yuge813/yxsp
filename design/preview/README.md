@@ -32,4 +32,15 @@ Browser screenshots verify layout and readability only. They do not verify the W
 
 The `brand` set covers current home/auth/settings/invitation branding and three reminder states. Use `--set brand --output /workspace/scratch/yuanxiang_brand_fix_preview` after writing its WXML AST as above.
 
+The `referral` set covers seven actual referral reward layouts: invited user before first sign, the 5-coin welcome reward and 1/2-day progress, inviter totals and the published 10/5 rule, paid/pending records, a paused campaign retaining prior commitments, a failed refresh retaining the last confirmed response, and the sign success receipt showing the ordinary 10 coins separately from the 5-coin welcome reward and the 15-coin balance. It uses the production response normalizer and imported WXML templates, with isolated responses in `referral-fixtures.json`. It never runs a page lifecycle or settles a reward. The screenshots scroll to the reward section so these states can be reviewed directly.
+
+```sh
+mkdir -p /workspace/scratch/yuanxiang_real_referral_preview
+python3 design/preview/parse_wxml.py > /workspace/scratch/yuanxiang_real_referral_preview/wxml-ast.json
+node design/preview/build.cjs --set referral --output /workspace/scratch/yuanxiang_real_referral_preview
+python3 design/preview/render.py --output /workspace/scratch/yuanxiang_real_referral_preview
+```
+
+Add `--width 320` to `build.cjs`, using a different output directory, to recheck a narrow viewport. The renderer reads that width from the generated manifest; both inline rpx and imported WXSS scale consistently. `geometry.json` records viewport widths and any overflowing reward cards, tabs or records.
+
 `python3 design/preview/render_poster.py --output /workspace/scratch/yuanxiang_brand_fix_preview` executes the actual page-owned `red-poster.js` renderer through a browser CanvasContext adapter. It deliberately supplies a clearly marked demonstration code, not a usable invitation QR, and exercises package-root path normalization for both brand images. The output `poster-canvas.png` is a layout preview only; it does not execute the WeChat SDK, export APIs, or backend.

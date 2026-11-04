@@ -147,6 +147,10 @@
       {
         "type": "file",
         "value": "RELEASE_NOTES.md"
+      },
+      {
+        "type": "folder",
+        "value": "backend_patch"
       }
     ],
     "include": []
