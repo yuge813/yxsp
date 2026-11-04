@@ -16,7 +16,7 @@ function nativeFailure(error){
 }
 Page({
  data:{loading:true,busy:false,templateId:'',authorized:false,accepted:false,registeredDay:'',error:'',registrationError:''},
- onLoad:function(){this._alive=true;this._configSeq=0;this.getConfig();},
+ onLoad:function(){this._alive=true;this._configSeq=0;if(typeof console!=='undefined'&&typeof console.info==='function')console.info('[元享签到提醒版本]','YX-REMINDER-20261104-R1');this.getConfig();},
  onShow:function(){if(this.data.accepted&&(this.data.registeredDay!==today()||this._registeredOwner!==owner())){this.setData({accepted:false,authorized:false,registeredDay:'',registrationError:''});this.getConfig();}},
  onUnload:function(){this._alive=false;this._configSeq=(this._configSeq||0)+1;this._loginSeq=(this._loginSeq||0)+1;this._loginCallbacks=[];},
  ensureSession:function(done,force){

@@ -18,7 +18,7 @@
   },
   "package": {
     "includedFiles": 713,
-    "rawIncludedBytes": 2068092,
+    "rawIncludedBytes": 2068227,
     "rawIncludedMiB": 1.972,
     "limitNote": "Uncompiled source estimate only, not a WeChat package-size measurement"
   },
