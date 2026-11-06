@@ -1,0 +1,46 @@
+{
+  "title": "元享UI设计稿 · 首轮10屏",
+  "images": [
+    {
+      "name": "01-首页首屏与内容区.png",
+      "bytes": 1764344,
+      "width": 1263,
+      "height": 1246,
+      "sha256": "c8597ee4ea1b3b7735447b92dbe574ea4cd9c677e99249ecaa14ff3cd7b3a2e5"
+    },
+    {
+      "name": "02-祝福模板与制作.png",
+      "bytes": 1816323,
+      "width": 1263,
+      "height": 1246,
+      "sha256": "7d086246692aede8ef52aac28fa46bca8f0c8d372a65b6e41ce4e3431d5dd9f8"
+    },
+    {
+      "name": "03-我的与今日任务.png",
+      "bytes": 1745914,
+      "width": 1263,
+      "height": 1246,
+      "sha256": "8206a3b916af190936b6f9f6b3bc2a12c940bb45ae70a7f6f7cb81703b7dc323"
+    },
+    {
+      "name": "04-本周精选与兑换晒单.png",
+      "bytes": 1816078,
+      "width": 1263,
+      "height": 1246,
+      "sha256": "3db069093c5de40bab2c007ba3c85da2032d66738287bb4382be3a2852f0e174"
+    },
+    {
+      "name": "05-晒单编辑与公开分享.png",
+      "bytes": 1744576,
+      "width": 1263,
+      "height": 1246,
+      "sha256": "f472e9a2d818b9fbc39fab7f213b6a30c23ea6855e5bb0071499fa30c01f239f"
+    }
+  ],
+  "scope": "5张原始PNG，共10个界面；视觉方案，尚未开发实现。",
+  "archive": {
+    "file": "yuanxiang-ui-concepts-10-screens.zip",
+    "bytes": 8033230,
+    "sha256": "eb1f789cd98394159729c2b847ae7ee5958ed59fd0f9930f3311c332c0afac95"
+  }
+}
